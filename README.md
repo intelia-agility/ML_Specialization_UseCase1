@@ -4,10 +4,10 @@
 This repository contains a series of Jupyter notebooks that are part of a comprehensive data analysis and modeling workflow for the Chicago Taxi Trips dataset. To ensure a smooth workflow and proper understanding of the process, it is important to follow the recommended sequence for running these notebooks:  
 
 1. **Data Enrichment.ipynb**
-   - **Purpose**: Following the EDA, this notebook focuses on enriching the data. It includes integrating external data sources, enhancing features, and preparing the dataset for more sophisticated analysis and preprocessing.
+   - **Purpose**:This notebook focuses on enriching the data. It includes integrating external data sources, enhancing features, and preparing the dataset for more sophisticated analysis and preprocessing.
   
 2. **Exploratory Data Analysis.ipynb**
-   - **Purpose**: This notebook is the starting point of the analysis. It provides an exploratory data analysis (EDA) of the taxi trips dataset. Here, we visualize and understand the dataset's characteristics, including distributions, patterns, and potential anomalies.
+   - **Purpose**: Following the Data enrichment,this notebook is the starting point of the analysis. It provides an exploratory data analysis (EDA) of the taxi trips dataset. Here, we visualize and understand the dataset's characteristics, including distributions, patterns, and potential anomalies.
 
 
 3. **Data Preprocessing.ipynb**
