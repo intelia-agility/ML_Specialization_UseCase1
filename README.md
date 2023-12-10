@@ -33,6 +33,7 @@ In the Taxi Demand Prediction and Management project, we enrich the Chicago Taxi
 
 ### Integrating Weather Data
 Using the Open-Meteo.com Weather API, we fetch data such as temperature, humidity, and precipitation. This information is crucial in understanding how weather conditions influence taxi demand in Chicago. The data is fetched in both hourly and daily granularity, enabling a comprehensive analysis of the correlation between weather variations and taxi trip frequency.
+
 ```python
 
 # Fetch the data from the API
@@ -42,7 +43,9 @@ data = response.json()
 # Create DataFrames from the 'hourly' and 'daily' data
 df_hourly = pd.DataFrame(data['hourly'])
 df_daily = pd.DataFrame(data['daily'])
+
 ```
+
 ### Data Granularity and Analysis
 Our analysis emphasizes hourly data granularity. This approach helps us capture the dynamic nature of both weather conditions and taxi trip demand, allowing for a more nuanced understanding of their interplay. Hourly data provides the detail necessary for accurate demand forecasting, crucial for operational planning and resource allocation.
 
