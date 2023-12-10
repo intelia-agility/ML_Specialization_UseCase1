@@ -33,7 +33,7 @@ In the Taxi Demand Prediction and Management project, we enrich the Chicago Taxi
 
 ### Integrating Weather Data
 Using the Open-Meteo.com Weather API, we fetch data such as temperature, humidity, and precipitation. This information is crucial in understanding how weather conditions influence taxi demand in Chicago. The data is fetched in both hourly and daily granularity, enabling a comprehensive analysis of the correlation between weather variations and taxi trip frequency.
-
+#### Code Snippet:
 ```python
 
 # Fetch the data from the API
