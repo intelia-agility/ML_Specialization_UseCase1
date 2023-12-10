@@ -48,6 +48,36 @@ df_daily = pd.DataFrame(data['daily'])
 
 ### Data Granularity and Analysis
 Our analysis emphasizes hourly data granularity. This approach helps us capture the dynamic nature of both weather conditions and taxi trip demand, allowing for a more nuanced understanding of their interplay. Hourly data provides the detail necessary for accurate demand forecasting, crucial for operational planning and resource allocation.
+#### Code Snippet:
+```python
+from google.cloud import bigquery
+
+# Initialize a BigQuery client
+client = bigquery.Client()
+
+# Convert time columns to datetime and reset the index
+df_hourly.index = pd.to_datetime(df_hourly.index)
+df_hourly = df_hourly.reset_index()
+
+# Upload the hourly DataFrame to a new test table
+table_id_new = 'your_project.your_dataset.weather_hourly_test'
+try:
+    client.load_table_from_dataframe(df_hourly, table_id_new).result()
+    print("Data uploaded successfully to the test table.")
+except Exception as e:
+    print(f"Error during upload: {e}")
+
+# If the test table upload is successful and you want to overwrite the main table:
+table_id = 'your_project.your_dataset.weather_hourly'
+job_config = bigquery.LoadJobConfig(
+    write_disposition="WRITE_TRUNCATE",  # overwrite existing table
+)
+try:
+    client.load_table_from_dataframe(df_hourly, table_id, job_config=job_config).result()
+    print("Data uploaded successfully to the main table.")
+except Exception as e:
+    print(f"Error during upload to the main table: {e}")
+```
 
 ### Citation
 Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649
