@@ -45,6 +45,7 @@ df_hourly = pd.DataFrame(data['hourly'])
 df_daily = pd.DataFrame(data['daily'])
 
 ```
+After fetching and structuring the weather data, our next steps involve analyzing this data in conjunction with taxi trip records to identify patterns and insights
 
 ### Data Granularity and Analysis
 Our analysis emphasizes hourly data granularity. This approach helps us capture the dynamic nature of both weather conditions and taxi trip demand, allowing for a more nuanced understanding of their interplay. Hourly data provides the detail necessary for accurate demand forecasting, crucial for operational planning and resource allocation.
