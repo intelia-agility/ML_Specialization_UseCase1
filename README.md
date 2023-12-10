@@ -15,10 +15,16 @@
 11. [Contact](#contact)
 
 ## Introduction
-*(Brief introduction to the project and its significance)*
+In bustling urban environments, the efficiency of taxi services is crucial for both the operators and the city's mobility. This project focuses on leveraging Machine Learning (ML) to predict taxi demand based on time, date, and location factors. By anticipating high-demand areas and times, taxi companies can optimize their fleet management, reduce customer wait times, and improve service availability.
 
 ## Business Goal and Machine Learning Solution
-*(Details on the business goal and how the machine learning solution addresses it)*
+The primary business goal is to "Increase the efficiency of taxi distribution throughout the city to reduce customer wait time by predicting demand." This involves analyzing historical taxi usage patterns to predict future demand and enable a more dynamic allocation of taxi resources.
+
+### Machine Learning Use Case
+The use case for ML in this context is to develop a predictive model that can accurately forecast taxi demand. By using historical data and identifying patterns associated with different times, dates, and locations, the model can make informed predictions about future needs.
+
+### Solution's Impact on Business Goal
+The ML solution incorporates an end-to-end TensorFlow pipeline that processes the Chicago taxi trips dataset. The workflow includes data enrichment, exploratory data analysis, data preprocessing, and model training and evaluation. This comprehensive approach ensures accurate demand forecasting, facilitating efficient taxi distribution and reducing customer wait times.
 
 ## Data Enrichment Process
 
