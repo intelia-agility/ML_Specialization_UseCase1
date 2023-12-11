@@ -126,7 +126,153 @@ The pipeline includes:
 ```sql
 CREATE OR REPLACE PROCEDURE `mlops-363723.ChicagoTaxitrips.data_preprocessing_pipeline_chicago_taxi_trips`()
 BEGIN
-  -- SQL procedure code here
+  
+  -- Joining the table with weather_hourly data
+  CREATE OR REPLACE TABLE mlops-363723.ChicagoTaxitrips.joined_table AS
+  SELECT 
+      t.*,
+      w.*
+  FROM 
+      mlops-363723.ChicagoTaxitrips.taxi_trips_demand_1 AS t
+  JOIN 
+      mlops-363723.ChicagoTaxitrips.weather_hourly AS w
+  ON 
+      EXTRACT(DATE FROM t.trip_start_timestamp) = EXTRACT(DATE FROM w.time) AND 
+      EXTRACT(HOUR FROM t.trip_start_timestamp) = EXTRACT(HOUR FROM w.time)
+  WHERE 
+      EXTRACT(YEAR FROM w.time) BETWEEN 2020 AND 2023;
+    CREATE OR REPLACE TABLE mlops-363723.ChicagoTaxitrips.cleaned_data AS
+    WITH CappedData AS (
+      SELECT *,
+         CASE 
+            WHEN trip_seconds/60 < PERCENTILE_CONT(trip_seconds/60, 0.01) OVER() THEN 
+              PERCENTILE_CONT(trip_seconds/60, 0.01) OVER()
+            WHEN trip_seconds/60 > PERCENTILE_CONT(trip_seconds/60, 0.99) OVER() THEN 
+              PERCENTILE_CONT(trip_seconds/60, 0.99) OVER()
+            ELSE trip_seconds/60
+          END AS duration,
+        CASE 
+            WHEN trip_miles < PERCENTILE_CONT(trip_miles, 0.01) OVER() THEN       PERCENTILE_CONT(trip_miles, 0.01) OVER()
+            WHEN trip_miles > PERCENTILE_CONT(trip_miles, 0.99) OVER() THEN PERCENTILE_CONT(trip_miles, 0.99) OVER()
+            ELSE trip_miles
+        END AS capped_trip_miles,
+        CASE 
+            WHEN trip_total < PERCENTILE_CONT(trip_total, 0.01) OVER() THEN PERCENTILE_CONT(trip_total, 0.01) OVER()
+            WHEN trip_total > PERCENTILE_CONT(trip_total, 0.99) OVER() THEN PERCENTILE_CONT(trip_total, 0.99) OVER()
+            ELSE trip_total
+        END AS capped_trip_total
+      FROM mlops-363723.ChicagoTaxitrips.joined_table
+      WHERE 
+        pickup_longitude BETWEEN -87.9401 AND -87.5241
+        AND pickup_latitude BETWEEN 41.6445 AND 42.0231
+        AND trip_seconds > 0
+        AND trip_miles > 0
+        AND trip_total > 0
+        AND pickup_community_area>0
+    )
+    SELECT * FROM CappedData;
+    -- -- 2. Feature Extraction
+    CREATE OR REPLACE TABLE mlops-363723.ChicagoTaxitrips.feature_extracted_data AS
+    SELECT 
+        *,
+        CASE WHEN public_holiday = TRUE THEN 1 ELSE 0 END AS encoded_public_holiday,
+        EXTRACT(YEAR FROM trip_start_timestamp) AS year,
+        EXTRACT(MONTH FROM trip_start_timestamp) AS month,
+        EXTRACT(DAY FROM trip_start_timestamp) AS day,
+        EXTRACT(HOUR FROM trip_start_timestamp) AS hour,
+        EXTRACT(DAYOFWEEK FROM trip_start_timestamp) - 1 AS weekday,  -- Subtracting 1 to get Monday as 0 and Sunday as 6
+        DATE(trip_start_timestamp) AS trip_date,
+        SIN(2 * 3.14159265359 * EXTRACT(HOUR FROM trip_start_timestamp) / 23.0) AS hour_sin,
+        COS(2 * 3.14159265359 * EXTRACT(HOUR FROM trip_start_timestamp) / 23.0) AS hour_cos,
+        SIN(2 * 3.14159265359 * (EXTRACT(DAYOFWEEK FROM trip_start_timestamp) - 1) / 6.0) AS day_sin, 
+        COS(2 * 3.14159265359 * (EXTRACT(DAYOFWEEK FROM trip_start_timestamp) - 1) / 6.0) AS day_cos,
+        SIN(2 * 3.14159265359 * EXTRACT(MONTH FROM trip_start_timestamp) / 12.0) AS month_sin,
+        COS(2 * 3.14159265359 * EXTRACT(MONTH FROM trip_start_timestamp) / 12.0) AS month_cos
+    FROM 
+        mlops-363723.ChicagoTaxitrips.cleaned_data;
+    CREATE OR REPLACE TABLE mlops-363723.ChicagoTaxitrips.sorted_feature_extracted_data AS
+  SELECT 
+    * 
+  FROM 
+    mlops-363723.ChicagoTaxitrips.feature_extracted_data
+  ORDER BY 
+    pickup_community_area, 
+    year, 
+    month, 
+    day, 
+    hour;
+
+    -- 3. Data Aggregation
+    CREATE OR REPLACE TABLE mlops-363723.ChicagoTaxitrips.aggregated_data AS
+    SELECT 
+        pickup_community_area,
+        year,
+        month,
+        hour,
+        day,
+        -- encoded_public_holiday AS public_holiday,
+        COUNT(unique_key) AS demand,
+        AVG(duration) AS duration,
+        AVG(capped_trip_miles) AS trip_miles,
+        AVG(capped_trip_total) AS trip_total,
+        AVG(temperature_2m) AS temperature_2m,
+        AVG(relativehumidity_2m) AS relativehumidity_2m,
+        AVG(precipitation) AS precipitation,
+        AVG(rain) AS rain,
+        AVG(snowfall) AS snowfall,
+        AVG(weathercode) AS weathercode,
+        MAX(encoded_public_holiday) AS public_holiday,
+        MAX(hour_sin) AS hour_sin,
+        MAX(hour_cos) AS hour_cos,
+        MAX(day_sin) AS day_sin,
+        MAX(day_cos) AS day_cos,
+        MAX(month_sin) AS month_sin,
+        MAX(month_cos) AS month_cos
+    FROM 
+        mlops-363723.ChicagoTaxitrips.sorted_feature_extracted_data
+    GROUP BY 
+        pickup_community_area, year,
+        month,
+        hour,
+        day;
+        
+    CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.training_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2020 OR year = 2021;
+
+    -- Create Validation Set
+    CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.validation_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2022;
+
+    -- Create Test Set
+    CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.test_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2023 AND month <= 4;
+  
+     EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/training_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.training_data`;
+
+    EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/validation_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.validation_data`;
+
+    EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/test_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.test_data`;
 END;
 
 
