@@ -97,8 +97,38 @@ Here we look at each variable individually to understand its distribution, prese
 ### Conclusion
 Our EDA is a comprehensive process that lays the foundation for predictive modeling. It ensures our understanding of the data is robust and our subsequent models are informed by deep insights.
 
-## Data Preprocessing
-*(To be added)*
+## Data Preprocessing Pipeline for Taxi Demand Prediction
+
+### Introduction
+Building on our Exploratory Data Analysis, we've developed a comprehensive Data Preprocessing Pipeline. This pipeline transforms raw taxi trip data into a structured and insightful format, focusing on data cleaning, feature extraction, and data segmentation, ensuring our data is clean, reliable, and enriched with meaningful attributes for accurate demand forecasting.
+
+### Strategic Importance
+Our pipeline streamlines and optimizes the taxi demand prediction process, unlocking deeper insights and enabling precise demand predictions. This directly contributes to enhanced fleet management and customer satisfaction.
+
+### Technical Approach
+Our approach encompasses data integration, granularity control, feature engineering, and encapsulation in a callable API. Key steps include:
+
+1. **Data Integration**: Joining taxi trip data with hourly weather data using SQL queries in BigQuery, crucial for understanding the impact of weather on taxi demand.
+2. **Granularity Control**: Segmenting data based on time and spatial dimensions.
+3. **Feature Engineering**: Using advanced SQL for feature extraction, including time-based features and trigonometric transformations for capturing cyclical patterns in demand.
+4. **Callable API**: Encapsulating the entire pipeline within a callable API, ensuring seamless integration and dynamic data feeding into the production model.
+
+### Data Preprocessing Steps
+The pipeline includes:
+
+- **Data Joining and Cleaning**: SQL queries to integrate and clean the data.
+- **Capping Outliers**: Applying techniques to mitigate outliers in trip duration, distance, and cost.
+- **Feature Extraction and Sorting**: Extracting informative attributes and organizing data systematically.
+- **Data Aggregation**: Grouping data to analyze trends at the community area level.
+- **Data Segmentation for Model Training**: Creating training, validation, and test sets based on different years.
+- **Data Export**: Exporting datasets to CSV files for modeling.
+
+```sql
+CREATE OR REPLACE PROCEDURE `mlops-363723.ChicagoTaxitrips.data_preprocessing_pipeline_chicago_taxi_trips`()
+BEGIN
+  -- SQL procedure code here
+END;
+
 
 ## Model Development and Evaluation
 *(To be added)*
