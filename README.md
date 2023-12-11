@@ -90,7 +90,7 @@ The Exploratory Data Analysis section provides insights into the dataset through
 
 ### Univariate Analysis
 Here we look at each variable individually to understand its distribution, presence of outliers, and other statistical properties.
-![Univariate Analysis](/assets/Univariate Analysis of Continuous and Categorical Features.png)
+![Univariate Analysis](assets/Univariate Analysis of Continuous and Categorical Features.png)
 
 ### Conclusion
 Our EDA is a comprehensive process that lays the foundation for predictive modeling. It ensures our understanding of the data is robust and our subsequent models are informed by deep insights.
