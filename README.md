@@ -90,7 +90,8 @@ The Exploratory Data Analysis section provides insights into the dataset through
 
 ### Univariate Analysis
 Here we look at each variable individually to understand its distribution, presence of outliers, and other statistical properties.
-![Univariate Analysis](/assets/Univariate Analysis of Continuous and Categorical Features.png)
+![Univariate Analysis](/assets/Univariate_Analysis_of_Continuous_and_Categorical_Features.png)
+
 
 
 
