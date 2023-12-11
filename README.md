@@ -84,7 +84,18 @@ except Exception as e:
 Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649
 
 ## Exploratory Data Analysis (EDA)
-*(To be added)*
+
+### Overview
+The Exploratory Data Analysis section provides insights into the dataset through various angles and techniques. Each subsection below corresponds to a key aspect of the EDA, complemented by visualizations that highlight our findings.
+
+### Univariate Analysis
+Here we look at each variable individually to understand its distribution, presence of outliers, and other statistical properties.
+![Univariate Analysis](/assets/Univariate_Analysis_of_Continuous_and_Categorical_Features.png)
+
+
+
+### Conclusion
+Our EDA is a comprehensive process that lays the foundation for predictive modeling. It ensures our understanding of the data is robust and our subsequent models are informed by deep insights.
 
 ## Data Preprocessing
 *(To be added)*
