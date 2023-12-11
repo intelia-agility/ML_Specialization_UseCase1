@@ -142,7 +142,7 @@ The TFX pipeline is intricately structured with multiple components, each contri
 - **ExampleValidator**: Detects anomalies and missing values, ensuring high data quality.
 - **Transform**: Conducts feature engineering, transforming raw data into a machine learning-compatible format.
 - **Trainer**: Develops and trains the machine learning model using various algorithms.
-- **Evaluator**: Assesses the model’s performance against established baselines.
+- **Evaluator**: Assesses the models performance against established baselines.
 - **Pusher**: Deploys the trained model to a serving infrastructure for real-world applications.
 
 ## Need for an Interactive Pipeline
