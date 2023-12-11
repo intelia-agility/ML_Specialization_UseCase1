@@ -6,13 +6,13 @@
 2. [Business Goal and Machine Learning Solution](#business-goal-and-machine-learning-solution)
 3. [Data Enrichment Process](#data-enrichment-process)
 4. [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
-5. [Data Preprocessing](#Data Preprocessing Pipeline )
+5. [Data Preprocessing](#Data Preprocessing Pipeline)
 6. [Model Development and Evaluation](#model-development-and-evaluation)
 7. [Deployment](#deployment)
 8. [Usage](#usage)
 9. [Contributing](#contributing)
-10. [License](#license)
-11. [Contact](#contact)
+10.[License](#license)
+11.[Contact](#contact)
 
 ## Introduction
 In bustling urban environments, the efficiency of taxi services is crucial for both the operators and the city's mobility. This project focuses on leveraging Machine Learning (ML) to predict taxi demand based on time, date, and location factors. By anticipating high-demand areas and times, taxi companies can optimize their fleet management, reduce customer wait times, and improve service availability.
@@ -127,8 +127,56 @@ The pipeline includes:
 ```sql
 CALL `mlops-363723.ChicagoTaxitrips.data_preprocessing_pipeline_chicago_taxi_trips`();
 ```
-## Model Development and Evaluation
-*(To be added)*
+# TFX Taxi Demand Interactive Pipeline
+
+## Introduction
+Our project leverages TensorFlow Extended (TFX) to build an interactive pipeline, expertly tailored for the end-to-end process of taxi demand prediction. This pipeline forms an integral component of our workflow, efficiently automating data ingestion, processing, model training, evaluation, and deployment.
+
+## Pipeline Overview
+The TFX pipeline is intricately structured with multiple components, each contributing significantly to different stages of the machine learning lifecycle:
+
+- **ExampleGen**: Ingests data and splits it into distinct training and evaluation sets.
+- **StatisticsGen**: Generates essential statistics for initial data analysis and further validation.
+- **SchemaGen**: Infers a schema from the data statistics, offering insights into the dataset’s structure and format.
+- **ExampleValidator**: Detects anomalies and missing values, ensuring high data quality.
+- **Transform**: Conducts feature engineering, transforming raw data into a machine learning-compatible format.
+- **Trainer**: Develops and trains the machine learning model using various algorithms.
+- **Evaluator**: Assesses the model’s performance against established baselines.
+- **Pusher**: Deploys the trained model to a serving infrastructure for real-world applications.
+
+## Need for an Interactive Pipeline
+Utilizing an interactive pipeline prior to large-scale deployment is crucial for:
+
+1. **Iterative Development**: Enables rapid model iterations with immediate feedback.
+2. **Experimentation**: Facilitates testing of diverse features, structures, and hyperparameters.
+3. **Data Quality Assurance**: Guarantees the integrity and reliability of the data.
+4. **Debugging**: Allows identification and resolution of issues in data processing and model training.
+
+## Pipeline Execution
+Our pipeline execution combines complex data processing with machine learning tasks, executed locally for enhanced control and transparency.
+
+```python
+import tfx
+from tfx import v1 as tfx
+import kfp
+from tfx.orchestration.metadata import sqlite_metadata_connection_config
+
+tfx.orchestration.LocalDagRunner().run(
+    _create_pipeline(
+        pipeline_name=PIPELINE_NAME,
+        pipeline_root=PIPELINE_ROOT,
+        data_root=DATA_DIRECTORY,
+        module_file=_taxi_trainer_module_file,
+        serving_model_dir=SERVING_MODEL_DIR
+    ))
+
+```
+## Transitioning to Vertex AI
+After refining our model through the interactive pipeline, we transition to Vertex AI. This platform offers automated and scalable ML workflows, enhanced performance and efficiency, and robust MLOps capabilities, making it ideal for deploying and managing our models at scale.
+
+## Conclusion
+Our TFX Taxi Demand Interactive Pipeline encapsulates the complexity of the machine learning process, offering a streamlined and scalable approach to taxi demand prediction. It automates repetitive tasks and ensures consistency and quality in our model development lifecycle, setting a strong foundation for deploying sophisticated ML models in a production environment.
+
 
 ## Deployment
 *(To be added)*
