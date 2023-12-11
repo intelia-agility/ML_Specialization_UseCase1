@@ -6,13 +6,14 @@
 2. [Business Goal and Machine Learning Solution](#business-goal-and-machine-learning-solution)
 3. [Data Enrichment Process](#data-enrichment-process)
 4. [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
-5. [Data Preprocessing](#Data Preprocessing Pipeline)
-6. [Model Development and Evaluation](#model-development-and-evaluation)
-7. [Deployment](#deployment)
-8. [Usage](#usage)
-9. [Contributing](#contributing)
-10.[License](#license)
-11.[Contact](#contact)
+5. [Data Preprocessing Pipeline](#data-preprocessing-pipeline)
+6. [TFX Taxi Demand Interactive Pipeline](#tfx-taxi-demand-interactive-pipeline)
+7. [TFX Taxi Demand Production Pipeline](#tfx-taxi-demand-production-pipeline)
+8. [Deployment](#deployment)
+9. [Usage](#usage)
+10. [Contributing](#contributing)
+11. [License](#license)
+12. [Contact](#contact)
 
 ## Introduction
 In bustling urban environments, the efficiency of taxi services is crucial for both the operators and the city's mobility. This project focuses on leveraging Machine Learning (ML) to predict taxi demand based on time, date, and location factors. By anticipating high-demand areas and times, taxi companies can optimize their fleet management, reduce customer wait times, and improve service availability.
@@ -177,7 +178,44 @@ After refining our model through the interactive pipeline, we transition to Vert
 ## Conclusion
 Our TFX Taxi Demand Interactive Pipeline encapsulates the complexity of the machine learning process, offering a streamlined and scalable approach to taxi demand prediction. It automates repetitive tasks and ensures consistency and quality in our model development lifecycle, setting a strong foundation for deploying sophisticated ML models in a production environment.
 
+# TFX Taxi Demand Production Pipeline
 
+## Introduction
+The TFX Taxi Demand Production Pipeline is our advanced solution for taxi demand prediction, leveraging the full power of TensorFlow Extended (TFX). This pipeline is engineered for high-performance, large-scale data processing and model deployment, marking the transition from development to production.
+
+## Pipeline Enhancement for Production
+Building upon the foundation established in our interactive pipeline, the production pipeline incorporates additional features and optimizations:
+
+- **Efficient Data Handling**: Optimized for processing large datasets efficiently and reliably.
+- **Advanced Model Training**: Utilizing complex training strategies to improve model accuracy and robustness.
+- **Comprehensive Model Evaluation**: Implementing thorough evaluation metrics to ensure the model's readiness for real-world scenarios.
+- **Automated Model Deployment**: Seamless deployment of the trained model to Vertex AI for real-time predictions.
+
+## Scalability and Automation
+Our production pipeline is designed for scalability, capable of handling vast amounts of data and complex model training scenarios. Automation plays a key role in ensuring consistent and error-free operations throughout the machine learning lifecycle.
+
+## Monitoring and Maintenance
+In a production environment, continuous monitoring and maintenance are crucial. Our pipeline is integrated with tools that facilitate ongoing supervision and timely updates to the model, ensuring it remains effective and relevant.
+
+## Pipeline Execution on Vertex AI
+The pipeline is executed on Google Cloud's Vertex AI, a platform known for its robust machine learning capabilities, which is ideal for deploying and managing models at scale.
+
+```python
+from google.cloud import aiplatform
+from google.cloud.aiplatform import pipeline_jobs
+import logging
+
+logging.getLogger().setLevel(logging.INFO)
+
+aiplatform.init(project=GOOGLE_CLOUD_PROJECT, location=GOOGLE_CLOUD_REGION)
+
+job = pipeline_jobs.PipelineJob(template_path=PIPELINE_DEFINITION_FILE,
+                                display_name=PIPELINE_NAME)
+job.submit()
+
+```
+## Conclusion
+Our TFX Taxi Demand Production Pipeline stands as a testament to our commitment to delivering scalable, efficient, and reliable machine learning solutions. By harnessing the capabilities of Vertex AI, we ensure that our model performs optimally in a real-world context, driving forward the innovation in taxi demand prediction.
 ## Deployment
 *(To be added)*
 
