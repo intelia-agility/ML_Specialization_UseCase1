@@ -6,7 +6,7 @@
 2. [Business Goal and Machine Learning Solution](#business-goal-and-machine-learning-solution)
 3. [Data Enrichment Process](#data-enrichment-process)
 4. [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
-5. [Data Preprocessing](#data-preprocessing)
+5. [Data Preprocessing](#Data Preprocessing Pipeline )
 6. [Model Development and Evaluation](#model-development-and-evaluation)
 7. [Deployment](#deployment)
 8. [Usage](#usage)
@@ -97,7 +97,7 @@ Here we look at each variable individually to understand its distribution, prese
 ### Conclusion
 Our EDA is a comprehensive process that lays the foundation for predictive modeling. It ensures our understanding of the data is robust and our subsequent models are informed by deep insights.
 
-## Data Preprocessing Pipeline for Taxi Demand Prediction
+## Data Preprocessing Pipeline 
 
 ### Introduction
 Building on our Exploratory Data Analysis, we've developed a comprehensive Data Preprocessing Pipeline. This pipeline transforms raw taxi trip data into a structured and insightful format, focusing on data cleaning, feature extraction, and data segmentation, ensuring our data is clean, reliable, and enriched with meaningful attributes for accurate demand forecasting.
