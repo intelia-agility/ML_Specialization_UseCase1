@@ -288,45 +288,69 @@ Each step of our univariate analysis provided crucial insights into different as
 ##### Bivariate Analysis
 
 In this section, we delve into Bivariate Analysis to explore the relationships between two distinct variables and their combined impact on taxi demand. This approach helps us understand the interactions and dependencies between various factors in our dataset.
+##### Temporal Analysis
 
-##### Taxi Demand vs. Temperature
-- Analysis explores the influence of varying temperatures on taxi demand.
-- We observe a relatively stable demand across a broad temperature spectrum, indicating a general resilience of taxi usage to temperature changes.
-- A noticeable increase in demand is seen in more temperate conditions, particularly between 10°C to 20°C, suggesting that moderate weather encourages taxi usage.
-- In contrast, extreme temperatures, both hot and cold, do not significantly sway the demand, which could inform operational strategies during these conditions.
+##### Hourly Taxi Demand
+- **Description**: Analysis of taxi demand based on hourly data.
+- **Observations**:
+  - Decrease in demand in the early morning hours, with the lowest point around 5 AM.
+  - Increase in demand from 6 AM, peaking during late afternoon and early evening, then decreasing throughout the night.
+  - Typical urban dynamics with increased demand during peak hours and reduced demand during off-peak periods.
 
-##### Taxi Demand vs. Precipitation
-- This analysis focuses on how different levels of precipitation impact the frequency of taxi trips.
-- Data shows a clear trend of higher taxi usage during times of low or no precipitation, possibly due to the convenience factor.
-- Conversely, an increase in precipitation correlates with a notable decrease in taxi trips, likely due to weather-related travel deterrents or a decrease in available taxis.
+##### Taxi Demand by Day of the Week
+- **Description**: Analyzing the distribution of taxi demand across different days of the week.
+- **Observations**:
+  - Consistent demand from Monday to Friday, with an increase on Fridays.
+  - Drop in demand on Saturdays and the lowest on Sundays.
+  - Weekday demand driven by work-related commuting, contrasting with quieter weekends.
+
+##### Taxi Demand by Month
+- **Description**: Exploration of how taxi demand varies across different months.
+- **Observations**:
+  - Steady demand from January through May.
+  - Peak in June, followed by a decline in July and stabilization from August to December.
+  - June's peak possibly related to seasonal events, holidays, or tourist influx.
+
+##### Categorical Analysis
 
 ##### Taxi Demand vs. Weather Code
-- Examining how varying weather conditions, as categorized by weather codes, affect taxi demand.
-- We find a higher demand for conditions represented by lower weather codes, typically indicative of clear or sunny weather.
-- As weather codes increase, denoting more severe or unfavorable weather conditions, there is a marked decrease in taxi demand, highlighting the sensitivity of taxi usage to weather severity.
+- **Description**: Investigation of demand variations across different weather conditions as indicated by weather codes.
+- **Observations**:
+  - Higher demand for lower weather code values (favorable conditions).
+  - Decrease in demand with increasing weather code values, suggesting reduced demand in severe or unfavorable weather.
 
 ##### Taxi Demand by Weather Condition
-- Detailed investigation into how specific weather conditions, from sunny to thunderstorms, dictate taxi demand.
-- Sunny and clear weather conditions are most conducive to high taxi demand, aligning with general preferences for travel during pleasant weather.
-- Surprisingly, even in less favorable conditions like rain or fog, a significant demand persists, although it is reduced compared to ideal weather conditions.
-- Extreme weather events like heavy snow or thunderstorms result in the lowest demand, likely due to safety concerns and travel challenges.
+- **Description**: Detailed analysis of taxi demand under specific weather conditions.
+- **Observations**:
+  - Highest demand in sunny and clear weather.
+  - Significant demand during less favorable conditions like rain or fog.
+  - Lowest demand during extreme conditions like thunderstorms or heavy snow.
+
+##### Spatial Analysis
 
 ##### Spatial Analysis of Taxi Pickups by Community Area
-- Analysis pinpoints how taxi pickups are distributed across different community areas.
-- Some areas exhibit a much higher frequency of pickups, potentially due to factors like proximity to key destinations or transport hubs.
-- The data also indicates a disparity in average fares across different areas, suggesting variations in trip lengths or the popularity of certain destinations.
+- **Description**: Distribution of taxi pickups across different community areas.
+- **Observations**:
+  - Variations in pickup frequency across areas, influenced by proximity to key destinations or transport hubs.
+  - Disparity in average fares, indicating differences in trip lengths or destination popularity.
 
 ##### Analysis of Average Fare by Pickup Community Area
-- Investigation into the average fares across community areas, shedding light on the economic aspects of taxi usage.
-- Areas with higher average fares might be associated with longer journeys or routes to in-demand destinations like airports or business districts.
-- Understanding these fare trends is vital for taxi operators and city planners in terms of pricing strategies and service optimization.
+- **Description**: Investigation into average fares in different community areas.
+- **Observations**:
+  - Range in average fares, with certain areas having higher fares on average due to longer trips or routes to in-demand locations.
+  - These fare dynamics are crucial for efficient service allocation and pricing strategies.
 
 ##### Visualization Placeholders for Bivariate Analysis
 
-- **Insert Graph 1**: Scatter plot visualizing Taxi Demand vs. Temperature.
-- **Insert Graph 2**: Scatter plot illustrating Taxi Demand vs. Precipitation.
-- **Insert Graph 3**: Bar chart depicting Taxi Demand vs. Weather Code.
-- **Insert Graph 4**: Bar chart showcasing Taxi Demand by Weather Condition.
+- **Insert Graph 1**: Bar chart for Hourly Distribution of Taxi Demand.
+- **Insert Graph 2**: Bar chart for Distribution of Taxi Demand by Day of the Week.
+- **Insert Graph 3**: Bar chart for Distribution of Taxi Demand by Month.
+- **Insert Graph 4**: Scatter plot for Taxi Demand vs. Weather Code.
+- **Insert Graph 5**: Bar chart for Taxi Demand by Weather Condition.
+- **Insert Graph 6**: Bar chart for Taxi Pickups by Community Area.
+- **Insert Graph 7**: Bar chart for Average Fare by Pickup Community Area.
+
+
 
 
 
