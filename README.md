@@ -285,7 +285,48 @@ In our comprehensive Exploratory Data Analysis (EDA), univariate analysis played
 
 Each step of our univariate analysis provided crucial insights into different aspects of taxi demand, laying a foundation for more detailed multivariate analysis and predictive modeling. The use of visualizations at each step enhanced our understanding of the data and helped in identifying key areas for focused analysis and strategy development.
 
+#####Bivariate Analysis
 
+In this section, we delve into Bivariate Analysis to explore the relationships between two distinct variables and their combined impact on taxi demand. This approach helps us understand the interactions and dependencies between various factors in our dataset.
+
+##### Taxi Demand vs. Temperature
+- Analysis explores the influence of varying temperatures on taxi demand.
+- We observe a relatively stable demand across a broad temperature spectrum, indicating a general resilience of taxi usage to temperature changes.
+- A noticeable increase in demand is seen in more temperate conditions, particularly between 10°C to 20°C, suggesting that moderate weather encourages taxi usage.
+- In contrast, extreme temperatures, both hot and cold, do not significantly sway the demand, which could inform operational strategies during these conditions.
+
+##### Taxi Demand vs. Precipitation
+- This analysis focuses on how different levels of precipitation impact the frequency of taxi trips.
+- Data shows a clear trend of higher taxi usage during times of low or no precipitation, possibly due to the convenience factor.
+- Conversely, an increase in precipitation correlates with a notable decrease in taxi trips, likely due to weather-related travel deterrents or a decrease in available taxis.
+
+##### Taxi Demand vs. Weather Code
+- Examining how varying weather conditions, as categorized by weather codes, affect taxi demand.
+- We find a higher demand for conditions represented by lower weather codes, typically indicative of clear or sunny weather.
+- As weather codes increase, denoting more severe or unfavorable weather conditions, there is a marked decrease in taxi demand, highlighting the sensitivity of taxi usage to weather severity.
+
+##### Taxi Demand by Weather Condition
+- Detailed investigation into how specific weather conditions, from sunny to thunderstorms, dictate taxi demand.
+- Sunny and clear weather conditions are most conducive to high taxi demand, aligning with general preferences for travel during pleasant weather.
+- Surprisingly, even in less favorable conditions like rain or fog, a significant demand persists, although it is reduced compared to ideal weather conditions.
+- Extreme weather events like heavy snow or thunderstorms result in the lowest demand, likely due to safety concerns and travel challenges.
+
+##### Spatial Analysis of Taxi Pickups by Community Area
+- Analysis pinpoints how taxi pickups are distributed across different community areas.
+- Some areas exhibit a much higher frequency of pickups, potentially due to factors like proximity to key destinations or transport hubs.
+- The data also indicates a disparity in average fares across different areas, suggesting variations in trip lengths or the popularity of certain destinations.
+
+##### Analysis of Average Fare by Pickup Community Area
+- Investigation into the average fares across community areas, shedding light on the economic aspects of taxi usage.
+- Areas with higher average fares might be associated with longer journeys or routes to in-demand destinations like airports or business districts.
+- Understanding these fare trends is vital for taxi operators and city planners in terms of pricing strategies and service optimization.
+
+##### Visualization Placeholders for Bivariate Analysis
+
+- **Insert Graph 1**: Scatter plot visualizing Taxi Demand vs. Temperature.
+- **Insert Graph 2**: Scatter plot illustrating Taxi Demand vs. Precipitation.
+- **Insert Graph 3**: Bar chart depicting Taxi Demand vs. Weather Code.
+- **Insert Graph 4**: Bar chart showcasing Taxi Demand by Weather Condition.
 
 
 
