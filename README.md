@@ -147,9 +147,9 @@ df_daily = pd.DataFrame(data['daily'])
 ```
 After fetching and structuring the weather data, our next steps involve analyzing this data in conjunction with taxi trip records to identify patterns and insights
 
-####  Data Granularity and Analysis
+#####  Data Granularity and Analysis
 Our analysis emphasizes hourly data granularity. This approach helps us capture the dynamic nature of both weather conditions and taxi trip demand, allowing for a more nuanced understanding of their interplay. Hourly data provides the detail necessary for accurate demand forecasting, crucial for operational planning and resource allocation.
-#### Code Snippet:
+##### Code Snippet:
 ```python
 from google.cloud import bigquery
 
@@ -180,15 +180,15 @@ except Exception as e:
     print(f"Error during upload to the main table: {e}")
 ```
 
-#### Citation
+##### Citation
 Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649
 
 #### Exploratory Data Analysis (EDA)
 
-####  Overview
+#####  Overview
 The Exploratory Data Analysis section provides insights into the dataset through various angles and techniques. Each subsection below corresponds to a key aspect of the EDA, complemented by visualizations that highlight our findings.
 
-#### Descriptive Statistical Analysis
+##### Descriptive Statistical Analysis
 The initial step of our EDA involved an in-depth statistical examination of the dataset using the `describe()` function. This provided valuable insights into the central tendencies, dispersion, and shapes of various features, crucial for our understanding of the taxi demand landscape.
 
 - **Key Statistical Metrics**:
@@ -207,7 +207,7 @@ The initial step of our EDA involved an in-depth statistical examination of the 
 
 This comprehensive statistical overview was pivotal in guiding our subsequent analyses, enabling us to identify areas requiring deeper investigation and to hypothesize about various factors influencing taxi demand.
 
-#### Feature Selection and Data Inspection
+##### Feature Selection and Data Inspection
 
 In our pursuit of a robust predictive model for taxi demand, selecting the most relevant and impactful features was a key step. This careful selection aimed to ensure that our model would be informed by data that directly influences or reflects taxi usage patterns.
 
@@ -223,7 +223,7 @@ In our pursuit of a robust predictive model for taxi demand, selecting the most 
   - The `data.info()` function revealed the structure and data types of our selected features, indicating a combination of continuous, categorical, and temporal data.
   - The dataset's range index and data columns were displayed, giving a clear picture of the dataset post-feature selection.
 
-#### Handling Missing Values and Data Integrity
+##### Handling Missing Values and Data Integrity
 A critical part of our EDA was to assess and manage missing data, ensuring the integrity and reliability of our analysis.
 
 - **Analysis of Missing Data**:
@@ -246,13 +246,49 @@ A critical part of our EDA was to assess and manage missing data, ensuring the i
 
 This meticulous approach to handling missing data ensured that the remaining dataset was both comprehensive and of high quality, forming a solid basis for our subsequent in-depth analyses and predictive modeling.
 
+#### Univariate Analysis Overview
+
+In our comprehensive Exploratory Data Analysis (EDA), univariate analysis played a crucial role in understanding individual features of the dataset. This analysis was segmented into different sections, each focusing on specific types of features and their implications for taxi demand in Chicago.
+
+##### Continuous and Categorical Features Analysis
+
+- **Continuous Features**: Analyzed key continuous features like `trip_seconds`, `trip_miles`, `trip_total`, and various weather-related attributes (temperature_2m, relativehumidity_2m, precipitation, rain, snowfall). Histograms with kernel density estimates provided insights into the distribution of these variables, highlighting trends and anomalies.
+
+- **Categorical Features**: Features such as `company` and `weathercode` were analyzed using count plots to understand their frequency distribution. This helped us grasp the diversity and prominence of different taxi companies and weather conditions during taxi trips.
+
+##### Observations from Univariate Analysis
+
+- **Continuous Features**: Most trip durations, distances, and fares were on the lower side, with right-skewed distributions, indicating that shorter and less expensive trips were more common.
+- **Weather-related Features**: The analysis revealed patterns in climate conditions and their potential impact on taxi demand.
+- **Categorical Features**: Distribution of taxi companies and weather conditions provided insights into operational dynamics and the impact of weather on taxi usage.
+
+##### Univariate Analysis of Spatial Features
+
+- **Spatial Features Analysis**: Examined spatial features like `pickup_community_area`, `pickup_latitude`, and `pickup_longitude`. Count plots and histograms were employed to explore these features, identifying popular areas for taxi pickups and potential hotspots.
+- **Observations**: Some community areas had significantly higher pickup frequencies, suggesting they were key hotspots. Latitude and longitude data highlighted the geographical concentration of taxi pickups in certain areas.
+
+##### Timestamp Conversion and Time Feature Extraction
+
+- **Extracting Time-Related Features**: Converted the `trip_start_timestamp` to datetime format and extracted various time-related features (year, month, day, hour, weekday, trip date, day of the week). This allowed for an in-depth analysis of taxi demand patterns over different time periods.
+
+##### Analysis of Taxi Demand Patterns
+
+- **Hourly Demand Analysis**: Clear pattern in taxi demand throughout the day, with peaks and troughs corresponding to typical urban commute times.
+- **Weekly Demand Analysis**: Consistent demand from Monday to Friday, with a noticeable peak on Fridays and a drop during weekends.
+- **Monthly Demand Analysis**: Steady demand from January through May, with a peak in June, followed by stabilization in subsequent months.
+
+##### Observations from Demand Pattern Analysis
+
+- **Hourly Demand Pattern**: Lowest demand in the early morning hours and peaked during late afternoon and early evening, aligning with common urban commute patterns.
+- **Weekly Demand Pattern**: Consistency in demand on weekdays, with a spike on Fridays, suggested a work-related commuting pattern.
+- **Monthly Demand Pattern**: The peak in June could be associated with seasonal factors like holidays or events.
+
+Each step of our univariate analysis provided crucial insights into different aspects of taxi demand, laying a foundation for more detailed multivariate analysis and predictive modeling. The use of visualizations at each step enhanced our understanding of the data and helped in identifying key areas for focused analysis and strategy development.
 
 
 
 
 
-### Univariate Analysis
-Here we look at each variable individually to understand its distribution, presence of outliers, and other statistical properties.
 
 
 
