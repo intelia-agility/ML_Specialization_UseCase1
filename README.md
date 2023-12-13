@@ -267,27 +267,17 @@ In our comprehensive Exploratory Data Analysis (EDA), univariate analysis played
 - **Spatial Features Analysis**: Examined spatial features like `pickup_community_area`, `pickup_latitude`, and `pickup_longitude`. Count plots and histograms were employed to explore these features, identifying popular areas for taxi pickups and potential hotspots.
 - **Observations**: Some community areas had significantly higher pickup frequencies, suggesting they were key hotspots. Latitude and longitude data highlighted the geographical concentration of taxi pickups in certain areas.
 
+Each step of our univariate analysis provided crucial insights into different aspects of taxi demand, laying a foundation for more detailed multivariate analysis and predictive modeling. The use of visualizations at each step enhanced our understanding of the data and helped in identifying key areas for focused analysis and strategy development.
+
 ##### Timestamp Conversion and Time Feature Extraction
 
 - **Extracting Time-Related Features**: Converted the `trip_start_timestamp` to datetime format and extracted various time-related features (year, month, day, hour, weekday, trip date, day of the week). This allowed for an in-depth analysis of taxi demand patterns over different time periods.
 
-##### Analysis of Taxi Demand Patterns
-
-- **Hourly Demand Analysis**: Clear pattern in taxi demand throughout the day, with peaks and troughs corresponding to typical urban commute times.
-- **Weekly Demand Analysis**: Consistent demand from Monday to Friday, with a noticeable peak on Fridays and a drop during weekends.
-- **Monthly Demand Analysis**: Steady demand from January through May, with a peak in June, followed by stabilization in subsequent months.
-
-##### Observations from Demand Pattern Analysis
-
-- **Hourly Demand Pattern**: Lowest demand in the early morning hours and peaked during late afternoon and early evening, aligning with common urban commute patterns.
-- **Weekly Demand Pattern**: Consistency in demand on weekdays, with a spike on Fridays, suggested a work-related commuting pattern.
-- **Monthly Demand Pattern**: The peak in June could be associated with seasonal factors like holidays or events.
-
-Each step of our univariate analysis provided crucial insights into different aspects of taxi demand, laying a foundation for more detailed multivariate analysis and predictive modeling. The use of visualizations at each step enhanced our understanding of the data and helped in identifying key areas for focused analysis and strategy development.
 
 ##### Bivariate Analysis
 
 In this section, we delve into Bivariate Analysis to explore the relationships between two distinct variables and their combined impact on taxi demand. This approach helps us understand the interactions and dependencies between various factors in our dataset.
+
 ##### Temporal Analysis
 
 ##### Hourly Taxi Demand
@@ -349,6 +339,72 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 - **Insert Graph 5**: Bar chart for Taxi Demand by Weather Condition.
 - **Insert Graph 6**: Bar chart for Taxi Pickups by Community Area.
 - **Insert Graph 7**: Bar chart for Average Fare by Pickup Community Area.
+
+##### Correlation Analysis of Numerical Features
+
+In this section, we explore the intricate associations and dependencies among the numerical features within our dataset through correlation analysis. This approach is pivotal in unraveling the subtle and complex factors that influence taxi demand and the characteristics of taxi trips.
+
+- **Correlation Heatmap**: The heatmap visualizes the correlation coefficients between different numerical features, such as trip miles, trip seconds, trip total, and various weather-related variables like temperature, humidity, and precipitation.
+- **Findings**:
+  - A positive correlation is observed between trip miles and trip seconds, indicating that trips covering more miles typically have longer durations.
+  - Trip total shows a positive correlation with both trip miles and trip seconds, suggesting that longer trips, both in distance and duration, generally lead to higher fares.
+  - Weather-related variables display very weak correlations with trip details, suggesting minimal direct linear relationships between these weather factors and the specific attributes of taxi trips.
+- **Implications**: This analysis is crucial for understanding how different aspects of taxi trips are interconnected. It provides insights crucial for refining fare structuring, service management, and operational strategies in the taxi service industry.
+
+##### Visualization Placeholder
+
+- **Insert Correlation Heatmap Here**: Visualization showing the correlation matrix among various numerical features.
+
+##### Outlier Analysis
+
+The Outlier Analysis section is dedicated to identifying and understanding anomalies within our dataset. This involves examining various numerical features, continuous variables, and spatial data to pinpoint irregularities that could influence our analysis and model accuracy.
+
+##### Outlier Analysis of Numerical Features
+
+- **Box Plots**: Visualization of outliers in various numerical features using box plots.
+- **Findings**:
+  - Trip_seconds and trip_total exhibit significant outliers, indicating the presence of unusually long or expensive trips.
+  - Trip_miles also shows outliers, but they are not as pronounced.
+  - Temperature_2m shows a relatively normal distribution with minimal outliers.
+  - Relativehumidity_2m mostly falls within the 60-90% range, indicating a good spread with no significant anomalies.
+- **Visualization Placeholder**: (Insert box plots for each numerical feature)
+
+##### Percentile Analysis of Continuous Variables
+
+- **Analysis**: Percentile distribution provides insights into the range and spread of continuous variables like trip_seconds, trip_miles, and trip_total.
+- **Observations**:
+  - Trip_seconds: The majority of trips are shorter than 38 minutes, with a maximum duration significantly higher, suggesting outliers.
+  - Trip_miles: Most trips are under 15.72 miles, with the longest trip recorded at 3430.53 miles.
+  - Trip_total: Median fare is around $15.50, with the highest recorded fare being significantly higher.
+- **Implications**: This percentile analysis helps identify typical trip characteristics and detect anomalies within the dataset.
+
+##### Scatter Plot Analysis of Taxi Pickup Locations
+
+- **Visualization**: A scatter plot representing the geographical distribution of taxi pickups.
+- **Observations**:
+  - Dense clusters indicate popular areas or hotspots for taxi pickups.
+  - Areas with fewer points suggest less frequent taxi activity, possibly in residential zones or less commercially active areas.
+- **Visualization Placeholder**: (Insert scatter plot for pickup latitudes and longitudes)
+
+##### Data Cleaning and Outlier Treatment Process
+
+- **Process Description**: 
+  - The cleaning process involves a series of meticulous steps designed to refine the taxi dataset for more accurate analysis.
+  - Geographical Filtering: Ensures that all taxi pickups and drop-offs are within the defined Chicago city boundaries, filtering out data points that fall outside these parameters.
+  - Removing Zero Values: Trips with zero values for critical variables such as trip_seconds, trip_miles, or trip_total are excluded, as they likely represent data recording errors or irrelevant entries, ensuring the integrity of the dataset.
+  - 12-Hour Rule: Trips exceeding a 12-hour duration are removed from the dataset. This step adheres to realistic and legal driving limits, eliminating data points that might be the result of data entry errors or other anomalies.
+  - Capping Extreme Values: Extreme values for variables like trip duration, miles, fare, and weather-related measures are capped at their 1st and 99th percentiles. This treatment mitigates the influence of extreme outliers that could skew the analysis, ensuring a more balanced and representative dataset.
+
+- **Data Retention**: 
+  - Post-cleaning, a considerable percentage of the data is retained, striking a balance between maintaining a robust dataset size and ensuring the quality and reliability of the data.
+  - The retention rate is a testament to the effectiveness of the cleaning process, indicating that while it rigorously filters out inaccuracies and anomalies, it preserves the bulk of valuable data.
+
+- **Strategic Importance**: 
+  - This cleaning and outlier treatment process is a critical foundation for any subsequent data analysis and modeling. By ensuring the dataset's accuracy and relevance, it lays the groundwork for drawing reliable conclusions and insights.
+  - These practices are not just about removing outliers or erroneous data; they are about enhancing the overall quality of the dataset, thereby enabling more precise and meaningful analyses.
+  - The process also reflects the importance of data integrity in the field of data science, where the quality of the input data significantly influences the validity of the results.
+  
+
 
 
 
