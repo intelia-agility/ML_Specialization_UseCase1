@@ -2,18 +2,26 @@
 # Taxi Demand Prediction and Management
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Business Goal and Machine Learning Solution](#business-goal-and-machine-learning-solution)
-3. [Data Enrichment Process](#data-enrichment-process)
-4. [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
-5. [Data Preprocessing Pipeline](#data-preprocessing-pipeline)
-6. [TFX Taxi Demand Interactive Pipeline](#tfx-taxi-demand-interactive-pipeline)
-7. [TFX Taxi Demand Production Pipeline](#tfx-taxi-demand-production-pipeline)
-8. [Deployment](#deployment)
-9. [Usage](#usage)
-10. [Contributing](#contributing)
-11. [License](#license)
-12. [Contact](#contact)
+1. [Code](#code)
+    1.1. [Code Repository](#code-repository)
+    1.2. [Code Origin Certification](#code-origin-certification)
+2. [Data](#data)
+    2.1. [Dataset in Google Cloud](#dataset-in-google-cloud)
+3. [Solution](#solution)
+    3.1. [Business Goal and Machine Learning Solution](#business-goal-and-machine-learning-solution)
+    3.2. [Data Exploration](#data-exploration)
+    3.3. [Feature Engineering](#feature-engineering)
+    3.4. [Preprocessing and the Data Pipeline](#preprocessing-and-the-data-pipeline)
+    3.5. [Machine Learning Model Design(s) and Selection](#machine-learning-model-designs-and-selection)
+    3.6. [Machine Learning Model Training and Development](#machine-learning-model-training-and-development)
+    3.7. [Machine Learning Model Evaluation](#machine-learning-model-evaluation)
+4. [Deployment](#deployment)
+    4.1. [Model/Application on Google Cloud](#modelapplication-on-google-cloud)
+    4.2. [Callable Library/Application](#callable-libraryapplication)
+    4.3. [Editable Model/Application](#editable-modelapplication)
+5. [Conclusion](#conclusion)
+6. [Resources](#resources)
+7. [Evaluation Criteria](#evaluation-criteria)
 
 ## Introduction
 In bustling urban environments, the efficiency of taxi services is crucial for both the operators and the city's mobility. This project focuses on leveraging Machine Learning (ML) to predict taxi demand based on time, date, and location factors. By anticipating high-demand areas and times, taxi companies can optimize their fleet management, reduce customer wait times, and improve service availability.
