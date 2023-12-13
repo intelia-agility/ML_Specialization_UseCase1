@@ -1,27 +1,29 @@
 
 # Taxi Demand Prediction and Management
 
+# Taxi Demand Prediction and Management
+
 ## Table of Contents
-1. [Code](#code)
-    1.1. [Code Repository](#code-repository)
-    1.2. [Code Origin Certification](#code-origin-certification)
-2. [Data](#data)
-    2.1. [Dataset in Google Cloud](#dataset-in-google-cloud)
-3. [Solution](#solution)
-    3.1. [Business Goal and Machine Learning Solution](#business-goal-and-machine-learning-solution)
-    3.2. [Data Exploration](#data-exploration)
-    3.3. [Feature Engineering](#feature-engineering)
-    3.4. [Preprocessing and the Data Pipeline](#preprocessing-and-the-data-pipeline)
-    3.5. [Machine Learning Model Design(s) and Selection](#machine-learning-model-designs-and-selection)
-    3.6. [Machine Learning Model Training and Development](#machine-learning-model-training-and-development)
-    3.7. [Machine Learning Model Evaluation](#machine-learning-model-evaluation)
-4. [Deployment](#deployment)
-    4.1. [Model/Application on Google Cloud](#modelapplication-on-google-cloud)
-    4.2. [Callable Library/Application](#callable-libraryapplication)
-    4.3. [Editable Model/Application](#editable-modelapplication)
-5. [Conclusion](#conclusion)
-6. [Resources](#resources)
-7. [Evaluation Criteria](#evaluation-criteria)
+- [Code](#code)
+  - [1.1. Code Repository](#11-code-repository)
+  - [1.2. Code Origin Certification](#12-code-origin-certification)
+- [Data](#data)
+  - [2.1. Dataset in Google Cloud](#21-dataset-in-google-cloud)
+- [Solution](#solution)
+  - [3.1. Business Goal and Machine Learning Solution](#31-business-goal-and-machine-learning-solution)
+  - [3.2. Data Exploration](#32-data-exploration)
+  - [3.3. Feature Engineering](#33-feature-engineering)
+  - [3.4. Preprocessing and the Data Pipeline](#34-preprocessing-and-the-data-pipeline)
+  - [3.5. Machine Learning Model Design(s) and Selection](#35-machine-learning-model-designs-and-selection)
+  - [3.6. Machine Learning Model Training and Development](#36-machine-learning-model-training-and-development)
+  - [3.7. Machine Learning Model Evaluation](#37-machine-learning-model-evaluation)
+- [Deployment](#deployment)
+  - [4.1. Model/Application on Google Cloud](#41-modelapplication-on-google-cloud)
+  - [4.2. Callable Library/Application](#42-callable-libraryapplication)
+  - [4.3. Editable Model/Application](#43-editable-modelapplication)
+- [Conclusion](#conclusion)
+- [Resources](#resources)
+- [Evaluation Criteria](#evaluation-criteria)
 
 ## Introduction
 In bustling urban environments, the efficiency of taxi services is crucial for both the operators and the city's mobility. This project focuses on leveraging Machine Learning (ML) to predict taxi demand based on time, date, and location factors. By anticipating high-demand areas and times, taxi companies can optimize their fleet management, reduce customer wait times, and improve service availability.
