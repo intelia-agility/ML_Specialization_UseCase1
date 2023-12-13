@@ -1,29 +1,38 @@
 
 # Taxi Demand Prediction and Management
 
-# Taxi Demand Prediction and Management
-
 ## Table of Contents
-- [Code](#code)
-  - [1.1. Code Repository](#11-code-repository)
-  - [1.2. Code Origin Certification](#12-code-origin-certification)
-- [Data](#data)
-  - [2.1. Dataset in Google Cloud](#21-dataset-in-google-cloud)
-- [Solution](#solution)
-  - [3.1. Business Goal and Machine Learning Solution](#31-business-goal-and-machine-learning-solution)
-  - [3.2. Data Exploration](#32-data-exploration)
-  - [3.3. Feature Engineering](#33-feature-engineering)
-  - [3.4. Preprocessing and the Data Pipeline](#34-preprocessing-and-the-data-pipeline)
-  - [3.5. Machine Learning Model Design(s) and Selection](#35-machine-learning-model-designs-and-selection)
-  - [3.6. Machine Learning Model Training and Development](#36-machine-learning-model-training-and-development)
-  - [3.7. Machine Learning Model Evaluation](#37-machine-learning-model-evaluation)
-- [Deployment](#deployment)
-  - [4.1. Model/Application on Google Cloud](#41-modelapplication-on-google-cloud)
-  - [4.2. Callable Library/Application](#42-callable-libraryapplication)
-  - [4.3. Editable Model/Application](#43-editable-modelapplication)
-- [Conclusion](#conclusion)
-- [Resources](#resources)
-- [Evaluation Criteria](#evaluation-criteria)
+- [3.1.1 Code](#311-code)
+  - [3.1.1.1 Code Repository](#3111-code-repository)
+  - [3.1.1.2 Code Origin Certification](#3112-code-origin-certification)
+- [3.1.2 Data](#312-data)
+  - [3.1.2.1 Dataset in Google Cloud](#3121-dataset-in-google-cloud)
+- [3.1.3 Whitepaper / Blog](#313-whitepaper--blog)
+  - [3.1.3.1 Business Goal and Machine Learning Solution](#3131-business-goal-and-machine-learning-solution)
+  - [3.1.3.2 Data Exploration](#3132-data-exploration)
+  - [3.1.3.3 Feature Engineering](#3133-feature-engineering)
+  - [3.1.3.4 Preprocessing and the Data Pipeline](#3134-preprocessing-and-the-data-pipeline)
+  - [3.1.3.5 Machine Learning Model Design(s) and Selection](#3135-machine-learning-model-designs-and-selection)
+  - [3.1.3.6 Machine Learning Model Training and Development](#3136-machine-learning-model-training-and-development)
+  - [3.1.3.7 Machine Learning Model Evaluation](#3137-machine-learning-model-evaluation)
+- [3.1.4 Proof of Deployment](#314-proof-of-deployment)
+  - [3.1.4.1 Model/Application on Google Cloud](#3141-modelapplication-on-google-cloud)
+  - [3.1.4.2 Callable Library/Application](#3142-callable-libraryapplication)
+  - [3.1.4.3 Editable Model/Application](#3143-editable-modelapplication)
+
+
+## 3.1.1 Code
+
+### 3.1.1.1 Code Repository
+The code repository for the Taxi Demand Prediction and Management project can be found at [this GitHub link](https://github.com/intelia-agility/ML_Specialization_UseCase1.git). The repository contains all the code used in Demo #1, including scripts for data preprocessing, model training, evaluation, and deployment instructions.
+
+To clone the repository and start exploring the code, use the following command in your terminal:
+
+```bash
+git clone https://github.com/intelia-agility/ML_Specialization_UseCase1.git
+
+### 3.1.1.1 Code Origin Certification
+We, Intelia, confirm that all the code in this case study is original and developed within our organization.
 
 ## Introduction
 In bustling urban environments, the efficiency of taxi services is crucial for both the operators and the city's mobility. This project focuses on leveraging Machine Learning (ML) to predict taxi demand based on time, date, and location factors. By anticipating high-demand areas and times, taxi companies can optimize their fleet management, reduce customer wait times, and improve service availability.
