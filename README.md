@@ -123,8 +123,6 @@ The ML solution's efficacy lies in its ability to deliver a comprehensive demand
 
 Through this structured ML workflow, the solution directly contributes to the goal of optimizing taxi fleet distribution, thereby reducing customer wait times and improving the overall quality of taxi services in the city.
 
-Evidence of the solution's performance and its alignment with the business goal will be detailed in the whitepaper, including a top-line description of the demand prediction model, the TFX pipeline, and the expected impact on taxi distribution efficiency.
-
 ### 3.1.3.2 Data exploration
 
 In this project, data exploration is a multi-stage process that begins with data enrichment and is followed by a thorough exploratory analysis.
@@ -189,6 +187,69 @@ Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. 
 
 #####  Overview
 The Exploratory Data Analysis section provides insights into the dataset through various angles and techniques. Each subsection below corresponds to a key aspect of the EDA, complemented by visualizations that highlight our findings.
+
+##### Descriptive Statistical Analysis
+The initial step of our EDA involved an in-depth statistical examination of the dataset using the `describe()` function. This provided valuable insights into the central tendencies, dispersion, and shapes of various features, crucial for our understanding of the taxi demand landscape.
+
+- **Key Statistical Metrics**:
+  - **Count**: Represented the number of non-missing values in each column, crucial for assessing data completeness.
+  - **Mean and Standard Deviation**: These measures offered insights into the average trends and variability in the data, such as the average trip duration (`trip_seconds`) and distance (`trip_miles`).
+  - **Minimum and Maximum Values**: Highlighted the range within each feature. Notably, some features like `trip_seconds` and `trip_miles` showed extremely high maximum values, suggesting the presence of outliers.
+  - **Percentiles (25%, 50%, 75%)**: Gave an understanding of the distribution of data, particularly identifying the spread and central tendency of each feature.
+  - **Weather-related Features**: Analysis of `temperature_2m`, `relativehumidity_2m`, `precipitation`, etc., revealed patterns in weather conditions during taxi trips.
+
+- **Insights Derived**:
+  - The dataset displayed significant variability in trip-related features, with certain values indicating potential data entry errors or unique cases.
+  - Weather data analysis was instrumental in understanding the potential influence of environmental factors on taxi demand.
+
+- **Visualization Placeholder for Descriptive Statistics**:
+  ![Descriptive Statistics Visualization Placeholder](path/to/descriptive_statistics_visual.png)
+
+This comprehensive statistical overview was pivotal in guiding our subsequent analyses, enabling us to identify areas requiring deeper investigation and to hypothesize about various factors influencing taxi demand.
+
+##### Feature Selection and Data Inspection
+
+In our pursuit of a robust predictive model for taxi demand, selecting the most relevant and impactful features was a key step. This careful selection aimed to ensure that our model would be informed by data that directly influences or reflects taxi usage patterns.
+
+- **Selected Features**:
+  - **Temporal Features**: `trip_start_timestamp`, `trip_end_timestamp`, and `trip_seconds`. These features are critical in understanding the temporal aspects of taxi demand, including the duration and specific timing of trips.
+  - **Spatial Features**: `pickup_community_area`, `pickup_latitude`, `pickup_longitude`. Geospatial data provides insights into popular areas for taxi pickups and drop-offs, crucial for demand prediction.
+  - **Trip Details**: `trip_miles`, `trip_total`. These features offer a direct look at the trip distances and financial aspects of taxi usage.
+  - **Weather Data**: `temperature_2m`, `relativehumidity_2m`, `precipitation`, `rain`, `snowfall`, `weathercode`. Weather conditions can significantly influence travel behavior, making these features vital for understanding demand variations.
+  - **Operational Data**: `unique_key`, `company`. These help in identifying individual trips and understanding operational dynamics.
+
+
+- **Data Inspection**:
+  - The `data.info()` function revealed the structure and data types of our selected features, indicating a combination of continuous, categorical, and temporal data.
+  - The dataset's range index and data columns were displayed, giving a clear picture of the dataset post-feature selection.
+
+##### Handling Missing Values and Data Integrity
+A critical part of our EDA was to assess and manage missing data, ensuring the integrity and reliability of our analysis.
+
+- **Analysis of Missing Data**:
+  - We conducted a thorough investigation to determine whether the missing data was missing at random. This assessment was crucial in deciding our approach to handling these gaps.
+  - Notably, a significant portion of missing data in `pickup_community_area`, `pickup_latitude`, and `pickup_longitude` was due to privacy masking.
+
+- **Decision on Data Imputation vs. Removal**:
+  - Various strategies, including data imputation, were tested to address the missing values. We explored different imputation techniques and evaluated their impact on our modeling.
+  - However, it was observed that removing these missing entries was more beneficial for the model's performance. This approach was chosen after careful consideration and comparative testing.
+
+- **Proportion of Missing Data**:
+  - Importantly, the missing data constituted a relatively small portion of the overall dataset. This reassured us that removing these entries would not significantly compromise the dataset's comprehensiveness or our analysis's depth.
+
+- **Data Cleaning and Retention**:
+  - Following our analysis, we proceeded with the removal of entries with missing critical information. This step was vital to ensure the quality and accuracy of our predictive models.
+  - The percentage of data retained post-cleaning was approximately 92.16%, indicating that our dataset still maintained a substantial volume of valuable information for robust analysis.
+
+- **Visualization Placeholder for Missing Data Analysis**:
+  ![Missing Data Analysis Visualization Placeholder](path/to/missing_data_analysis_visual.png)
+
+This meticulous approach to handling missing data ensured that the remaining dataset was both comprehensive and of high quality, forming a solid basis for our subsequent in-depth analyses and predictive modeling.
+
+
+
+
+
 
 ### Univariate Analysis
 Here we look at each variable individually to understand its distribution, presence of outliers, and other statistical properties.
