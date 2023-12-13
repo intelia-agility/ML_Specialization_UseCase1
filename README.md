@@ -514,6 +514,130 @@ The detailed steps of our data preprocessing pipeline are as follows:
 ```sql
 CALL `mlops-363723.ChicagoTaxitrips.data_preprocessing_pipeline_chicago_taxi_trips`();
 ```
+### 3.1.3.5 Machine Learning Model Design(s) and Selection
+#### Model Overview
+The demand for taxi trips within an urban landscape like Chicago presents a multifaceted problem, where the prediction accuracy hinges on the model's capability to understand and interpret a web of spatial-temporal factors. The chosen model for this task is a Deep Neural Network (DNN), also known as a Multilayer Perceptron (MLP). This model stands out due to its powerful ability to recognize and make sense of the complex patterns that emerge from the interplay of various factors such as location, time, weather conditions, and more.
+
+At its core, the DNN is a composition of layers with numerous neurons that work in unison to process input data, learn from it, and make predictive outputs. The strength of a DNN lies in its depth and breadth, which are manifested in the multiple hidden layers and the vast number of neurons that allow the network to perform intricate computations. These capabilities make DNNs particularly suited for tackling the dynamic and non-linear nature of taxi trip demand forecasting.
+
+In the following sections, we will delve into the specifics of why a DNN was the ideal choice for this scenario, focusing on its handling of temporal and spatial features, flexibility, scalability, and more. Through careful feature engineering and model optimization, the DNN is expected to provide valuable insights and accurate predictions that can significantly aid in demand forecasting for taxi trips.
+#### Model Selection Criteria for Taxi Demand Prediction
+
+For our taxi demand prediction task in Demo #1, we have selected a deep learning model implemented using TensorFlow and Keras. This model stands out due to its ability to handle the intricacies of spatiotemporal data which is characteristic of taxi trip patterns.
+
+#### Chosen Machine Learning Model/Algorithm
+
+The deep neural network was chosen for its proficiency in capturing non-linear and complex relationships within the data. Deep learning models, particularly those with multiple layers, are known for their feature learning capabilities, which make them highly suitable for tasks where the input data involves intricate interactions between multiple variables, such as time of day, weather conditions, and geospatial information.
+
+#### Criteria for Machine Learning Model Selection
+
+The model was selected based on the following criteria:
+
+- **Capability to Process High-Dimensional Data**: Taxi trip demand prediction involves various input features; our model can integrate and learn from all these features effectively.
+- **Ability to Model Non-linear Relationships**: Given the complex nature of factors affecting taxi demand, the chosen model is capable of uncovering and leveraging non-linear relationships within the data.
+- **Handling Temporal Dynamics**: The model's structure is adept at incorporating temporal sequences, which is crucial for predicting demand based on historical patterns.
+- **Adaptability to Spatial Features**: Taxi demand is heavily influenced by location, and our model can process geospatial inputs to understand and predict demand fluctuations across different urban areas.
+- **Robustness to Noisy Data**: The model is designed to be robust against noise and outliers in the data, ensuring reliable predictions even with imperfect inputs.
+- **Handling of Temporal and Spatial Features**: MLPs excel at detecting intricate patterns within datasets, vital for managing the complexities in spatial-temporal patterns of taxi trip demands.
+- **Flexibility and Customization**: The adaptable architecture of MLPs allows for tailoring layer and neuron counts, matching the specific challenges of taxi demand prediction.
+- **Ability to Model Non-linear Relationships**: Essential for capturing the diverse elements like time of day, weather, and location, affecting taxi demand.
+- **Scalability**: With high scalability, MLPs are suitable for handling the substantial data volumes typical of urban taxi trip datasets.
+- **Generalization Capability**: Known for their effective generalization to new, unseen data when properly regularized and validated.
+- **Integration with Feature Engineering**: Effective incorporation of engineered features like trigonometric representations of time, enhancing MLPs' ability to process multidimensional data.
+
+Through a combination of these criteria, the selected model is poised to provide accurate and insightful predictions for taxi demand, leveraging its depth and breadth to address the dynamic and complex nature of urban transportation needs.
+#### Model Construction Code Snippet
+
+Here is the code snippet for constructing the deep learning model:
+
+```python
+# Function to build the Keras model
+def _build_keras_model(hp, tf_transform_output: tft.TFTransformOutput) -> tf.keras.Model:
+     feature_spec = tf_transform_output.transformed_feature_spec().copy()
+    feature_spec.pop(_LABEL_KEY)
+    inputs = {key: tf.keras.layers.Input(shape=(1,), name=key) for key in feature_spec.keys()}
+
+    concatenated_inputs = tf.keras.layers.Concatenate()(list(inputs.values()))
+
+    num_layers = hp.Int('num_layers', 1, 5)
+    activation_choice = hp.Choice('activation', ['relu', 'leaky_relu', 'elu', 'tanh', 'sigmoid'])
+
+    for i in range(num_layers):
+        units = hp.Int(f'units_{i}', min_value=32, max_value=512, step=32)
+        concatenated_inputs = tf.keras.layers.Dense(units=units, activation=activation_choice,
+            kernel_regularizer=tf.keras.regularizers.l2(hp.Float('l2_{i}', 1e-5, 1e-2, sampling='log'))
+        )(concatenated_inputs)
+        if hp.Boolean(f'dropout_{i}'):
+            dropout_rate = hp.Float(f'dropout_rate_{i}', 0.1, 0.5)
+            concatenated_inputs = tf.keras.layers.Dropout(dropout_rate)(concatenated_inputs)
+
+    output = tf.keras.layers.Dense(1, activation='linear')(concatenated_inputs)
+
+    model = tf.keras.Model(inputs=inputs, outputs=output)
+    learning_rate = hp.Float('learning_rate', min_value=1e-4, max_value=1e-2, sampling='log')
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate),
+                  loss='mean_squared_error',
+                  metrics=[tf.keras.metrics.MeanAbsoluteError(),
+                           tf.keras.metrics.RootMeanSquaredError()])
+    model.summary()
+    return model
+```
+#### Model Architecture
+
+The model's architecture is designed to efficiently process the various features related to taxi demand. Below is the architecture of the model, as defined in TensorFlow:
+
+```plaintext
+Model: "model_1"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape          Param #     Connected to                     
+==================================================================================================
+ day_cos_xf (InputLayer)        [(None, 1)]           0                                            
+ day_sin_xf (InputLayer)        [(None, 1)]           0                                            
+ hour_cos_xf (InputLayer)       [(None, 1)]           0                                            
+ hour_sin_xf (InputLayer)       [(None, 1)]           0                                            
+ log_duration (InputLayer)      [(None, 1)]           0                                            
+ log_trip_miles (InputLayer)    [(None, 1)]           0                                            
+ log_trip_total (InputLayer)    [(None, 1)]           0                                            
+ month_cos_xf (InputLayer)      [(None, 1)]           0                                            
+ month_sin_xf (InputLayer)      [(None, 1)]           0                                            
+ pickup_community_area_xf (InputLayer) [(None, 1)]    0                                            
+ public_holiday_xf (InputLayer) [(None, 1)]           0                                            
+ rain_xf (InputLayer)           [(None, 1)]           0                                            
+ relativehumidity_2m_xf (InputLayer) [(None, 1)]      0                                            
+ snowfall_xf (InputLayer)       [(None, 1)]           0                                            
+ sqrt_precipitation (InputLayer) [(None, 1)]          0                                            
+ temperature_2m_xf (InputLayer) [(None, 1)]           0                                            
+ weathercode_xf (InputLayer)    [(None, 1)]           0                                            
+ year_xf (InputLayer)           [(None, 1)]           0                                            
+ concatenate_1 (Concatenate)    (None, 18)            0           [All input layers]              
+ dense_4 (Dense)                (None, 480)           9120        [concatenate_1[0][0]]           
+ dense_5 (Dense)                (None, 64)            30784       [dense_4[0][0]]                 
+ dense_6 (Dense)                (None, 32)            2080        [dense_5[0][0]]                 
+ dense_7 (Dense)                (None, 512)           16896       [dense_6[0][0]]                 
+ dropout_3 (Dropout)            (None, 512)           0           [dense_7[0][0]]                 
+ dense_8 (Dense)                (None, 288)           147744      [dropout_3[0][0]]               
+ dropout_4 (Dropout)            (None, 288)           0           [dense_8[0][0]]                 
+ dense_9 (Dense)                (None, 1)             289         [dropout_4[0][0]]               
+==================================================================================================
+Total params: 206,913
+Trainable params: 206,913
+Non-trainable params: 0
+__________________________________________________________________________________________________
+```
+#### Model Performance 
+
+#### Performance Analysis
+
+Our model, a sophisticated Multi-Layer Perceptron, has shown commendable efficacy in forecasting taxi demand in Chicago, as indicated by its performance metrics:
+
+- **Mean Absolute Error (MAE)**: 2.1684
+- **Root Mean Squared Error (RMSE)**: 3.19
+
+To contextualize these numbers, imagine the task of predicting the number of taxi trips in Chicago each hour. On average, our model's predictions would deviate from the actual number by about 2 to 3 trips. For example, if the actual number of trips in an hour was 20, the model's prediction would likely fall between 17 and 23 trips.
+
+This degree of precision underscores the model's adeptness at striking a crucial balance between bias and variance, an essential factor in predictive modeling. The model is finely tuned to avoid overfitting, where it might otherwise capture random noise in the data, as well as underfitting, where it could fail to discern underlying patterns. As a result, it offers predictions that are not only reliable but also highly adaptable to real-world situations.
+
+
 # TFX Taxi Demand Interactive Pipeline
 
 ## Introduction
@@ -605,15 +729,5 @@ Our TFX Taxi Demand Production Pipeline stands as a testament to our commitment 
 ## Deployment
 *(To be added)*
 
-## Usage
-*(To be added)*
 
-## Contributing
-*(To be added)*
-
-## License
-*(To be added)*
-
-## Contact
-*(To be added)*
 
