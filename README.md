@@ -100,6 +100,7 @@ To complement our trip data, we incorporate weather conditions from the Open-Met
 #### Citation for Weather Data
 Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. [https://doi.org/10.5281/ZENODO.7970649](https://doi.org/10.5281/ZENODO.7970649)
 
+## 3.1.3 Whitepaper / Blog
 
 ### 3.1.3.1 Business Goal and Machine Learning Solution
 
@@ -138,7 +139,7 @@ Utilizing the [Open-Meteo.com Weather API](https://open-meteo.com/), we have int
 ```python
 
 # Fetch the data from the API
-response = requests.get('[API URL]')
+response = requests.get(''https://archive-api.open-meteo.com/v1/archive?latitude=41.85&longitude=-87.65&start_date=2013-01-11&end_date=2023-09-10&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,snowfall,weathercode,windspeed_10m&models=best_match&daily=weathercode,temperature_2m_max,temperature_2m_min,temperature_2m_mean,shortwave_radiation_sum,precipitation_sum,rain_sum,snowfall_sum,precipitation_hours,windspeed_10m_max&timezone=America%2FChicago'')
 data = response.json()
 
 # Create DataFrames from the 'hourly' and 'daily' data
@@ -148,9 +149,9 @@ df_daily = pd.DataFrame(data['daily'])
 ```
 After fetching and structuring the weather data, our next steps involve analyzing this data in conjunction with taxi trip records to identify patterns and insights
 
-### Data Granularity and Analysis
+#####  Data Granularity and Analysis
 Our analysis emphasizes hourly data granularity. This approach helps us capture the dynamic nature of both weather conditions and taxi trip demand, allowing for a more nuanced understanding of their interplay. Hourly data provides the detail necessary for accurate demand forecasting, crucial for operational planning and resource allocation.
-#### Code Snippet:
+##### Code Snippet:
 ```python
 from google.cloud import bigquery
 
@@ -181,12 +182,12 @@ except Exception as e:
     print(f"Error during upload to the main table: {e}")
 ```
 
-### Citation
+##### Citation
 Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649
 
-## Exploratory Data Analysis (EDA)
+##### Exploratory Data Analysis (EDA)
 
-### Overview
+#####  Overview
 The Exploratory Data Analysis section provides insights into the dataset through various angles and techniques. Each subsection below corresponds to a key aspect of the EDA, complemented by visualizations that highlight our findings.
 
 ### Univariate Analysis
