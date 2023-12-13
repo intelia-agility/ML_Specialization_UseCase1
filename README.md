@@ -101,19 +101,28 @@ To complement our trip data, we incorporate weather conditions from the Open-Met
 Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. [https://doi.org/10.5281/ZENODO.7970649](https://doi.org/10.5281/ZENODO.7970649)
 
 
+### 3.1.3.1 Business Goal and Machine Learning Solution
 
-
-## Introduction
+#### Introduction
 In bustling urban environments, the efficiency of taxi services is crucial for both the operators and the city's mobility. This project focuses on leveraging Machine Learning (ML) to predict taxi demand based on time, date, and location factors. By anticipating high-demand areas and times, taxi companies can optimize their fleet management, reduce customer wait times, and improve service availability.
 
-## Business Goal and Machine Learning Solution
-The primary business goal is to "Increase the efficiency of taxi distribution throughout the city to reduce customer wait time by predicting demand." This involves analyzing historical taxi usage patterns to predict future demand and enable a more dynamic allocation of taxi resources.
+#### Business Question/Goal
+The project is anchored on the business goal of increasing the efficiency of taxi distribution within the city to minimize customer wait times. The central question being addressed is: "How can we predict taxi demand more accurately to ensure that taxi fleets are distributed efficiently across the city?" This question is pivotal for enhancing urban mobility and optimizing the taxi service industry's response to fluctuating demand.
 
-### Machine Learning Use Case
-The use case for ML in this context is to develop a predictive model that can accurately forecast taxi demand. By using historical data and identifying patterns associated with different times, dates, and locations, the model can make informed predictions about future needs.
+#### Machine Learning Use Case
+To address this business goal, the project utilizes a machine learning (ML) model that predicts taxi demand based on a combination of historical taxi trip data and weather conditions. The model is designed to recognize patterns and trends from a variety of features, including time of day, date, location, weather conditions, and more.
 
-### Solution's Impact on Business Goal
-The ML solution incorporates an end-to-end TensorFlow pipeline that processes the Chicago taxi trips dataset. The workflow includes data enrichment, exploratory data analysis, data preprocessing, and model training and evaluation. This comprehensive approach ensures accurate demand forecasting, facilitating efficient taxi distribution and reducing customer wait times.
+#### Solution's Impact on Business Goal
+The ML solution's efficacy lies in its ability to deliver a comprehensive demand forecast that taxi operators can use to make data-driven decisions for fleet distribution. The end-to-end TensorFlow Extended (TFX) pipeline is the cornerstone of this solution, encompassing several stages:
+
+1. **Data Enrichment**: Augmenting the Chicago Taxi Trips dataset with weather data to capture additional factors that impact taxi demand.
+2. **Exploratory Data Analysis (EDA)**: Conducting a thorough examination of the data to identify key variables and patterns that influence taxi demand.
+3. **Data Preprocessing**: Utilizing BigQuery to clean and prepare the data, setting the stage for effective machine learning. This preprocessing pipeline is integral to transforming raw data into a format suitable for ML modeling.
+4. **End-to-End TFX Pipeline**: Orchestrating the entire ML workflow, from data validation and model training to deployment and serving.
+
+Through this structured ML workflow, the solution directly contributes to the goal of optimizing taxi fleet distribution, thereby reducing customer wait times and improving the overall quality of taxi services in the city.
+
+Evidence of the solution's performance and its alignment with the business goal will be detailed in the whitepaper, including a top-line description of the demand prediction model, the TFX pipeline, and the expected impact on taxi distribution efficiency.
 
 ## Data Enrichment Process
 
