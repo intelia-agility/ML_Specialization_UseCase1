@@ -1,29 +1,107 @@
 
 # Taxi Demand Prediction and Management
 
-# Taxi Demand Prediction and Management
-
 ## Table of Contents
-- [Code](#code)
-  - [1.1. Code Repository](#11-code-repository)
-  - [1.2. Code Origin Certification](#12-code-origin-certification)
-- [Data](#data)
-  - [2.1. Dataset in Google Cloud](#21-dataset-in-google-cloud)
-- [Solution](#solution)
-  - [3.1. Business Goal and Machine Learning Solution](#31-business-goal-and-machine-learning-solution)
-  - [3.2. Data Exploration](#32-data-exploration)
-  - [3.3. Feature Engineering](#33-feature-engineering)
-  - [3.4. Preprocessing and the Data Pipeline](#34-preprocessing-and-the-data-pipeline)
-  - [3.5. Machine Learning Model Design(s) and Selection](#35-machine-learning-model-designs-and-selection)
-  - [3.6. Machine Learning Model Training and Development](#36-machine-learning-model-training-and-development)
-  - [3.7. Machine Learning Model Evaluation](#37-machine-learning-model-evaluation)
-- [Deployment](#deployment)
-  - [4.1. Model/Application on Google Cloud](#41-modelapplication-on-google-cloud)
-  - [4.2. Callable Library/Application](#42-callable-libraryapplication)
-  - [4.3. Editable Model/Application](#43-editable-modelapplication)
-- [Conclusion](#conclusion)
-- [Resources](#resources)
-- [Evaluation Criteria](#evaluation-criteria)
+- [3.1.1 Code](#311-code)
+  - [3.1.1.1 Code Repository](#3111-code-repository)
+  - [3.1.1.2 Code Origin Certification](#3112-code-origin-certification)
+- [3.1.2 Data](#312-data)
+  - [3.1.2.1 Dataset in Google Cloud](#3121-dataset-in-google-cloud)
+- [3.1.3 Whitepaper / Blog](#313-whitepaper--blog)
+  - [3.1.3.1 Business Goal and Machine Learning Solution](#3131-business-goal-and-machine-learning-solution)
+  - [3.1.3.2 Data Exploration](#3132-data-exploration)
+  - [3.1.3.3 Feature Engineering](#3133-feature-engineering)
+  - [3.1.3.4 Preprocessing and the Data Pipeline](#3134-preprocessing-and-the-data-pipeline)
+  - [3.1.3.5 Machine Learning Model Design(s) and Selection](#3135-machine-learning-model-designs-and-selection)
+  - [3.1.3.6 Machine Learning Model Training and Development](#3136-machine-learning-model-training-and-development)
+  - [3.1.3.7 Machine Learning Model Evaluation](#3137-machine-learning-model-evaluation)
+- [3.1.4 Proof of Deployment](#314-proof-of-deployment)
+  - [3.1.4.1 Model/Application on Google Cloud](#3141-modelapplication-on-google-cloud)
+  - [3.1.4.2 Callable Library/Application](#3142-callable-libraryapplication)
+  - [3.1.4.3 Editable Model/Application](#3143-editable-modelapplication)
+
+
+## 3.1.1 Code
+
+### 3.1.1.1 Code Repository
+The code repository for the Taxi Demand Prediction and Management project can be found at [this GitHub link](https://github.com/intelia-agility/ML_Specialization_UseCase1.git). The repository contains all the code used in Demo #1, including scripts for data preprocessing, model training, evaluation, and deployment instructions.
+
+To clone the repository and start exploring the code, use the following command in your terminal:
+
+```bash
+git clone https://github.com/intelia-agility/ML_Specialization_UseCase1.git
+```
+
+### 3.1.1.1 Code Origin Certification
+We, Intelia, confirm that all the code in this case study is original and developed within our organization.
+
+## 3.1.2 Data
+
+### 3.1.2.1 Dataset in Google Cloud
+
+The City of Chicago, known for its commitment to transparency and innovation in urban management, releases the Chicago Taxi Trips dataset, a testament to its rich data-driven culture. This dataset is a treasure trove of insights, meticulously gathered and anonymized to respect privacy while offering a detailed look into the city's bustling taxi ecosystem.
+
+Spanning several years of taxi trip records, the dataset encompasses an array of information that is crucial for both operational analysis and strategic planning. Among the data points included are:
+
+- Precise timestamps of taxi trips, painting a picture of demand throughout the day.
+- Geographical coordinates for pick-ups and drop-offs, anonymized to census tract levels, allowing for a granular view of urban travel patterns.
+- Trip distances, fares, and payment types, shedding light on economic aspects of the taxi services.
+- Taxi identification details, ensuring a layer of operational transparency.
+
+Chicago's progressive approach to open data not only facilitates civic engagement and research but also serves as a foundation for advanced computational studies, such as machine learning and predictive analytics. The dataset's breadth and depth make it an exemplary resource for tackling complex urban challenges like traffic congestion, public transport optimization, and on-demand service allocation.
+
+In our Taxi Demand Prediction and Management project, hosted on Google Cloud Platform (GCP) with the project identifier `mlops`, we harness this dataset to predict taxi demand using machine learning. This project aims at improving taxi fleet efficiency, thereby enhancing the overall transportation network performance.
+
+#### Chicago Taxi Trips Dataset Schema
+
+The schema for the Chicago Taxi Trips dataset is as follows:
+
+| Field Name              | Mode     | Type      | Description |
+|-------------------------|----------|-----------|-------------|
+| unique_key              | REQUIRED | STRING    | Unique identifier for the trip. |
+| taxi_id                 | REQUIRED | STRING    | A unique identifier for the taxi. |
+| trip_start_timestamp    | NULLABLE | TIMESTAMP | When the trip started, rounded to the nearest 15 minutes. |
+| trip_end_timestamp      | NULLABLE | TIMESTAMP | When the trip ended, rounded to the nearest 15 minutes. |
+| trip_seconds            | NULLABLE | INTEGER   | Time of the trip in seconds. |
+| trip_miles              | NULLABLE | FLOAT     | Distance of the trip in miles. |
+| pickup_census_tract     | NULLABLE | INTEGER   | The Census Tract where the trip began. For privacy, this Census Tract is not shown for some trips. |
+| dropoff_census_tract    | NULLABLE | INTEGER   | The Census Tract where the trip ended. For privacy, this Census Tract is not shown for some trips. |
+| pickup_community_area   | NULLABLE | INTEGER   | The Community Area where the trip began. |
+| dropoff_community_area  | NULLABLE | INTEGER   | The Community Area where the trip ended. |
+| fare                    | NULLABLE | FLOAT     | The fare for the trip. |
+| tips                    | NULLABLE | FLOAT     | The tip for the trip. Cash tips generally will not be recorded. |
+| tolls                   | NULLABLE | FLOAT     | The tolls for the trip. |
+| extras                  | NULLABLE | FLOAT     | Extra charges for the trip. |
+| trip_total              | NULLABLE | FLOAT     | Total cost of the trip, the total of the fare, tips, tolls, and extras. |
+| payment_type            | NULLABLE | STRING    | Type of payment for the trip. |
+| company                 | NULLABLE | STRING    | The taxi company. |
+| pickup_latitude         | NULLABLE | FLOAT     | The latitude of the center of the pickup census tract or the community area if the census tract has been hidden for privacy. |
+| pickup_longitude        | NULLABLE | FLOAT     | The longitude of the center of the pickup census tract or the community area if the census tract has been hidden for privacy. |
+| pickup_location         | NULLABLE | STRING    | The location of the center of the pickup census tract or the community area if the census tract has been hidden for privacy. |
+| dropoff_latitude        | NULLABLE | FLOAT     | The latitude of the center of the dropoff census tract or the community area if the census tract has been hidden for privacy. |
+| dropoff_longitude       | NULLABLE | FLOAT     | The longitude of the center of the dropoff census tract or the community area if the census tract has been hidden for privacy. |
+| dropoff_location        | NULLABLE | STRING    | The location of the center of the dropoff census tract or the community area if the census tract has been hidden for privacy. ||
+
+This schema provides a structured view of the data collected for each taxi trip, offering a solid foundation for comprehensive analysis and predictive modeling.
+
+Our project, hosted on Google Cloud Platform (GCP), leverages the rich dataset of Chicago Taxi Trips. The project identifier for GCP is `mlops`.
+
+The datasets for training, validation, and weather data integration are stored within this GCP project, ensuring scalable storage and efficient data management that is crucial for machine learning workloads.
+
+The datasets are as follows:
+
+- GCP Project: `mlops`
+- Training Data: `ChicagoTaxitrips.training_data`
+- Validation Data: `ChicagoTaxitrips.validation_data`
+- Hourly Weather Data: `ChicagoTaxitrips.weather_hourly`
+
+To complement our trip data, we incorporate weather conditions from the Open-Meteo.com Weather API, which include temperature, humidity, and precipitation. This enrichment aims to reveal the influence of weather on taxi demand, providing a more nuanced view for demand forecasting.
+
+#### Citation for Weather Data
+Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. [https://doi.org/10.5281/ZENODO.7970649](https://doi.org/10.5281/ZENODO.7970649)
+
+
+
 
 ## Introduction
 In bustling urban environments, the efficiency of taxi services is crucial for both the operators and the city's mobility. This project focuses on leveraging Machine Learning (ML) to predict taxi demand based on time, date, and location factors. By anticipating high-demand areas and times, taxi companies can optimize their fleet management, reduce customer wait times, and improve service availability.
