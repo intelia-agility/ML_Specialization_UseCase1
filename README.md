@@ -404,6 +404,55 @@ The Outlier Analysis section is dedicated to identifying and understanding anoma
   - These practices are not just about removing outliers or erroneous data; they are about enhancing the overall quality of the dataset, thereby enabling more precise and meaningful analyses.
   - The process also reflects the importance of data integrity in the field of data science, where the quality of the input data significantly influences the validity of the results.
   
+##### Feature Transformations
+
+In our analysis, we delve into the transformation of key numerical features within the taxi dataset. This step is crucial in understanding the underlying data distribution and addressing any skewness or anomalies that may impact our analysis.
+
+- **Analyzing Skewness in Features**: 
+  - Our initial observations reveal that many of our features, such as trip_seconds, trip_miles, and trip_total, exhibit skewed distributions. Skewness can significantly affect the performance of various statistical models and machine learning algorithms.
+  - To address these issues, we apply specific transformations aimed at normalizing the data distributions.
+
+- **Applied Transformations**: 
+  - We focus on two primary transformation techniques: logarithmic and square root transformations. These are applied to features including trip_total, trip_miles, trip_seconds, temperature_2m, relativehumidity_2m, and precipitation.
+  - Log Transformation: This is particularly useful for data with long tails or high variability. By transforming data using the logarithmic scale, we aim to reduce right-skewness.
+  - Square Root Transformation: This is a milder transformation compared to the logarithmic one and is used to reduce the effect of extreme values.
+
+- **Visualization and Comparative Analysis**:
+  - The impact of these transformations is visualized through histograms and density plots. Each feature's original distribution is compared with its log-transformed and square root-transformed distributions.
+  - These visualizations allow us to assess the effectiveness of each transformation in normalizing the data and to choose the most appropriate method for our analysis.
+
+- **Visualization Placeholder**: (Insert histograms and density plots for original, log-transformed, and square root-transformed distributions of features)
+
+##### Observations from Feature Transformation Analysis
+
+- The transformation techniques significantly alter the shape of the data distributions, bringing them closer to normality in many cases.
+- Log Transformation is particularly effective in reducing the skewness of features with large ranges or outliers.
+- Square Root Transformation, while milder, also contributes to reducing skewness and is especially useful for data that cannot undergo log transformation.
+- These transformations are instrumental in preparing our data for more sophisticated analyses, ensuring that the assumptions of various statistical and machine learning techniques are met.
+
+##### Analysis of Skewness and Kurtosis for Feature Transformations
+
+This analysis focuses on the skewness and kurtosis of various features in our dataset after applying transformations. It's a crucial step in determining how these transformations impact the distribution characteristics of our data.
+
+##### Procedure
+- We calculate the skewness and kurtosis for each feature in its original, log-transformed, and square root-transformed states. These metrics provide insights into the symmetry and tail behavior of the distributions.
+  - **Skewness**: Measures distribution asymmetry. Positive skew indicates a right tail, while negative skew indicates a left tail.
+  - **Kurtosis**: Indicates whether data are heavy-tailed (positive kurtosis) or light-tailed (negative kurtosis) compared to a normal distribution.
+
+##### Transformations Applied
+- Applied transformations include original data, log transformation, and square root transformation on features like `trip_total`, `trip_miles`, `trip_seconds`, `temperature_2m`, `relativehumidity_2m`, and `precipitation`.
+
+##### Observations
+- Transformations, particularly logarithmic and square root, tend to normalize distributions, reducing skewness and adjusting kurtosis values closer to a normal distribution.
+  - Example: Log transformation of `trip_total` significantly reduces its skewness and kurtosis, resulting in a more symmetric and less heavy-tailed distribution.
+  - Note: Some transformations may not be suitable for every feature. For instance, log transformation of `temperature_2m` results in NaN values, indicating its unsuitability for this specific feature.
+
+##### Implications
+- Understanding these changes in distribution is crucial for data preprocessing, especially for statistical and machine learning models that often assume normally distributed inputs.
+- This analysis aids in selecting the most appropriate transformations for each feature, ensuring our data meets the necessary assumptions for advanced analytical techniques.
+
+##### Visualization Placeholder
+- **Insert Visualization Here**: Include tables or charts that display skewness and kurtosis values for each feature under different transformations.
 
 
 
