@@ -127,10 +127,10 @@ Through this structured ML workflow, the solution directly contributes to the go
 
 In this project, data exploration is a multi-stage process that begins with data enrichment and is followed by a thorough exploratory analysis.
 
-##### Overview
+#### Overview
 To deepen our analysis, we have enriched the Chicago Taxi Trip dataset with additional weather data. This process is key to exploring the impact of various weather conditions on taxi trip patterns.
 
-##### Integrating Weather Data
+#### Integrating Weather Data
 Utilizing the [Open-Meteo.com Weather API](https://open-meteo.com/), we have integrated data such as temperature, humidity, and precipitation. This additional information is vital for comprehending how weather conditions influence taxi demand in Chicago. We fetch weather data with both hourly and daily granularity to perform a thorough correlation analysis between weather changes and taxi trip frequency.
 
 #### Code Snippet:
@@ -147,9 +147,9 @@ df_daily = pd.DataFrame(data['daily'])
 ```
 After fetching and structuring the weather data, our next steps involve analyzing this data in conjunction with taxi trip records to identify patterns and insights
 
-#####  Data Granularity and Analysis
+####  Data Granularity and Analysis
 Our analysis emphasizes hourly data granularity. This approach helps us capture the dynamic nature of both weather conditions and taxi trip demand, allowing for a more nuanced understanding of their interplay. Hourly data provides the detail necessary for accurate demand forecasting, crucial for operational planning and resource allocation.
-##### Code Snippet:
+#### Code Snippet:
 ```python
 from google.cloud import bigquery
 
@@ -180,15 +180,15 @@ except Exception as e:
     print(f"Error during upload to the main table: {e}")
 ```
 
-##### Citation
+#### Citation
 Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649
 
-##### Exploratory Data Analysis (EDA)
+#### Exploratory Data Analysis (EDA)
 
-#####  Overview
+####  Overview
 The Exploratory Data Analysis section provides insights into the dataset through various angles and techniques. Each subsection below corresponds to a key aspect of the EDA, complemented by visualizations that highlight our findings.
 
-##### Descriptive Statistical Analysis
+#### Descriptive Statistical Analysis
 The initial step of our EDA involved an in-depth statistical examination of the dataset using the `describe()` function. This provided valuable insights into the central tendencies, dispersion, and shapes of various features, crucial for our understanding of the taxi demand landscape.
 
 - **Key Statistical Metrics**:
@@ -207,7 +207,7 @@ The initial step of our EDA involved an in-depth statistical examination of the 
 
 This comprehensive statistical overview was pivotal in guiding our subsequent analyses, enabling us to identify areas requiring deeper investigation and to hypothesize about various factors influencing taxi demand.
 
-##### Feature Selection and Data Inspection
+#### Feature Selection and Data Inspection
 
 In our pursuit of a robust predictive model for taxi demand, selecting the most relevant and impactful features was a key step. This careful selection aimed to ensure that our model would be informed by data that directly influences or reflects taxi usage patterns.
 
@@ -223,7 +223,7 @@ In our pursuit of a robust predictive model for taxi demand, selecting the most 
   - The `data.info()` function revealed the structure and data types of our selected features, indicating a combination of continuous, categorical, and temporal data.
   - The dataset's range index and data columns were displayed, giving a clear picture of the dataset post-feature selection.
 
-##### Handling Missing Values and Data Integrity
+#### Handling Missing Values and Data Integrity
 A critical part of our EDA was to assess and manage missing data, ensuring the integrity and reliability of our analysis.
 
 - **Analysis of Missing Data**:
