@@ -484,16 +484,15 @@ we focus on enriching our dataset with time-based and cyclic features. This appr
 - These cyclic features are essential for models where time is a significant factor, such as in predicting taxi demand patterns.
 - By accurately representing the cyclic nature of time, we enhance the model's ability to interpret temporal data more realistically.
 
+### 3.1.3.4 Preprocessing and the Data Pipeline
 
-## Data Preprocessing Pipeline 
-
-### Introduction
+##### Introduction
 Building on our Exploratory Data Analysis, we've developed a comprehensive Data Preprocessing Pipeline. This pipeline transforms raw taxi trip data into a structured and insightful format, focusing on data cleaning, feature extraction, and data segmentation, ensuring our data is clean, reliable, and enriched with meaningful attributes for accurate demand forecasting.
 
-### Strategic Importance
+##### Strategic Importance
 Our pipeline streamlines and optimizes the taxi demand prediction process, unlocking deeper insights and enabling precise demand predictions. This directly contributes to enhanced fleet management and customer satisfaction.
 
-### Technical Approach
+##### Technical Approach
 Our approach encompasses data integration, granularity control, feature engineering, and encapsulation in a callable API. Key steps include:
 
 1. **Data Integration**: Joining taxi trip data with hourly weather data using SQL queries in BigQuery, crucial for understanding the impact of weather on taxi demand.
@@ -501,15 +500,15 @@ Our approach encompasses data integration, granularity control, feature engineer
 3. **Feature Engineering**: Using advanced SQL for feature extraction, including time-based features and trigonometric transformations for capturing cyclical patterns in demand.
 4. **Callable API**: Encapsulating the entire pipeline within a callable API, ensuring seamless integration and dynamic data feeding into the production model.
 
-### Data Preprocessing Steps
-The pipeline includes:
+##### Data Preprocessing Steps
+The detailed steps of our data preprocessing pipeline are as follows:
 
-- **Data Joining and Cleaning**: SQL queries to integrate and clean the data.
-- **Capping Outliers**: Applying techniques to mitigate outliers in trip duration, distance, and cost.
-- **Feature Extraction and Sorting**: Extracting informative attributes and organizing data systematically.
-- **Data Aggregation**: Grouping data to analyze trends at the community area level.
-- **Data Segmentation for Model Training**: Creating training, validation, and test sets based on different years.
-- **Data Export**: Exporting datasets to CSV files for modeling.
+- **Joining and Cleaning**: Leveraging SQL in BigQuery to integrate taxi trip and weather data, followed by rigorous cleaning to ensure data quality.
+- **Outlier Capping**: Utilizing statistical methods to cap outliers and standardize trip duration, distance, and cost data.
+- **Feature Extraction**: Extracting critical features and sorting data to lay the groundwork for effective aggregation and analysis.
+- **Data Aggregation**: Aggregating data at the community area level to discern local demand trends.
+- **Model Training Segmentation**: Segmenting data into distinct sets for training, validation, and testing to prevent data leakage and model overfitting.
+- **Exporting for Modeling**: Exporting preprocessed data as CSV files, ready for use in predictive modeling.
 
 **Callable API**:
 ```sql
