@@ -485,7 +485,7 @@ we focus on enriching our dataset with time-based and cyclic features. This appr
 - By accurately representing the cyclic nature of time, we enhance the model's ability to interpret temporal data more realistically.
 
 ### 3.1.3.4 Preprocessing and the Data Pipeline
-
+##### Data Preprocessing Pipeline Using BigQuery
 ##### Introduction
 Building on our Exploratory Data Analysis, we've developed a comprehensive Data Preprocessing Pipeline. This pipeline transforms raw taxi trip data into a structured and insightful format, focusing on data cleaning, feature extraction, and data segmentation, ensuring our data is clean, reliable, and enriched with meaningful attributes for accurate demand forecasting.
 
