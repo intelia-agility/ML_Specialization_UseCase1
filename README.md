@@ -124,13 +124,13 @@ Through this structured ML workflow, the solution directly contributes to the go
 
 Evidence of the solution's performance and its alignment with the business goal will be detailed in the whitepaper, including a top-line description of the demand prediction model, the TFX pipeline, and the expected impact on taxi distribution efficiency.
 
-## Data Enrichment Process
+### 3.1.3.2 Data exploration
 
-### Overview
-In the Taxi Demand Prediction and Management project, we enrich the Chicago Taxi Trip dataset with additional data to enhance our analysis. A key component of this process involves integrating weather data to explore its impact on taxi trip patterns.
+In this project, data exploration is a multi-stage process that begins with data enrichment and is followed by a thorough exploratory analysis.
 
-### Integrating Weather Data
-Using the Open-Meteo.com Weather API, we fetch data such as temperature, humidity, and precipitation. This information is crucial in understanding how weather conditions influence taxi demand in Chicago. The data is fetched in both hourly and daily granularity, enabling a comprehensive analysis of the correlation between weather variations and taxi trip frequency.
+#### Data Enrichment
+The initial phase of data exploration involved enriching the Chicago Taxi Trips dataset with additional weather data obtained from Open-Meteo.com. This step was essential to incorporate external factors that could affect taxi demand, such as temperature, humidity, and precipitation.
+
 #### Code Snippet:
 ```python
 
