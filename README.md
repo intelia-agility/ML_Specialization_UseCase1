@@ -285,7 +285,7 @@ In our comprehensive Exploratory Data Analysis (EDA), univariate analysis played
 
 Each step of our univariate analysis provided crucial insights into different aspects of taxi demand, laying a foundation for more detailed multivariate analysis and predictive modeling. The use of visualizations at each step enhanced our understanding of the data and helped in identifying key areas for focused analysis and strategy development.
 
-#####Bivariate Analysis
+##### Bivariate Analysis
 
 In this section, we delve into Bivariate Analysis to explore the relationships between two distinct variables and their combined impact on taxi demand. This approach helps us understand the interactions and dependencies between various factors in our dataset.
 
