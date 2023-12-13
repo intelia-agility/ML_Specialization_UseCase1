@@ -585,6 +585,21 @@ def _build_keras_model(hp, tf_transform_output: tft.TFTransformOutput) -> tf.ker
 #### Model Architecture
 
 The model's architecture is designed to efficiently process the various features related to taxi demand. Below is the architecture of the model, as defined in TensorFlow:
+#### Architecture Overview
+
+- **Input Layers**: The model starts with multiple input layers, each corresponding to a specific feature such as day cosine (`day_cos_xf`), day sine (`day_sin_xf`), hour cosine (`hour_cos_xf`), etc. These layers are dedicated to handling the diverse set of features that influence taxi demand, including temporal aspects (like time of day), weather conditions, and other relevant factors.
+
+- **Concatenate Layer**: Following the input layers, a concatenation layer (`concatenate_1`) merges the outputs of all input layers into a single unified layer. This approach allows the model to consider all input features simultaneously, enabling it to learn complex interdependencies among them.
+
+- **Dense and Dropout Layers**: After concatenation, the data flows through a series of densely connected (Dense) layers (`dense_4`, `dense_5`, `dense_6`, etc.), which are the core components where most of the model's learning occurs. These layers contain a large number of neurons that enable the model to learn non-linear relationships within the data. Interspersed with these dense layers are Dropout layers (`dropout_3`, `dropout_4`), which help prevent overfitting by randomly setting a fraction of the input units to 0 at each update during training. This regularization technique is crucial for generalizing the model well to new, unseen data.
+
+- **Output Layer**: The architecture culminates in a single neuron with a linear activation function (`dense_9`). This output layer is responsible for producing the final prediction, representing the estimated taxi demand.
+
+#### Significance of the Architecture
+
+- **Handling High-Dimensional Data**: The architecture's ability to process and learn from a high number of input features makes it particularly effective for the taxi demand prediction task, which inherently involves complex and multidimensional data.
+- **Modeling Non-linear Relationships**: The use of dense layers enables the model to capture the non-linear relationships often present in real-world data, particularly important in scenarios like taxi demand forecasting where multiple factors interact in complex ways.
+- **Balance Between Depth and Efficiency**: While the model is deep enough to learn detailed patterns and relationships in the data, it is also designed to be computationally efficient, ensuring manageable training times and resource usage.
 
 ```plaintext
 Model: "model_1"
