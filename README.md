@@ -184,7 +184,7 @@ except Exception as e:
 Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649
 
 #### Exploratory Data Analysis (EDA)
-
+####
 #####  Overview
 The Exploratory Data Analysis section provides insights into the dataset through various angles and techniques. Each subsection below corresponds to a key aspect of the EDA, complemented by visualizations that highlight our findings.
 
@@ -455,17 +455,35 @@ This analysis focuses on the skewness and kurtosis of various features in our da
 - **Insert Visualization Here**: Include tables or charts that display skewness and kurtosis values for each feature under different transformations.
 
 
-
-
-
-
-
-
-
-
-
-### Conclusion
+##### Conclusion
 Our EDA is a comprehensive process that lays the foundation for predictive modeling. It ensures our understanding of the data is robust and our subsequent models are informed by deep insights.
+
+#### 3.1.3.3 Feature Engineering
+
+##### Feature Engineering: Time-based and Cyclic Features
+
+we focus on enriching our dataset with time-based and cyclic features. This approach aims to capture the temporal patterns and cyclic nature of taxi demand more effectively.
+
+##### Extraction of Time-based Features
+- **Overview**: Key time-based features are extracted from the `trip_start_timestamp` field to understand the temporal dynamics of taxi usage.
+- **Extracted Features**: 
+  - **Year, Month, Day**: To identify long-term trends and seasonal variations.
+  - **Hour**: Crucial for understanding daily demand cycles.
+  - **Weekday**: Differentiates weekdays from weekends, reflecting varying demand patterns.
+  - **Trip Date**: Useful for pinpointing specific events or anomalies.
+
+##### Creation of Cyclic Features
+- **Rationale**: Time-based features like hour, day, and month inherently follow a cyclical pattern, which traditional numerical or categorical representations do not capture effectively.
+- **Transformation Technique**: 
+  - Sine and cosine transformations are applied to hour, weekday, and month features.
+  - **Hourly Cycles**: `hour_sin` and `hour_cos` capture the 24-hour daily cycle.
+  - **Weekly Cycles**: `day_sin` and `day_cos` encapsulate the weekly cycle.
+  - **Monthly Cycles**: `month_sin` and `month_cos` represent the annual monthly cycle.
+
+##### Significance in Modeling
+- These cyclic features are essential for models where time is a significant factor, such as in predicting taxi demand patterns.
+- By accurately representing the cyclic nature of time, we enhance the model's ability to interpret temporal data more realistically.
+
 
 ## Data Preprocessing Pipeline 
 
