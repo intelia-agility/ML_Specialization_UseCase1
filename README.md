@@ -101,7 +101,8 @@ The Exploratory Data Analysis section provides insights into the dataset through
 
 ### Univariate Analysis
 Here we look at each variable individually to understand its distribution, presence of outliers, and other statistical properties.
-![Univariate Analysis]("/assets/Univariate_Analysis_of_Continuous_and_Categorical_Features.png")
+
+
 
 
 
@@ -148,7 +149,7 @@ The TFX pipeline is intricately structured with multiple components, each contri
 
 - **ExampleGen**: Ingests data and splits it into distinct training and evaluation sets.
 - **StatisticsGen**: Generates essential statistics for initial data analysis and further validation.
-- **SchemaGen**: Infers a schema from the data statistics, offering insights into the dataset’s structure and format.
+- **SchemaGen**: Infers a schema from the data statistics, offering insights into the datasetÂ’s structure and format.
 - **ExampleValidator**: Detects anomalies and missing values, ensuring high data quality.
 - **Transform**: Conducts feature engineering, transforming raw data into a machine learning-compatible format.
 - **Trainer**: Develops and trains the machine learning model using various algorithms.
