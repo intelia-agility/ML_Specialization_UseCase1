@@ -958,7 +958,462 @@ Best MAE Achieved: 2.1684
 This advanced evaluation methodology, involving meticulous metric configuration and the strategic use of model resolvers, exemplifies our dedication to deploying a model that excels in both accuracy and continuous improvement, ensuring the highest standards of prediction quality in taxi trip demand forecasting.
 ## 3.1.4 Proof of Deployment
 
+#### End-to-End TFX Pipeline for Taxi Demand Prediction
 ![Pipeline Runtime Graph](assets/Run%20time%20graph.PNG)
+
+#### Workflow Execution Illustrated by DAG
+
+The DAG image visually represents the sequential execution and interdependencies of each pipeline component. This visual aid is crucial for understanding the flow and interaction of data and processes throughout the pipeline.
+#### Introduction
+
+In this project, we have developed a sophisticated end-to-end TensorFlow Extended (TFX) pipeline for Taxi Demand Prediction. This README outlines each component's role in the pipeline, illustrated by a DAG image that provides a comprehensive view of the workflow execution. Additionally, we have also developed an interactive pipeline to further enhance the development process and provide immediate insights at each stage.
+
+#### Interactive Pipeline Development
+
+In addition to the end-to-end TFX pipeline, we have developed an interactive pipeline that provides immediate output at each component stage. This interactive approach allows for more dynamic development and quicker iterations, making the process more efficient and user-friendly.
+
+#### Pipeline Overview
+
+The pipeline comprises several key components, each responsible for a specific function in the machine learning workflow:
+
+#### 1. CsvExampleGen
+- **Function**: Manages data ingestion, organizing it into distinct splits for training, evaluation, and testing.
+- **Immediate Output**: Automatically partitions the dataset into dedicated datasets for subsequent stages.
+
+#### 2. StatisticsGen
+- **Function**: Generates comprehensive statistics of the dataset to understand its distribution and characteristics.
+- **Immediate Output**: Provides descriptive statistics of the dataset, offering initial insights into data quality and features.
+
+#### 3. SchemaGen
+- **Function**: Infers a schema from the dataset based on generated statistics, outlining the structure, types, and properties of data fields.
+- **Immediate Output**: Produces a schema of the dataset, essential for data validation and understanding.
+
+#### 4. ExampleValidator
+- **Function**: Uses the schema to detect anomalies and inconsistencies within the dataset.
+- **Immediate Output**: Flags any data anomalies or inconsistencies, ensuring high data quality. E.g., outputting 'No anomalies found' across different data splits.
+
+#### 5. Transform
+- **Function**: Performs feature engineering on the dataset, enhancing the data's predictive power for the model.
+- **Immediate Output**: Outputs transformed datasets with newly engineered features, optimized for model performance.
+
+#### 6. Tuner
+- **Function**: Optimizes the model's hyperparameters to ensure peak performance.
+- **Immediate Output**: Delivers the best set of hyperparameters discovered for the model.
+
+#### 7. Trainer
+- **Function**: Trains machine learning models using the transformed data.
+- **Immediate Output**: Yields a trained model, ready for evaluation and potential deployment.
+
+#### 8. Evaluator
+- **Function**: Assesses the trained model against pre-defined metrics and validation criteria.
+- **Immediate Output**: Provides key evaluation metrics indicating the model's performance.
+
+#### 9. Resolver
+- **Function**: Manages various model versions, selecting the best one based on performance metrics.
+- **Immediate Output**: Selects the optimal model version for deployment.
+
+#### 10. Pusher
+- **Function**: Responsible for deploying the selected model version, making it ready for practical application.
+- **Immediate Output**: Ensures the model is deployed to a specified server or cloud environment, confirming successful deployment.
+
+#### Local Testing with DAG Runner
+
+As part of our development process, we executed our TFX pipeline locally using a DAG runner. This approach allowed us to iteratively test and refine our pipeline in a controlled environment.
+
+#### Executing Local TFX Pipeline
+
+Below is the Python script used for executing the pipeline locally:
+
+```python
+import tfx
+from tfx import v1 as tfx
+import kfp
+from tfx.orchestration.metadata import sqlite_metadata_connection_config
+
+tfx.orchestration.LocalDagRunner().run(
+    _create_pipeline(
+        pipeline_name=PIPELINE_NAME,
+        pipeline_root=PIPELINE_ROOT,
+        data_root=DATA_DIRECTORY,
+        module_file=_taxi_trainer_module_file,
+        serving_model_dir=SERVING_MODEL_DIR
+    )
+)
+```
+# Output from the pipeline execution
+# -----------------------------------
+# Trial 10 Complete [00h 00m 12s]
+# val_mean_absolute_error: 0.7877678871154785
+
+# Best val_mean_absolute_error So Far: 0.7770861387252808
+# Total elapsed time: 00h 02m 08s
+
+# Model Summary
+# -------------
+# Model: "model_1"
+# _________________________________________________________________
+# Layer (type)                       Output Shape            Param #   
+# =================================================================
+# (Model layers and their connections)
+# _________________________________________________________________
+# Total params: 206,913
+# Trainable params: 206,913
+# Non-trainable params: 0
+# _________________________________________________________________
+# 100/100 [==============================] - ETA: 0s - loss: 87.7152 - mean_absolute_error: 4.3698 - root_mean_squared_error: 9.3574
+# Epoch 1: val_mean_absolute_error improved from inf to 0.77404, saving model to gs://chicago_taxitrips/pipeline_root/c-prediction/Trainer/model_run/37/model/best_model
+# 100/100 [==============================] - 9s 71ms/step - loss: 87.7152 - mean_absolute_error: 4.3698 - root_mean_squared_error: 9.3574 - val_loss: 1.5186 - val_mean_absolute_error: 0.7740 - val_root_mean_squared_error: 1.1683
+# Exporting the serving model to gs://chicago_taxitrips/pipeline_root/c-prediction/Trainer/model/37/Format-Serving
+# Model exported successfully.
+#### Conclusion of Local Testing
+
+The local testing phase, conducted using the DAG runner, has been an essential step in our development process. It allowed us to thoroughly validate each component of our TFX pipeline in a controlled and iterative manner. This approach ensured that any issues could be promptly identified and rectified, thereby enhancing the robustness and reliability of our pipeline.
+
+Through this rigorous testing, we have gained valuable insights into the performance and efficacy of our model. The immediate feedback and detailed outputs obtained from the local execution have not only affirmed the pipeline's functionality but also provided a foundation for further optimizations. 
+
+As we progress from this successful local testing phase to deploying our pipeline in a production environment on Vertex AI, we are confident in the stability and readiness of our solution for real-world applications. The transition from a local DAG runner to a vertex AI environment signifies a pivotal step towards delivering a scalable and impactful machine learning model for Taxi Demand Prediction.
+
+#### Deployment on Vertex AI
+
+Our TFX pipeline, initially tested locally, has been adapted for deployment on Vertex AI. While the components remain consistent with our interactive pipeline, the setup for Vertex AI necessitates specific configurations and the use of additional features offered by Vertex AI.
+
+#### Pipeline Adaptation for Vertex AI
+
+In the adaptation process for Vertex AI, we retain the same components as in our interactive pipeline. However, we incorporate configurations specific to Vertex AI environments, such as specifying the Vertex AI runner, setting up the necessary GCP project details, and configuring the pipeline's data paths and storage locations.
+
+#### Trainer Component for Vertex AI
+
+The trainer component is adapted for Vertex AI with specific hyperparameter tuning and model training strategies. We use TensorFlow, Keras, and additional TensorFlow Transform for feature engineering.
+
+```python
+# Trainer component setup with Keras and TensorFlow Transform
+_taxi_trainer_module_file = 'taxi_trainer.py'
+# Trainer code includes model definition, training configuration, and 
+# hyperparameter tuning setup.
+
+# Example snippet of the trainer module:
+%%writefile {_taxi_trainer_module_file}
+
+from typing import NamedTuple, Dict, List, Text, Any
+import tensorflow as tf
+import tensorflow_transform as tft
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
+from tfx import v1 as tfx
+from keras_tuner.engine import base_tuner
+from keras_tuner import HyperParameters, RandomSearch
+from tfx_bsl.public import tfxio
+from tfx.components.trainer.fn_args_utils import FnArgs
+import os
+import taxi_constants
+
+_LABEL_KEY = taxi_constants.LABEL_KEY
+
+
+_BATCH_SIZE = 64
+
+TunerFnResult = NamedTuple('TunerFnResult', [('tuner', RandomSearch), ('fit_kwargs', Dict[Text, Any])])  # Changed to Randomsearch
+
+
+early_stopping = EarlyStopping(
+    monitor='val_mean_absolute_error',
+    patience=10,
+    restore_best_weights=True
+)
+
+def _input_fn(file_pattern: List[Text],
+              data_accessor: tfx.components.DataAccessor,
+              tf_transform_output: tft.TFTransformOutput,
+              batch_size: int = _BATCH_SIZE) -> tf.data.Dataset:
+    return data_accessor.tf_dataset_factory(
+        file_pattern,
+        tfxio.TensorFlowDatasetOptions(batch_size=batch_size, label_key=_LABEL_KEY),
+        tf_transform_output.transformed_metadata.schema).repeat()
+
+
+def _build_keras_model(hp, tf_transform_output: tft.TFTransformOutput) -> tf.keras.Model:
+    # Define feature specs and create input layers
+    feature_spec = tf_transform_output.transformed_feature_spec().copy()
+    # Remove the label feature
+    feature_spec.pop(_LABEL_KEY)
+    inputs = {
+        key: tf.keras.layers.Input(shape=(1,), name=key)
+        for key in feature_spec.keys()
+    }
+
+    # Concatenate all input features
+    concatenated_inputs = tf.keras.layers.Concatenate()(list(inputs.values()))
+
+    num_layers = hp.Int('num_layers', 1, 5)
+    activation_choice = hp.Choice('activation', ['relu', 'leaky_relu', 'elu', 'tanh', 'sigmoid'])
+
+    for i in range(num_layers):
+        units = hp.Int(f'units_{i}', min_value=32, max_value=512, step=32)
+        concatenated_inputs = tf.keras.layers.Dense(
+            units=units,
+            activation=activation_choice,
+            kernel_regularizer=tf.keras.regularizers.l2(hp.Float('l2_{i}', 1e-5, 1e-2, sampling='log'))
+        )(concatenated_inputs)
+        if hp.Boolean(f'dropout_{i}'):
+            dropout_rate = hp.Float(f'dropout_rate_{i}', 0.1, 0.5)
+            concatenated_inputs = tf.keras.layers.Dropout(dropout_rate)(concatenated_inputs)
+
+    # Output layer for regression
+    output = tf.keras.layers.Dense(1, activation='linear')(concatenated_inputs)
+
+    # Create and compile the Keras model
+    model = tf.keras.Model(inputs=inputs, outputs=output)
+    learning_rate = hp.Float('learning_rate', min_value=1e-4, max_value=1e-2, sampling='log')
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(learning_rate),
+        loss='mean_squared_error',
+        metrics=[
+            tf.keras.metrics.MeanAbsoluteError(),
+            tf.keras.metrics.RootMeanSquaredError()
+        ]
+    )
+    model.summary()
+    return model
+
+def tuner_fn(fn_args: FnArgs) -> TunerFnResult:
+    tf_transform_output = tft.TFTransformOutput(fn_args.transform_graph_path)
+    tuner = RandomSearch(
+        hypermodel=lambda hp: _build_keras_model(hp, tf_transform_output),
+        objective='val_mean_absolute_error',
+        max_trials=25,
+        executions_per_trial=1,
+        directory=fn_args.working_dir,
+        project_name='taxi_trips_tuning_RandomSearch'
+    )
+
+    train_dataset = _input_fn(fn_args.train_files, fn_args.data_accessor, tf_transform_output, _BATCH_SIZE)
+    eval_dataset = _input_fn(fn_args.eval_files, fn_args.data_accessor, tf_transform_output, _BATCH_SIZE)
+
+    return TunerFnResult(
+        tuner=tuner,
+        fit_kwargs={
+            'x': train_dataset,
+            'validation_data': eval_dataset,
+            'steps_per_epoch': 1500,  
+            'validation_steps': 969,  
+            'callbacks': [early_stopping]
+        }
+    )
+
+
+def _get_tf_examples_serving_signature(model, tf_transform_output):
+    model.tft_layer_inference = tf_transform_output.transform_features_layer()
+
+    @tf.function(input_signature=[
+        tf.TensorSpec(shape=[None], dtype=tf.string, name='examples')
+    ])
+    def serve_tf_examples_fn(serialized_tf_example):
+        # Get the raw feature spec
+        raw_feature_spec = tf_transform_output.raw_feature_spec()
+
+        # Parse the raw features from the serialized example
+        raw_features = tf.io.parse_example(serialized_tf_example, raw_feature_spec)
+
+        # Exclude the 'demand' feature if it's present
+        if 'demand' in raw_features:
+            raw_features.pop('demand')
+
+        # Apply the transformation to get the features for model prediction
+        transformed_features = model.tft_layer_inference(raw_features)
+
+        # Filter out any keys not used by the model
+        model_input_keys = [layer.name for layer in model.layers if isinstance(layer, tf.keras.layers.InputLayer)]
+        filtered_features = {key: value for key, value in transformed_features.items() if key in model_input_keys}
+
+        # Make predictions with only the required inputs
+        outputs = model(filtered_features)
+        return {'outputs': outputs}
+
+    return serve_tf_examples_fn
+
+
+def _get_transform_features_signature(model, tf_transform_output):
+    model.tft_layer_eval = tf_transform_output.transform_features_layer()
+
+    @tf.function(input_signature=[
+        tf.TensorSpec(shape=[None], dtype=tf.string, name='examples')
+    ])
+    def transform_features_fn(serialized_tf_example):
+        raw_feature_spec = tf_transform_output.raw_feature_spec()
+        raw_features = tf.io.parse_example(serialized_tf_example, raw_feature_spec)
+        transformed_features = model.tft_layer_eval(raw_features)
+        return transformed_features
+
+    return transform_features_fn
+
+def export_serving_model(tf_transform_output, model, output_dir):
+    print(f"Exporting the serving model to {output_dir}")
+    model.tft_layer = tf_transform_output.transform_features_layer()
+    signatures = {
+        'serving_default': _get_tf_examples_serving_signature(model, tf_transform_output),
+        'transform_features': _get_transform_features_signature(model, tf_transform_output),
+    }
+    model.save(output_dir, save_format='tf', signatures=signatures)
+    print("Model exported successfully.")
+
+    
+def run_fn(fn_args: FnArgs):
+    print(f"Model run directory: {fn_args.model_run_dir}")
+    
+    model_dir = os.path.join(fn_args.model_run_dir, 'model')
+
+    early_stopping_callback = tf.keras.callbacks.EarlyStopping(
+        monitor='val_mean_absolute_error', 
+        mode='min', 
+        patience=3,
+        restore_best_weights=True
+    )
+
+    
+    model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
+        filepath=os.path.join(model_dir, 'best_model'),
+        monitor='val_mean_absolute_error', 
+        mode='min', 
+        save_best_only=True,
+        verbose=1
+    )
+
+ 
+    tf_transform_output = tft.TFTransformOutput(fn_args.transform_graph_path)
+
+    # Set up the tuner for hyperparameter tuning
+    tuner_fn_result = tuner_fn(fn_args)
+    tuner = tuner_fn_result.tuner
+
+    # Create datasets for training and evaluation
+    train_dataset = _input_fn(
+        fn_args.train_files, 
+        fn_args.data_accessor, 
+        tf_transform_output, 
+        _BATCH_SIZE
+    )
+    eval_dataset = _input_fn(
+        fn_args.eval_files, 
+        fn_args.data_accessor, 
+        tf_transform_output, 
+        _BATCH_SIZE
+    )
+
+    # Perform hyperparameter search using the tuner
+    tuner.search(**tuner_fn_result.fit_kwargs)
+
+    # Retrieve the best hyperparameters
+    best_hps = tuner.get_best_hyperparameters(num_trials=1)[0]
+
+    # Build the best Keras model based on the best hyperparameters
+    model = _build_keras_model(best_hps, tf_transform_output)
+
+    # Determine the number of steps per epoch
+    total_train_examples = fn_args.train_steps * _BATCH_SIZE
+    steps_per_epoch = total_train_examples // _BATCH_SIZE
+
+    # Fit the model with the callbacks
+    model.fit(
+        train_dataset,
+        steps_per_epoch=steps_per_epoch,
+        validation_data=eval_dataset,
+        validation_steps=fn_args.eval_steps,
+        epochs=fn_args.train_steps // steps_per_epoch,
+        callbacks=[
+            # tensorboard_callback,
+            early_stopping_callback,
+            model_checkpoint_callback
+        ]
+    )
+  
+    signatures = {
+      'serving_default': _get_tf_examples_serving_signature(model, tf_transform_output),
+    }
+    
+
+    # At the end of the run_fn function
+    export_serving_model(tf_transform_output, model, fn_args.serving_model_dir)
+```
+#### Pipeline Definition for Vertex AI
+The pipeline definition for Vertex AI involves creating a pipeline object that integrates all the TFX components, configured to run in the Vertex AI environment.
+# Example snippet of the trainer module:
+```python
+def _create_pipeline(pipeline_name: str, pipeline_root: str, data_root: str,
+                     module_file: str, serving_model_dir: str) -> tfx.dsl.Pipeline:
+    # Component setup (CsvExampleGen, StatisticsGen, etc.)
+    ...
+    # Integration of components into the pipeline
+    components = [example_gen, statistics_gen, ..., trainer, pusher]
+
+    return tfx.dsl.Pipeline(
+        pipeline_name=pipeline_name,
+        pipeline_root=pipeline_root,
+        components=components
+    )
+```
+#### Vertex AI Pipeline Execution
+
+After configuring the TFX components and adapting the trainer for Vertex AI, the next step involves setting up the `KubeflowV2DagRunner`. This runner is utilized for executing the pipeline in the Vertex AI environment.
+
+#### Setting Up KubeflowV2DagRunner
+
+To deploy our pipeline on Vertex AI, we use the `KubeflowV2DagRunner`. This runner facilitates the translation of our TFX pipeline into a format compatible with Vertex AI Pipelines. 
+
+```python
+
+# Configure the KubeflowV2DagRunner
+runner = KubeflowV2DagRunner(
+    config=KubeflowV2DagRunnerConfig(),
+    output_filename=PIPELINE_DEFINITION_FILE
+)
+
+# Run the pipeline using the runner
+_ = runner.run(
+    _create_pipeline(
+        pipeline_name=PIPELINE_NAME,
+        pipeline_root=PIPELINE_ROOT,
+        data_root=DATA_DIRECTORY,
+        module_file=_taxi_trainer_module_file,
+        endpoint_name=ENDPOINT_NAME,
+        project_id=GOOGLE_CLOUD_PROJECT,
+        region=GOOGLE_CLOUD_REGION,
+        serving_model_dir=SERVING_MODEL_DIR
+    )
+)
+```
+#### Submitting the Pipeline to Vertex AI
+With the pipeline compiled by the KubeflowV2DagRunner, the next step is to submit this pipeline to Vertex AI for execution. This process is handled through the Vertex AI SDK.
+
+```python
+from google.cloud import aiplatform
+from google.cloud.aiplatform import pipeline_jobs
+
+# Initialize the AI Platform
+aiplatform.init(project=GOOGLE_CLOUD_PROJECT, location=GOOGLE_CLOUD_REGION)
+
+# Create and submit a pipeline job
+job = pipeline_jobs.PipelineJob(
+    template_path=PIPELINE_DEFINITION_FILE,
+    display_name=PIPELINE_NAME
+)
+job.submit()
+```
+#### Pipeline Job Submission Output
+```plaintext
+Creating PipelineJob
+INFO:google.cloud.aiplatform.pipeline_jobs:Creating PipelineJob
+PipelineJob created. Resource name: projects/75674212269/locations/us-central1/pipelineJobs/taxi-demand-prediction-management-20231213030329
+INFO:google.cloud.aiplatform.pipeline_jobs:PipelineJob created. Resource name: projects/75674212269/locations/us-central1/pipelineJobs/taxi-demand-prediction-management-20231213030329
+To use this PipelineJob in another session:
+INFO:google.cloud.aiplatform.pipeline_jobs:To use this PipelineJob in another session:
+pipeline_job = aiplatform.PipelineJob.get('projects/75674212269/locations/us-central1/pipelineJobs/taxi-demand-prediction-management-20231213030329')
+INFO:google.cloud.aiplatform.pipeline_jobs:pipeline_job = aiplatform.PipelineJob.get('projects/75674212269/locations/us-central1/pipelineJobs/taxi-demand-prediction-management-20231213030329')
+View Pipeline Job:
+https://console.cloud.google.com/vertex-ai/locations/us-central1/pipelines/runs/taxi-demand-prediction-management-20231213030329?project=75674212269
+INFO:google.cloud.aiplatform.pipeline_jobs:View Pipeline Job:
+https://console.cloud.google.com/vertex-ai/locations/us-central1/pipelines/runs/taxi-demand-prediction-management-20231213030329?project=75674212269
+```
+This submission triggers the execution of our pipeline in the cloud, leveraging the powerful resources and managed services provided by Vertex AI. It marks a critical step in deploying our Taxi Demand Prediction model in a scalable and robust cloud environment.
+
 
 
 
