@@ -950,6 +950,7 @@ Best MAE Achieved: 2.1684
 This advanced evaluation methodology, involving meticulous metric configuration and the strategic use of model resolvers, exemplifies our dedication to deploying a model that excels in both accuracy and continuous improvement, ensuring the highest standards of prediction quality in taxi trip demand forecasting.
 ## 3.1.4 Proof of Deployment
 
-![Pipeline Runtime Graph](assets/Run time graph.PNG)
+![Pipeline Runtime Graph](assets/Run%20time%20graph.PNG)
+
 
 
