@@ -19,6 +19,9 @@
   - [3.1.4.1 Model/Application on Google Cloud](#3141-modelapplication-on-google-cloud)
   - [3.1.4.2 Callable Library/Application](#3142-callable-libraryapplication)
   - [3.1.4.3 Editable Model/Application](#3143-editable-modelapplication)
+- [Conclusion](Conclusion)
+
+- [Resources](Resources)
 
 
 ## 3.1.1 Code
@@ -1434,3 +1437,92 @@ model: "projects/75674212269/locations/us-central1/models/5538528141154189312"
 model_display_name: "DNN-Demand"
 model_version_id: "1"
 ```
+### 3.2.4.3 Editable Model/Application
+
+#### Overview
+
+In our Taxi Demand Prediction project, we have developed an editable and customizable version of our Deep Neural Network (DNN) model, "DNN-Customizable." This version demonstrates our commitment to flexibility and adaptability in our machine learning solutions.
+
+#### Training Differences
+
+#### Initial DNN Model
+- **Features Used**: The initial version of our DNN model was trained using both transformed and raw features, leveraging a comprehensive dataset to predict taxi demand.
+- **Tuning Method**: Utilized a standard approach for hyperparameter tuning, ensuring optimal model performance based on the given data.
+
+#### DNN-Customizable Model
+- **Features Used**: In contrast, the "DNN-Customizable" model was trained exclusively with transformed features. This approach focuses on the most impactful data representations, allowing for more streamlined and efficient predictions.
+- **Tuning Method Changes**: The hyperparameter tuning for the customizable model was adjusted to include a higher maximum number of trials. This change was implemented to explore a broader range of hyperparameter configurations, enhancing the model's ability to adapt to varying data patterns and complexities.
+
+#### Customizability and Adaptation
+
+The "DNN-Customizable" model represents a significant step towards creating machine learning solutions that can be easily adapted and refined. By training the model with different sets of features and employing a more extensive hyperparameter search, we've built a system that can adjust more readily to new data, evolving requirements, and specific prediction scenarios.
+
+This level of customizability ensures that our model remains relevant and effective, even as the underlying data or business objectives change. It underscores our project's focus on creating not just powerful predictive tools, but also versatile and dynamic solutions that can grow and evolve in line with real-world demands.
+
+The development of the "DNN-Customizable" model is a testament to our project's innovative approach to machine learning. It showcases our ability to not only create robust predictive models but also to engineer solutions that are flexible and adaptable, catering to the ever-changing landscape of data-driven decision making.
+
+### Conclusion: Realizing Our Vision in Taxi Demand Management
+Our project in Taxi Demand Prediction and Management transcends the realms of advanced analytics and machine learning to align with a specific, mission-driven business goal. This endeavor is a fusion of data science with practical application, all geared towards transforming taxi services in urban landscapes.
+#### Impact on Taxi Services
+- **Insightful Data Analysis**: Our detailed EDA, emphasizing hourly data granularity, has revealed critical insights into the dynamics of taxi demand, significantly influencing time, date, and geographic factors.
+- **Enhanced Operational Efficiency**: Our project's core aligns with the operational goal of optimizing taxi distribution efficiency. Accurate demand predictions allow for better resource allocation, ensuring high availability during peak demand periods.
+
+#### Achieving the Business Goal
+- **Streamlined Taxi Distribution**: Our project's focus has always been to improve taxi distribution efficiency across the city, aiming to reduce customer wait times through precise demand predictions.
+- **Reduced Customer Wait Times**: Our predictive models lay the groundwork for more responsive taxi services, enabling taxi companies to proactively meet demand fluctuations and improve service quality.
+
+#### Use Case Realization
+- **Practical Application of Predictions**: Our models realize the goal of predicting taxi demand based on key variables, thus empowering taxi companies to optimize their fleet distribution effectively.
+- **Contribution to Urban Mobility**: Beyond improving taxi services, our project plays a role in enhancing the broader urban transportation ecosystem, contributing to the revolution of urban mobility.
+
+#### Future Directions
+- **Continuous Improvement**: We anticipate refining and adapting our models with new data, ensuring they remain cutting-edge in predictive accuracy.
+- **Expanding Applications**: The methodologies and technologies used in this project have the potential to be adapted for various industries, showcasing the versatility and broad applicability of our approach.
+- **Enhancing User Accessibility**: Future efforts will focus on developing more user-friendly interfaces and integration points, making our models more accessible to a wider audience.
+
+#### Final Reflections
+- **Innovation at the Core**: This project highlights the importance of innovation in addressing complex urban challenges like taxi demand.
+- **Empowering Decision-makers**: By providing actionable insights, we demonstrate how AI can be a powerful tool for informed decision-making in urban planning and transportation management.
+- **Foundation for Future Exploration**: We've set a robust foundation for future advancements in AI and machine learning, particularly for real-world problem-solving.
+
+In conclusion, the Taxi Demand Prediction and Management project marks a significant stride in our endeavor to merge technological innovation with practical utility. Our focused approach, grounded in real-world challenges and aimed at achieving tangible improvements, showcases how data science can be a driving force in reshaping industries and enhancing everyday experiences.
+
+### Resources
+
+#### Evalution critera
+
+| Item | Requirement | Description |
+| --- | --- | --- |
+| **3.1.1 Code** | | |
+| 3.1.1.1 Code repository | Partners must provide a link to the code repository. | The repository must contain a ReadMe file with code descriptions and detailed instructions for running the model/application. |
+| 3.1.1.2 Code origin certification | Partners must certify the origin of the code. | Evidence must include a certification by the partner organization for the code origin scenarios. |
+| **3.1.2 Data** | | |
+| 3.1.2.1 Dataset in Google Cloud | Partners must provide documentation of data location. | Evidence must include the project name and project ID for the Google Cloud Storage bucket or BigQuery dataset. |
+| **3.1.3 Whitepaper / Blog** | | |
+| 3.1.3.1 Business goal and machine learning solution | Partners must describe the business goal and machine learning use case. | Evidence must include a top-line description of the business goal and the proposed machine learning solution. |
+| 3.1.3.2 Data exploration | Partners must describe the data exploration performed. | Evidence must include a description of the tools used and types of data exploration performed, along with code snippets. |
+| 3.1.3.3 Feature engineering | Partners must describe the feature engineering performed. | Evidence must include a description of the feature engineering and feature selection steps, with code snippets. |
+| 3.1.3.4 Preprocessing and the data pipeline | Partners must describe the data preprocessing pipeline. | Evidence must include a description of how data preprocessing is accomplished using callable APIs. |
+| 3.1.3.5 Machine learning model design(s) and selection | Partners must describe the machine learning model selection. | Evidence must describe the selection criteria and the specific machine learning model algorithms with code snippets. |
+| 3.1.3.6 Machine learning model training and development | Partners must document the use of Vertex AI or Kubeflow for training. | Evidence must describe the machine learning model training and development points with code snippets. |
+| 3.1.3.7 Machine learning model evaluation | Partners must describe the model evaluation. | Evidence must include records/data of the model performance on an independent test dataset. |
+| **3.1.4 Proof of Deployment** | | |
+| 3.1.4.1 Model/application on Google Cloud | Partners must provide proof of model/application deployment. | Evidence must include the Project Name and Project ID of the deployed model and client. |
+| 3.1.4.2 Callable library/application | Partners must demonstrate the model as a callable library/application. | Evidence must include a demonstration of the served model making a prediction via an API call. |
+| 3.1.4.3 Editable model/application | Partners must demonstrate that the deployed model is customizable. | Evidence must include a demonstration of the model fully functional after code modification. |
+
+#### References
+
+1. Zhao, Q., Yang, G., Zhao, K., Yin, J., Rao, W., Chen, L. (2023). Multivariate Time-Series Forecasting Model: Predictability Analysis and Empirical Study. IEEE Transactions on Big Data, 9(6), 1536-1548.
+
+2. Bagal, N. M., Gabhane, M. D., Mahamuni, C. V. (2023). Rideshare Transportation Fare Prediction using Deep Neural Networks. 2023 International Conference on Disruptive Technologies (ICDT), 643-649.
+
+3. Wu, Z., Zheng, L., Zhang, C. J., Zhu, H., Yin, J., Jiang, D. (2023). Opponent-aware Order Pricing towards Hub-oriented Mobility Services. 2023 IEEE 39th International Conference on Data Engineering (ICDE), 1874-1886.
+
+4. Gao, P., Yang, X., Zhang, R., Huang, K., Goulermas, J. Y. (2023). Explainable Tensorized Neural Ordinary Differential Equations for Arbitrary-Step Time Series Prediction. IEEE Transactions on Knowledge and Data Engineering, 35(6), 5837-5850.
+
+5. Zhang, C., Zhao, K., Chen, M. (2023). Beyond the Limits of Predictability in Human Mobility Prediction: Context-Transition Predictability. IEEE Transactions on Knowledge and Data Engineering, 35(5), 4514-4526.
+
+6. Venkata Ramana, A. Dr., Batool, A., Ramavath, M., & Viveka, P. (2022). Taxi Demand Prediction using ML. International Journal of Research in Applied Science and Engineering Technology (IJRASET). [https://doi.org/10.22214/ijraset.2022.43912](https://doi.org/10.22214/ijraset.2022.43912)
+
+7. Gong, L., Liu, X., Wu, L., & Liu, Y. (2015). Inferring trip purposes and uncovering travel patterns from taxi trajectory data. Cartography and Geographic Information Science, 103-114. [https://doi.org/10.1080/15230406.2015.1014424](https://doi.org/10.1080/15230406.2015.1014424)
