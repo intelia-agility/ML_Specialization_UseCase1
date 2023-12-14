@@ -349,15 +349,13 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 In this section, we explore the intricate associations and dependencies among the numerical features within our dataset through correlation analysis. This approach is pivotal in unraveling the subtle and complex factors that influence taxi demand and the characteristics of taxi trips.
 
 - **Correlation Heatmap**: The heatmap visualizes the correlation coefficients between different numerical features, such as trip miles, trip seconds, trip total, and various weather-related variables like temperature, humidity, and precipitation.
+![Correlation Analysis of Numerical Features](assets/Correlation%20Analysis%20of%20Numerical%20Features.png)
+
 - **Findings**:
   - A positive correlation is observed between trip miles and trip seconds, indicating that trips covering more miles typically have longer durations.
   - Trip total shows a positive correlation with both trip miles and trip seconds, suggesting that longer trips, both in distance and duration, generally lead to higher fares.
   - Weather-related variables display very weak correlations with trip details, suggesting minimal direct linear relationships between these weather factors and the specific attributes of taxi trips.
 - **Implications**: This analysis is crucial for understanding how different aspects of taxi trips are interconnected. It provides insights crucial for refining fare structuring, service management, and operational strategies in the taxi service industry.
-
-##### Visualization Placeholder
-
-- **Insert Correlation Heatmap Here**: Visualization showing the correlation matrix among various numerical features.
 
 #### Outlier Analysis
 
@@ -366,12 +364,14 @@ The Outlier Analysis section is dedicated to identifying and understanding anoma
 ##### Outlier Analysis of Numerical Features
 
 - **Box Plots**: Visualization of outliers in various numerical features using box plots.
+![Outlier Analysis of Numerical Features](assets/Outlier%20Analysis%20of%20Numerical%20Features.png)
+
 - **Findings**:
   - Trip_seconds and trip_total exhibit significant outliers, indicating the presence of unusually long or expensive trips.
   - Trip_miles also shows outliers, but they are not as pronounced.
   - Temperature_2m shows a relatively normal distribution with minimal outliers.
   - Relativehumidity_2m mostly falls within the 60-90% range, indicating a good spread with no significant anomalies.
-- **Visualization Placeholder**: (Insert box plots for each numerical feature)
+
 
 ##### Percentile Analysis of Continuous Variables
 
@@ -385,10 +385,12 @@ The Outlier Analysis section is dedicated to identifying and understanding anoma
 ##### Scatter Plot Analysis of Taxi Pickup Locations
 
 - **Visualization**: A scatter plot representing the geographical distribution of taxi pickups.
+![Scatter Plot Analysis of Taxi Pickup Locations](assets/Scatter%20Plot%20Analysis%20of%20Taxi%20Pickup%20Locations.png)
+
 - **Observations**:
   - Dense clusters indicate popular areas or hotspots for taxi pickups.
   - Areas with fewer points suggest less frequent taxi activity, possibly in residential zones or less commercially active areas.
-- **Visualization Placeholder**: (Insert scatter plot for pickup latitudes and longitudes)
+
 
 ##### Data Cleaning and Outlier Treatment Process
 
@@ -420,12 +422,14 @@ In our analysis, we delve into the transformation of key numerical features with
   - We focus on two primary transformation techniques: logarithmic and square root transformations. These are applied to features including trip_total, trip_miles, trip_seconds, temperature_2m, relativehumidity_2m, and precipitation.
   - Log Transformation: This is particularly useful for data with long tails or high variability. By transforming data using the logarithmic scale, we aim to reduce right-skewness.
   - Square Root Transformation: This is a milder transformation compared to the logarithmic one and is used to reduce the effect of extreme values.
+ 
+  ![Visualization of Feature Transformations](assets/Visualization%20of%20Feature%20Transformations.png)
 
 - **Visualization and Comparative Analysis**:
   - The impact of these transformations is visualized through histograms and density plots. Each feature's original distribution is compared with its log-transformed and square root-transformed distributions.
   - These visualizations allow us to assess the effectiveness of each transformation in normalizing the data and to choose the most appropriate method for our analysis.
 
-- **Visualization Placeholder**: (Insert histograms and density plots for original, log-transformed, and square root-transformed distributions of features)
+
 
 ##### Observations from Feature Transformation Analysis
 
