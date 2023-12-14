@@ -484,16 +484,15 @@ we focus on enriching our dataset with time-based and cyclic features. This appr
 - These cyclic features are essential for models where time is a significant factor, such as in predicting taxi demand patterns.
 - By accurately representing the cyclic nature of time, we enhance the model's ability to interpret temporal data more realistically.
 
-
-## Data Preprocessing Pipeline 
-
-### Introduction
+### 3.1.3.4 Preprocessing and the Data Pipeline
+##### Data Preprocessing Pipeline Using BigQuery
+##### Introduction
 Building on our Exploratory Data Analysis, we've developed a comprehensive Data Preprocessing Pipeline. This pipeline transforms raw taxi trip data into a structured and insightful format, focusing on data cleaning, feature extraction, and data segmentation, ensuring our data is clean, reliable, and enriched with meaningful attributes for accurate demand forecasting.
 
-### Strategic Importance
+##### Strategic Importance
 Our pipeline streamlines and optimizes the taxi demand prediction process, unlocking deeper insights and enabling precise demand predictions. This directly contributes to enhanced fleet management and customer satisfaction.
 
-### Technical Approach
+##### Technical Approach
 Our approach encompasses data integration, granularity control, feature engineering, and encapsulation in a callable API. Key steps include:
 
 1. **Data Integration**: Joining taxi trip data with hourly weather data using SQL queries in BigQuery, crucial for understanding the impact of weather on taxi demand.
@@ -501,64 +500,397 @@ Our approach encompasses data integration, granularity control, feature engineer
 3. **Feature Engineering**: Using advanced SQL for feature extraction, including time-based features and trigonometric transformations for capturing cyclical patterns in demand.
 4. **Callable API**: Encapsulating the entire pipeline within a callable API, ensuring seamless integration and dynamic data feeding into the production model.
 
-### Data Preprocessing Steps
-The pipeline includes:
+##### Data Preprocessing Steps
+The detailed steps of our data preprocessing pipeline are as follows:
 
-- **Data Joining and Cleaning**: SQL queries to integrate and clean the data.
-- **Capping Outliers**: Applying techniques to mitigate outliers in trip duration, distance, and cost.
-- **Feature Extraction and Sorting**: Extracting informative attributes and organizing data systematically.
-- **Data Aggregation**: Grouping data to analyze trends at the community area level.
-- **Data Segmentation for Model Training**: Creating training, validation, and test sets based on different years.
-- **Data Export**: Exporting datasets to CSV files for modeling.
+- **Joining and Cleaning**: Leveraging SQL in BigQuery to integrate taxi trip and weather data, followed by rigorous cleaning to ensure data quality.
+- **Outlier Capping**: Utilizing statistical methods to cap outliers and standardize trip duration, distance, and cost data.
+- **Feature Extraction**: Extracting critical features and sorting data to lay the groundwork for effective aggregation and analysis.
+- **Data Aggregation**: Aggregating data at the community area level to discern local demand trends.
+- **Model Training Segmentation**: Segmenting data into distinct sets for training, validation, and testing to prevent data leakage and model overfitting.
+- **Exporting for Modeling**: Exporting preprocessed data as CSV files, ready for use in predictive modeling.
 
 **Callable API**:
 ```sql
 CALL `mlops-363723.ChicagoTaxitrips.data_preprocessing_pipeline_chicago_taxi_trips`();
 ```
-# TFX Taxi Demand Interactive Pipeline
+### 3.1.3.5 Machine Learning Model Design(s) and Selection
+#### Model Overview
+The demand for taxi trips within an urban landscape like Chicago presents a multifaceted problem, where the prediction accuracy hinges on the model's capability to understand and interpret a web of spatial-temporal factors. The chosen model for this task is a Deep Neural Network (DNN), also known as a Multilayer Perceptron (MLP). This model stands out due to its powerful ability to recognize and make sense of the complex patterns that emerge from the interplay of various factors such as location, time, weather conditions, and more.
 
-## Introduction
-Our project leverages TensorFlow Extended (TFX) to build an interactive pipeline, expertly tailored for the end-to-end process of taxi demand prediction. This pipeline forms an integral component of our workflow, efficiently automating data ingestion, processing, model training, evaluation, and deployment.
+At its core, the DNN is a composition of layers with numerous neurons that work in unison to process input data, learn from it, and make predictive outputs. The strength of a DNN lies in its depth and breadth, which are manifested in the multiple hidden layers and the vast number of neurons that allow the network to perform intricate computations. These capabilities make DNNs particularly suited for tackling the dynamic and non-linear nature of taxi trip demand forecasting.
 
-## Pipeline Overview
-The TFX pipeline is intricately structured with multiple components, each contributing significantly to different stages of the machine learning lifecycle:
+In the following sections, we will delve into the specifics of why a DNN was the ideal choice for this scenario, focusing on its handling of temporal and spatial features, flexibility, scalability, and more. Through careful feature engineering and model optimization, the DNN is expected to provide valuable insights and accurate predictions that can significantly aid in demand forecasting for taxi trips.
+#### Model Selection Criteria for Taxi Demand Prediction
 
-- **ExampleGen**: Ingests data and splits it into distinct training and evaluation sets.
-- **StatisticsGen**: Generates essential statistics for initial data analysis and further validation.
-- **SchemaGen**: Infers a schema from the data statistics, offering insights into the datasets structure and format.
-- **ExampleValidator**: Detects anomalies and missing values, ensuring high data quality.
-- **Transform**: Conducts feature engineering, transforming raw data into a machine learning-compatible format.
-- **Trainer**: Develops and trains the machine learning model using various algorithms.
-- **Evaluator**: Assesses the models performance against established baselines.
-- **Pusher**: Deploys the trained model to a serving infrastructure for real-world applications.
+For our taxi demand prediction task in Demo #1, we have selected a deep learning model implemented using TensorFlow and Keras. This model stands out due to its ability to handle the intricacies of spatiotemporal data which is characteristic of taxi trip patterns.
 
-## Need for an Interactive Pipeline
-Utilizing an interactive pipeline prior to large-scale deployment is crucial for:
+#### Chosen Machine Learning Model/Algorithm
 
-1. **Iterative Development**: Enables rapid model iterations with immediate feedback.
-2. **Experimentation**: Facilitates testing of diverse features, structures, and hyperparameters.
-3. **Data Quality Assurance**: Guarantees the integrity and reliability of the data.
-4. **Debugging**: Allows identification and resolution of issues in data processing and model training.
+The deep neural network was chosen for its proficiency in capturing non-linear and complex relationships within the data. Deep learning models, particularly those with multiple layers, are known for their feature learning capabilities, which make them highly suitable for tasks where the input data involves intricate interactions between multiple variables, such as time of day, weather conditions, and geospatial information.
 
-## Pipeline Execution
-Our pipeline execution combines complex data processing with machine learning tasks, executed locally for enhanced control and transparency.
+#### Criteria for Machine Learning Model Selection
+
+The model was selected based on the following criteria:
+
+- **Capability to Process High-Dimensional Data**: Taxi trip demand prediction involves various input features; our model can integrate and learn from all these features effectively.
+- **Ability to Model Non-linear Relationships**: Given the complex nature of factors affecting taxi demand, the chosen model is capable of uncovering and leveraging non-linear relationships within the data.
+- **Handling Temporal Dynamics**: The model's structure is adept at incorporating temporal sequences, which is crucial for predicting demand based on historical patterns.
+- **Adaptability to Spatial Features**: Taxi demand is heavily influenced by location, and our model can process geospatial inputs to understand and predict demand fluctuations across different urban areas.
+- **Robustness to Noisy Data**: The model is designed to be robust against noise and outliers in the data, ensuring reliable predictions even with imperfect inputs.
+- **Handling of Temporal and Spatial Features**: MLPs excel at detecting intricate patterns within datasets, vital for managing the complexities in spatial-temporal patterns of taxi trip demands.
+- **Flexibility and Customization**: The adaptable architecture of MLPs allows for tailoring layer and neuron counts, matching the specific challenges of taxi demand prediction.
+- **Ability to Model Non-linear Relationships**: Essential for capturing the diverse elements like time of day, weather, and location, affecting taxi demand.
+- **Scalability**: With high scalability, MLPs are suitable for handling the substantial data volumes typical of urban taxi trip datasets.
+- **Generalization Capability**: Known for their effective generalization to new, unseen data when properly regularized and validated.
+- **Integration with Feature Engineering**: Effective incorporation of engineered features like trigonometric representations of time, enhancing MLPs' ability to process multidimensional data.
+
+Through a combination of these criteria, the selected model is poised to provide accurate and insightful predictions for taxi demand, leveraging its depth and breadth to address the dynamic and complex nature of urban transportation needs.
+#### Model Construction Code Snippet
+
+Here is the code snippet for constructing the deep learning model:
 
 ```python
-import tfx
-from tfx import v1 as tfx
-import kfp
-from tfx.orchestration.metadata import sqlite_metadata_connection_config
+# Function to build the Keras model
+def _build_keras_model(hp, tf_transform_output: tft.TFTransformOutput) -> tf.keras.Model:
+     feature_spec = tf_transform_output.transformed_feature_spec().copy()
+    feature_spec.pop(_LABEL_KEY)
+    inputs = {key: tf.keras.layers.Input(shape=(1,), name=key) for key in feature_spec.keys()}
 
-tfx.orchestration.LocalDagRunner().run(
-    _create_pipeline(
-        pipeline_name=PIPELINE_NAME,
-        pipeline_root=PIPELINE_ROOT,
-        data_root=DATA_DIRECTORY,
+    concatenated_inputs = tf.keras.layers.Concatenate()(list(inputs.values()))
+
+    num_layers = hp.Int('num_layers', 1, 5)
+    activation_choice = hp.Choice('activation', ['relu', 'leaky_relu', 'elu', 'tanh', 'sigmoid'])
+
+    for i in range(num_layers):
+        units = hp.Int(f'units_{i}', min_value=32, max_value=512, step=32)
+        concatenated_inputs = tf.keras.layers.Dense(units=units, activation=activation_choice,
+            kernel_regularizer=tf.keras.regularizers.l2(hp.Float('l2_{i}', 1e-5, 1e-2, sampling='log'))
+        )(concatenated_inputs)
+        if hp.Boolean(f'dropout_{i}'):
+            dropout_rate = hp.Float(f'dropout_rate_{i}', 0.1, 0.5)
+            concatenated_inputs = tf.keras.layers.Dropout(dropout_rate)(concatenated_inputs)
+
+    output = tf.keras.layers.Dense(1, activation='linear')(concatenated_inputs)
+
+    model = tf.keras.Model(inputs=inputs, outputs=output)
+    learning_rate = hp.Float('learning_rate', min_value=1e-4, max_value=1e-2, sampling='log')
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate),
+                  loss='mean_squared_error',
+                  metrics=[tf.keras.metrics.MeanAbsoluteError(),
+                           tf.keras.metrics.RootMeanSquaredError()])
+    model.summary()
+    return model
+```
+#### Model Architecture
+
+The model's architecture is designed to efficiently process the various features related to taxi demand. Below is the architecture of the model, as defined in TensorFlow:
+#### Architecture Overview
+
+- **Input Layers**: The model starts with multiple input layers, each corresponding to a specific feature such as day cosine (`day_cos_xf`), day sine (`day_sin_xf`), hour cosine (`hour_cos_xf`), etc. These layers are dedicated to handling the diverse set of features that influence taxi demand, including temporal aspects (like time of day), weather conditions, and other relevant factors.
+
+- **Concatenate Layer**: Following the input layers, a concatenation layer (`concatenate_1`) merges the outputs of all input layers into a single unified layer. This approach allows the model to consider all input features simultaneously, enabling it to learn complex interdependencies among them.
+
+- **Dense and Dropout Layers**: After concatenation, the data flows through a series of densely connected (Dense) layers (`dense_4`, `dense_5`, `dense_6`, etc.), which are the core components where most of the model's learning occurs. These layers contain a large number of neurons that enable the model to learn non-linear relationships within the data. Interspersed with these dense layers are Dropout layers (`dropout_3`, `dropout_4`), which help prevent overfitting by randomly setting a fraction of the input units to 0 at each update during training. This regularization technique is crucial for generalizing the model well to new, unseen data.
+
+- **Output Layer**: The architecture culminates in a single neuron with a linear activation function (`dense_9`). This output layer is responsible for producing the final prediction, representing the estimated taxi demand.
+
+#### Significance of the Architecture
+
+- **Handling High-Dimensional Data**: The architecture's ability to process and learn from a high number of input features makes it particularly effective for the taxi demand prediction task, which inherently involves complex and multidimensional data.
+- **Modeling Non-linear Relationships**: The use of dense layers enables the model to capture the non-linear relationships often present in real-world data, particularly important in scenarios like taxi demand forecasting where multiple factors interact in complex ways.
+- **Balance Between Depth and Efficiency**: While the model is deep enough to learn detailed patterns and relationships in the data, it is also designed to be computationally efficient, ensuring manageable training times and resource usage.
+
+```plaintext
+Model: "model_1"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape          Param #     Connected to                     
+==================================================================================================
+ day_cos_xf (InputLayer)        [(None, 1)]           0                                            
+ day_sin_xf (InputLayer)        [(None, 1)]           0                                            
+ hour_cos_xf (InputLayer)       [(None, 1)]           0                                            
+ hour_sin_xf (InputLayer)       [(None, 1)]           0                                            
+ log_duration (InputLayer)      [(None, 1)]           0                                            
+ log_trip_miles (InputLayer)    [(None, 1)]           0                                            
+ log_trip_total (InputLayer)    [(None, 1)]           0                                            
+ month_cos_xf (InputLayer)      [(None, 1)]           0                                            
+ month_sin_xf (InputLayer)      [(None, 1)]           0                                            
+ pickup_community_area_xf (InputLayer) [(None, 1)]    0                                            
+ public_holiday_xf (InputLayer) [(None, 1)]           0                                            
+ rain_xf (InputLayer)           [(None, 1)]           0                                            
+ relativehumidity_2m_xf (InputLayer) [(None, 1)]      0                                            
+ snowfall_xf (InputLayer)       [(None, 1)]           0                                            
+ sqrt_precipitation (InputLayer) [(None, 1)]          0                                            
+ temperature_2m_xf (InputLayer) [(None, 1)]           0                                            
+ weathercode_xf (InputLayer)    [(None, 1)]           0                                            
+ year_xf (InputLayer)           [(None, 1)]           0                                            
+ concatenate_1 (Concatenate)    (None, 18)            0           [All input layers]              
+ dense_4 (Dense)                (None, 480)           9120        [concatenate_1[0][0]]           
+ dense_5 (Dense)                (None, 64)            30784       [dense_4[0][0]]                 
+ dense_6 (Dense)                (None, 32)            2080        [dense_5[0][0]]                 
+ dense_7 (Dense)                (None, 512)           16896       [dense_6[0][0]]                 
+ dropout_3 (Dropout)            (None, 512)           0           [dense_7[0][0]]                 
+ dense_8 (Dense)                (None, 288)           147744      [dropout_3[0][0]]               
+ dropout_4 (Dropout)            (None, 288)           0           [dense_8[0][0]]                 
+ dense_9 (Dense)                (None, 1)             289         [dropout_4[0][0]]               
+==================================================================================================
+Total params: 206,913
+Trainable params: 206,913
+Non-trainable params: 0
+__________________________________________________________________________________________________
+```
+#### Model Performance 
+
+#### Performance Analysis
+
+Our model, a sophisticated Multi-Layer Perceptron, has shown commendable efficacy in forecasting taxi demand in Chicago, as indicated by its performance metrics:
+
+- **Mean Absolute Error (MAE)**: 2.1684
+- **Root Mean Squared Error (RMSE)**: 3.19
+
+To contextualize these numbers, imagine the task of predicting the number of taxi trips in Chicago each hour. On average, our model's predictions would deviate from the actual number by about 2 to 3 trips. For example, if the actual number of trips in an hour was 20, the model's prediction would likely fall between 17 and 23 trips.
+
+This degree of precision underscores the model's adeptness at striking a crucial balance between bias and variance, an essential factor in predictive modeling. The model is finely tuned to avoid overfitting, where it might otherwise capture random noise in the data, as well as underfitting, where it could fail to discern underlying patterns. As a result, it offers predictions that are not only reliable but also highly adaptable to real-world situations.
+
+### 3.1.3.6 Machine Learning Model Training and Development
+
+
+#### Data Preprocessing and Splitting
+
+Our data preprocessing pipeline, integral to the Chicago Taxi Trips dataset, encompasses several key steps as outlined in section [section 3.1.3.4 Preprocessing and the Data Pipeline](#3134-preprocessing-and-the-data-pipeline). This pipeline is critical for preparing the data for effective machine learning model training and evaluation.
+
+#### Key Steps in Data Preprocessing Pipeline:
+
+1. **Data Integration**: Combining taxi trip data with hourly weather data to incorporate environmental factors.
+2. **Data Cleaning and Capping**: Applying capping techniques on trip duration, distance, and cost data to mitigate the impact of outliers.
+3. **Feature Extraction**: Engineering time-based variables and trigonometric transformations to capture cyclical demand patterns.
+4. **Data Aggregation**: Aggregating data at the community area level for more in-depth demand trend analysis.
+5. **Data Export**: Exporting processed data sets to CSV files for accessibility during modeling.
+
+#### Dataset Sampling and Justification:
+
+- **Training Data**: Includes data from the years 2020 and 2021.
+- **Validation Data**: Composed of data from the year 2022.
+- **Test Data**: Contains data from the year 2023 up to April.
+
+This segmentation strategy minimizes data leakage and accurately reflects a realistic scenario for taxi demand prediction. Additionally, we have experimented with various kinds of data splits to determine the most effective approach for our model. These exploratory analyses are documented in our Exploratory Data Analysis notebook.
+
+```sql
+-- Data Preprocessing SQL Code
+C CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.training_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2020 OR year = 2021;
+
+    -- Create Validation Set
+    CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.validation_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2022;
+
+    -- Create Test Set
+    CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.test_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2023 AND month <= 4;
+  
+     EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/training_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.training_data`;
+
+    EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/validation_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.validation_data`;
+
+    EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/test_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.test_data`;
+...
+```
+#### Hyperparameter Tuning and Model Optimization
+
+Our approach to hyperparameter tuning and model optimization employed the Keras Tuner with a RandomSearch strategy, a crucial step in enhancing the model's predictive capabilities. The `tuner_fn` function defines the hypermodel using the `_build_keras_model` function, sets the objective to minimize the validation mean absolute error, and runs a series of trials to find the best model parameters.
+
+We optimized our machine learning model's architecture by implementing a RandomSearch strategy with Keras Tuner. The objective was to minimize the validation mean absolute error (MAE), which aligns with our business goal of achieving high accuracy in predicting taxi trip demand.
+
+Our tuning process is defined in the `tuner_fn` function, which sets up the RandomSearch tuner with the objective of minimizing the validation mean absolute error. A maximum of 25 trials were conducted, with each trial exploring a unique set of hyperparameters to build and evaluate a model.
+
+The model-building function, `_build_keras_model`, dynamically creates a model based on the provided hyperparameters, such as the number of layers, activation functions, units per layer, and regularization rates. This allows for a thorough investigation of the hyperparameter space, ensuring the best model configuration is identified.
+
+The early stopping callback is utilized to prevent overfitting, monitoring the validation mean absolute error and stopping the training process if no improvement is observed after a specified number of epochs.
+
+Here's a snippet of the code that illustrates the hyperparameter tuning and model optimization process:
+
+```python
+def _build_keras_model(hp, tf_transform_output: tft.TFTransformOutput) -> tf.keras.Model:
+    # Define feature specs and create input layers
+    feature_spec = tf_transform_output.transformed_feature_spec().copy()
+    feature_spec.pop(_LABEL_KEY)
+    inputs = {key: tf.keras.layers.Input(shape=(1,), name=key) for key in feature_spec.keys()}
+
+    # Concatenate all input features
+    concatenated_inputs = tf.keras.layers.Concatenate()(list(inputs.values()))
+
+    # Define model architecture dynamically based on hyperparameters
+    num_layers = hp.Int('num_layers', 1, 5)
+    for i in range(num_layers):
+        units = hp.Int(f'units_{i}', min_value=32, max_value=512, step=32)
+        concatenated_inputs = tf.keras.layers.Dense(units=units, activation=hp.Choice('activation', ['relu', 'leaky_relu', 'elu', 'tanh', 'sigmoid']),
+            kernel_regularizer=tf.keras.regularizers.l2(hp.Float('l2_{i}', 1e-5, 1e-2, sampling='log')))(concatenated_inputs)
+        if hp.Boolean(f'dropout_{i}'):
+            concatenated_inputs = tf.keras.layers.Dropout(hp.Float(f'dropout_rate_{i}', 0.1, 0.5))(concatenated_inputs)
+
+    # Output layer for regression
+    output = tf.keras.layers.Dense(1, activation='linear')(concatenated_inputs)
+
+    # Compile the model with the chosen optimizer, loss function, and metrics
+    model = tf.keras.Model(inputs=inputs, outputs=output)
+    model.compile(optimizer=tf.keras.optimizers.Adam(hp.Float('learning_rate', min_value=1e-4, max_value=1e-2, sampling='log')),
+                  loss='mean_squared_error',
+                  metrics=[tf.keras.metrics.MeanAbsoluteError(), tf.keras.metrics.RootMeanSquaredError()])
+    return model
+
+# Tuner function that sets up the RandomSearch tuner
+def tuner_fn(fn_args: FnArgs) -> TunerFnResult:
+    tf_transform_output = tft.TFTransformOutput(fn_args.transform_graph_path)
+    tuner = RandomSearch(
+        hypermodel=lambda hp: _build_keras_model(hp, tf_transform_output),
+        objective='val_mean_absolute_error',
+        max_trials=25,
+        executions_per_trial=1,
+        directory=fn_args.working_dir,
+        project_name='taxi_trips_tuning_RandomSearch'
+    )
+
+    train_dataset = _input_fn(fn_args.train_files, fn_args.data_accessor, tf_transform_output, _BATCH_SIZE)
+    eval_dataset = _input_fn(fn_args.eval_files, fn_args.data_accessor, tf_transform_output, _BATCH_SIZE)
+
+    return TunerFnResult(
+        tuner=tuner,
+        fit_kwargs={
+            'x': train_dataset,
+            'validation_data': eval_dataset,
+            'steps_per_epoch': 1500,  
+            'validation_steps': 969,  
+            'callbacks': [early_stopping]
+        }
+    )
+
+# Hyperparameters tuning with the tfx extension for Google Cloud AI Platform
+tuner = tfx.extensions.google_cloud_ai_platform.Tuner(
         module_file=_taxi_trainer_module_file,
-        serving_model_dir=SERVING_MODEL_DIR
-    ))
+        examples=transform.outputs['transformed_examples'],
+        schema=schema_gen.outputs['schema'],
+        transform_graph=transform.outputs['transform_graph'],
+        train_args=trainer_pb2.TrainArgs(splits=['train'], num_steps=100),
+        eval_args=trainer_pb2.EvalArgs(splits=['eval'], num_steps=5),
+         custom_config={
+        tfx.extensions.google_cloud_ai_platform.ENABLE_VERTEX_KEY: True,
+        tfx.extensions.google_cloud_ai_platform.VERTEX_REGION_KEY: region,
+        tfx.extensions.google_cloud_ai_platform.experimental.TUNING_ARGS_KEY: vertex_job_spec
+        # tfx.extensions.google_cloud_ai_platform.experimental.REMOTE_TRIALS_WORKING_DIR_KEY: os.path.join('gs://', GCS_BUCKET_NAME, 'tuner_trials')
+    }
+   )
+
+This approach allowed us to systematically search through the hyperparameter space and apply early stopping to prevent overfitting. The use of Google Cloud AI Platform's Tuner enabled us to take advantage of scalable infrastructure and manage the tuning process more effectively. Our choice of hyperparameters included the number of layers, types of activation functions, units per layer, regularization rates, and learning rates, all of which were critical in developing a robust model for our taxi demand prediction task.
+
 
 ```
+#### Model Evaluation Metric
+
+In our model's assessment, we primarily utilize the Mean Absolute Error (MAE) complemented by the Root Mean Squared Error (RMSE). These metrics are pivotal for gauging performance and are closely aligned with our core business objectives.
+
+##### Why MAE is Optimal:
+
+- **Business Alignment**: MAE provides an intuitive gauge of prediction accuracy in the same unit as our target variable, the number of taxi trips. This direct correlation facilitates effective communication with business stakeholders.
+- **Robustness to Outliers**: The MAE metric's insensitivity to outliers ensures our model evaluation is not disproportionately affected by anomalous data, maintaining consistent performance standards.
+- **Interpretability**: The straightforwardness of MAE as an average error metric makes it an invaluable tool for operational decision-making, offering a transparent view into the predictive capabilities of our model.
+
+##### Significance of RMSE:
+
+- **Complementing MAE**: While MAE is excellent for general performance measurement, RMSE is crucial for identifying when the model is prone to larger errors, due to its greater sensitivity to substantial deviations in the data.
+- **Error Squaring**: The squaring of errors in RMSE means large errors have a disproportionately large effect on the metric, providing insight into the variability of the model's performance, which can be critical for certain business outcomes.
+
+##### Configuration of Model Evaluation:
+
+We leverage the TensorFlow Model Analysis (TFMA) library for a robust and granular evaluation configuration (`eval_config`). This configuration allows us to monitor our model's MAE, setting thresholds that reflect meaningful improvements in prediction accuracy.
+
+```python
+# Define the evaluation configuration using TensorFlow Model Analysis
+import tensorflow_model_analysis as tfma
+
+eval_config = tfma.EvalConfig(
+    model_specs=[tfma.ModelSpec(signature_name='serving_default', label_key='num_taxi_trips')],
+    slicing_specs=[tfma.SlicingSpec()],
+    metrics_specs=[
+        tfma.MetricsSpec(
+            metrics=[
+                tfma.MetricConfig(class_name='MeanAbsoluteError'),
+                tfma.MetricConfig(class_name='RootMeanSquaredError')
+            ]
+        ),
+        tfma.MetricsSpec(
+            metrics=[
+                tfma.MetricConfig(
+                    class_name='MeanAbsoluteError',
+                    threshold=tfma.MetricThreshold(
+                        value_threshold=tfma.GenericValueThreshold(lower_bound={'value': MAE_LOWER_BOUND}),
+                        change_threshold=tfma.GenericChangeThreshold(
+                            direction=tfma.MetricDirection.LOWER_IS_BETTER,
+                            absolute={'value': MAE_CHANGE_THRESHOLD}
+                        )
+                    )
+                )
+            ]
+        )
+    ]
+)
+
+
+```
+#### Bias/Variance Trade-off Considerations
+
+In the development of our machine learning model for taxi demand prediction, we meticulously evaluated and managed the bias-variance trade-off. These trade-offs played a pivotal role in designing an architecture that not only meets our predictive performance criteria but also aligns with our business goals.
+
+##### Layer Configuration and Activation Functions
+
+We calibrated the model's architecture by employing Randomsearch techniques to determine the optimal number of layers and neurons. Activation functions were carefully selected for each layer to ensure non-linearity in the learning process. This fine-tuning aimed to mitigate underfitting (high bias) by enhancing the model's complexity, while also preventing overfitting (high variance) by avoiding an excessively intricate structure.
+
+##### Regularization and Dropout
+
+To address overfitting, we integrated L2 regularization into our model, which imposes a penalty on weight magnitudes and encourages the learning of small weights, effectively simplifying the model. Additionally, dropout layers were strategically placed within the network, randomly disabling neurons during training. This not only prevents the model from becoming overly dependent on any particular neurons (reducing variance) but also promotes a distributed representation within the network.
+
+##### Hyperparameter Tuning
+
+The architecture and learning process were further refined through extensive hyperparameter tuning using the Keras Tuner. This systematic approach allowed us to explore the hyperparameter space efficiently, identifying configurations that balance model complexity (to reduce bias) with generalization capabilities (to control variance).
+
+```python
+# Trainer component code snippet
+trainer = tfx.extensions.google_cloud_ai_platform.Trainer(
+    module_file=os.path.abspath(module_file),
+    transformed_examples=transform.outputs['transformed_examples'],
+    schema=schema_gen.outputs['schema'],
+    transform_graph=transform.outputs['transform_graph'],
+    hyperparameters=tuner.outputs['best_hyperparameters'],
+    train_args=tfx.proto.TrainArgs(splits=['train'], num_steps=10160),
+    eval_args=tfx.proto.EvalArgs(splits=['eval'], num_steps=5716),
+    custom_config={
+      tfx.extensions.google_cloud_ai_platform.ENABLE_VERTEX_KEY: True,
+      tfx.extensions.google_cloud_ai_platform.VERTEX_REGION_KEY: region,
+      tfx.extensions.google_cloud_ai_platform.TRAINING_ARGS_KEY: vertex_job_spec
+    }
+)
+```
+Our model training and development process is a testament to the strategic balance between complexity and generalization, governed by the underlying principles of bias-variance trade-off. By harnessing advanced optimization strategies and the power of cloud computing, we ensure that our model is not only accurate but also practical and interpretable in a real-world business setting.
 ## Transitioning to Vertex AI
 After refining our model through the interactive pipeline, we transition to Vertex AI. This platform offers automated and scalable ML workflows, enhanced performance and efficiency, and robust MLOps capabilities, making it ideal for deploying and managing our models at scale.
 
@@ -606,15 +938,5 @@ Our TFX Taxi Demand Production Pipeline stands as a testament to our commitment 
 ## Deployment
 *(To be added)*
 
-## Usage
-*(To be added)*
 
-## Contributing
-*(To be added)*
-
-## License
-*(To be added)*
-
-## Contact
-*(To be added)*
 
