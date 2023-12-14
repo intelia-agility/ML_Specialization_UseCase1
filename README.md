@@ -890,53 +890,65 @@ trainer = tfx.extensions.google_cloud_ai_platform.Trainer(
     }
 )
 ```
-Our model training and development process is a testament to the strategic balance between complexity and generalization, governed by the underlying principles of bias-variance trade-off. By harnessing advanced optimization strategies and the power of cloud computing, we ensure that our model is not only accurate but also practical and interpretable in a real-world business setting.
-## Transitioning to Vertex AI
-After refining our model through the interactive pipeline, we transition to Vertex AI. This platform offers automated and scalable ML workflows, enhanced performance and efficiency, and robust MLOps capabilities, making it ideal for deploying and managing our models at scale.
+Our commitment to balancing bias and variance reflects in the robustness and reliability of our predictive model. By leveraging RandomSearch for hyperparameter tuning and incorporating L2 regularization and dropout techniques, our model achieves excellent performance while remaining interpretable and relevant for business decisions.
+### 3.1.3.7 Machine Learning Model Evaluation
+In our model evaluation process, we incorporated advanced techniques to ensure the deployment of a highly accurate and reliable model. One key aspect of this process is the use of model blessing based on the Mean Absolute Error (MAE) metric and its improvement over time.
 
-## Conclusion
-Our TFX Taxi Demand Interactive Pipeline encapsulates the complexity of the machine learning process, offering a streamlined and scalable approach to taxi demand prediction. It automates repetitive tasks and ensures consistency and quality in our model development lifecycle, setting a strong foundation for deploying sophisticated ML models in a production environment.
+Our model's performance on the independent validation dataset is evaluated using TensorFlow Model Analysis (TFMA) with a primary focus on Mean Absolute Error (MAE). MAE provides a clear indication of the average prediction error made by the model in units identical to the predicted variable, making it a highly interpretable and relevant metric for our business needs.Our evaluation setup uses thresholds to determine the model's performance and its improvement over previous iterations.
 
-# TFX Taxi Demand Production Pipeline
-
-## Introduction
-The TFX Taxi Demand Production Pipeline is our advanced solution for taxi demand prediction, leveraging the full power of TensorFlow Extended (TFX). This pipeline is engineered for high-performance, large-scale data processing and model deployment, marking the transition from development to production.
-
-## Pipeline Enhancement for Production
-Building upon the foundation established in our interactive pipeline, the production pipeline incorporates additional features and optimizations:
-
-- **Efficient Data Handling**: Optimized for processing large datasets efficiently and reliably.
-- **Advanced Model Training**: Utilizing complex training strategies to improve model accuracy and robustness.
-- **Comprehensive Model Evaluation**: Implementing thorough evaluation metrics to ensure the model's readiness for real-world scenarios.
-- **Automated Model Deployment**: Seamless deployment of the trained model to Vertex AI for real-time predictions.
-
-## Scalability and Automation
-Our production pipeline is designed for scalability, capable of handling vast amounts of data and complex model training scenarios. Automation plays a key role in ensuring consistent and error-free operations throughout the machine learning lifecycle.
-
-## Monitoring and Maintenance
-In a production environment, continuous monitoring and maintenance are crucial. Our pipeline is integrated with tools that facilitate ongoing supervision and timely updates to the model, ensuring it remains effective and relevant.
-
-## Pipeline Execution on Vertex AI
-The pipeline is executed on Google Cloud's Vertex AI, a platform known for its robust machine learning capabilities, which is ideal for deploying and managing models at scale.
+#### Evaluation Configuration
+We configured the `eval_config` in TensorFlow Model Analysis (TFMA) to focus on Mean Absolute Error (MAE) as our primary metric. This choice aligns with our goal of minimizing the average prediction error in taxi trip demand forecasting.
 
 ```python
-from google.cloud import aiplatform
-from google.cloud.aiplatform import pipeline_jobs
-import logging
-
-logging.getLogger().setLevel(logging.INFO)
-
-aiplatform.init(project=GOOGLE_CLOUD_PROJECT, location=GOOGLE_CLOUD_REGION)
-
-job = pipeline_jobs.PipelineJob(template_path=PIPELINE_DEFINITION_FILE,
-                                display_name=PIPELINE_NAME)
-job.submit()
-
+   eval_config = tfma.EvalConfig(
+        model_specs=[tfma.ModelSpec(signature_name='serving_default', label_key=taxi_constants.LABEL_KEY)],
+        slicing_specs=[tfma.SlicingSpec()], 
+        metrics_specs=[
+            tfma.MetricsSpec(
+                metrics=[
+                    tfma.MetricConfig(class_name='MeanAbsoluteError'),
+                    tfma.MetricConfig(
+                        class_name='MeanAbsoluteError',
+                        threshold=tfma.MetricThreshold(
+                            value_threshold=tfma.GenericValueThreshold(lower_bound={'value': 0.8159}),
+                            change_threshold=tfma.GenericChangeThreshold(
+                                direction=tfma.MetricDirection.LOWER_IS_BETTER,
+                                absolute={'value': 0.02}
+                            )
+                        )
+                    )
+                ]
+            )
+        ]
+    )
 ```
-## Conclusion
-Our TFX Taxi Demand Production Pipeline stands as a testament to our commitment to delivering scalable, efficient, and reliable machine learning solutions. By harnessing the capabilities of Vertex AI, we ensure that our model performs optimally in a real-world context, driving forward the innovation in taxi demand prediction.
-## Deployment
-*(To be added)*
+#### Model Resolver
+We integrated a model resolver with the `LatestBlessedModelStrategy` to ensure that only models which demonstrate an improvement over previously 'blessed' models are deployed. This approach ensures a consistent enhancement in model performance, aligning with our commitment to delivering the most accurate and reliable predictions.
+
+```python
+model_resolver = Resolver(
+    strategy_class=LatestBlessedModelStrategy,
+    model=Channel(type=Model),
+    model_blessing=Channel(type=ModelBlessing)
+).with_id('latest_blessed_model_resolver')
+```
+#### Running the Evaluation
+The Evaluator component in TFX is instrumental in executing this rigorous model evaluation process, assessing the model's performance against the set thresholds
+```python
+evaluator = Evaluator(
+    examples=example_gen.outputs['examples'],
+    model=trainer.outputs['model'],
+    baseline_model=model_resolver.outputs['model'],
+    eval_config=eval_config
+)
+```
+#### Outcome
+Our model achieved a Mean Absolute Error (MAE) of 2.1684, surpassing the established lower bound and demonstrating a significant improvement over previous versions.
+
+Best MAE Achieved: 2.1684
+
+This advanced evaluation methodology, involving meticulous metric configuration and the strategic use of model resolvers, exemplifies our dedication to deploying a model that excels in both accuracy and continuous improvement, ensuring the highest standards of prediction quality in taxi trip demand forecasting.
+## 3.1.4 Proof of Deployment
 
 
 
