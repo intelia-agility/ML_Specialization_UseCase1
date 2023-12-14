@@ -255,7 +255,7 @@ In our comprehensive Exploratory Data Analysis (EDA), univariate analysis played
 - **Continuous Features**: Analyzed key continuous features like `trip_seconds`, `trip_miles`, `trip_total`, and various weather-related attributes (temperature_2m, relativehumidity_2m, precipitation, rain, snowfall). Histograms with kernel density estimates provided insights into the distribution of these variables, highlighting trends and anomalies.
 
 - **Categorical Features**: Features such as `company` and `weathercode` were analyzed using count plots to understand their frequency distribution. This helped us grasp the diversity and prominence of different taxi companies and weather conditions during taxi trips.
-
+![Univariate Analysis of Continuous and Categorical Features](assets/Univariate%20Analysis%20of%20Continuous%20and%20Categorical%20Features.png)
 #### Observations from Univariate Analysis
 
 - **Continuous Features**: Most trip durations, distances, and fares were on the lower side, with right-skewed distributions, indicating that shorter and less expensive trips were more common.
@@ -265,6 +265,8 @@ In our comprehensive Exploratory Data Analysis (EDA), univariate analysis played
 #### Univariate Analysis of Spatial Features
 
 - **Spatial Features Analysis**: Examined spatial features like `pickup_community_area`, `pickup_latitude`, and `pickup_longitude`. Count plots and histograms were employed to explore these features, identifying popular areas for taxi pickups and potential hotspots.
+![Univariate Analysis of Spatial Features](assets/Univariate%20Analysis%20of%20Spatial%20Features.png)
+
 - **Observations**: Some community areas had significantly higher pickup frequencies, suggesting they were key hotspots. Latitude and longitude data highlighted the geographical concentration of taxi pickups in certain areas.
 
 Each step of our univariate analysis provided crucial insights into different aspects of taxi demand, laying a foundation for more detailed multivariate analysis and predictive modeling. The use of visualizations at each step enhanced our understanding of the data and helped in identifying key areas for focused analysis and strategy development.
@@ -282,6 +284,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Hourly Taxi Demand
 - **Description**: Analysis of taxi demand based on hourly data.
+![Analysis of Hourly Taxi Demand](assets/Analysis%20of%20Hourly%20Taxi%20Demand.png)
 - **Observations**:
   - Decrease in demand in the early morning hours, with the lowest point around 5 AM.
   - Increase in demand from 6 AM, peaking during late afternoon and early evening, then decreasing throughout the night.
@@ -289,6 +292,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Taxi Demand by Day of the Week
 - **Description**: Analyzing the distribution of taxi demand across different days of the week.
+![Analysis of Taxi Demand by Day of the Week](assets/Analysis%20of%20Taxi%20Demand%20by%20Day%20of%20the%20Week.png)
 - **Observations**:
   - Consistent demand from Monday to Friday, with an increase on Fridays.
   - Drop in demand on Saturdays and the lowest on Sundays.
@@ -296,6 +300,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Taxi Demand by Month
 - **Description**: Exploration of how taxi demand varies across different months.
+![Analysis of Taxi Demand by Month](assets/Analysis%20of%20Taxi%20Demand%20by%20Month.png)
 - **Observations**:
   - Steady demand from January through May.
   - Peak in June, followed by a decline in July and stabilization from August to December.
@@ -305,12 +310,16 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Taxi Demand vs. Weather Code
 - **Description**: Investigation of demand variations across different weather conditions as indicated by weather codes.
+![Taxi Demand vs. Weather Code Analysis](assets/Taxi%20Demand%20vs.%20Weather%20Code%20Analysis.png)
+
 - **Observations**:
   - Higher demand for lower weather code values (favorable conditions).
   - Decrease in demand with increasing weather code values, suggesting reduced demand in severe or unfavorable weather.
 
 ##### Taxi Demand by Weather Condition
 - **Description**: Detailed analysis of taxi demand under specific weather conditions.
+![Taxi Demand by Weather Condition Analysis](assets/Taxi%20Demand%20by%20Weather%20Condition%20Analysis.png)
+
 - **Observations**:
   - Highest demand in sunny and clear weather.
   - Significant demand during less favorable conditions like rain or fog.
@@ -320,40 +329,33 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Spatial Analysis of Taxi Pickups by Community Area
 - **Description**: Distribution of taxi pickups across different community areas.
+![Spatial Analysis of Taxi Pickups by Community Area](assets/Spatial%20Analysis%20of%20Taxi%20Pickups%20by%20Community%20Area.png)
+
 - **Observations**:
   - Variations in pickup frequency across areas, influenced by proximity to key destinations or transport hubs.
   - Disparity in average fares, indicating differences in trip lengths or destination popularity.
 
 ##### Analysis of Average Fare by Pickup Community Area
 - **Description**: Investigation into average fares in different community areas.
+![Analysis of Average Fare by Pickup Community Area](assets/Analysis%20of%20Average%20Fare%20by%20Pickup%20Community%20Area.png)
+
 - **Observations**:
   - Range in average fares, with certain areas having higher fares on average due to longer trips or routes to in-demand locations.
   - These fare dynamics are crucial for efficient service allocation and pricing strategies.
 
-##### Visualization Placeholders for Bivariate Analysis
-
-- **Insert Graph 1**: Bar chart for Hourly Distribution of Taxi Demand.
-- **Insert Graph 2**: Bar chart for Distribution of Taxi Demand by Day of the Week.
-- **Insert Graph 3**: Bar chart for Distribution of Taxi Demand by Month.
-- **Insert Graph 4**: Scatter plot for Taxi Demand vs. Weather Code.
-- **Insert Graph 5**: Bar chart for Taxi Demand by Weather Condition.
-- **Insert Graph 6**: Bar chart for Taxi Pickups by Community Area.
-- **Insert Graph 7**: Bar chart for Average Fare by Pickup Community Area.
 
 ##### Correlation Analysis of Numerical Features
 
 In this section, we explore the intricate associations and dependencies among the numerical features within our dataset through correlation analysis. This approach is pivotal in unraveling the subtle and complex factors that influence taxi demand and the characteristics of taxi trips.
 
 - **Correlation Heatmap**: The heatmap visualizes the correlation coefficients between different numerical features, such as trip miles, trip seconds, trip total, and various weather-related variables like temperature, humidity, and precipitation.
+![Correlation Analysis of Numerical Features](assets/Correlation%20Analysis%20of%20Numerical%20Features.png)
+
 - **Findings**:
   - A positive correlation is observed between trip miles and trip seconds, indicating that trips covering more miles typically have longer durations.
   - Trip total shows a positive correlation with both trip miles and trip seconds, suggesting that longer trips, both in distance and duration, generally lead to higher fares.
   - Weather-related variables display very weak correlations with trip details, suggesting minimal direct linear relationships between these weather factors and the specific attributes of taxi trips.
 - **Implications**: This analysis is crucial for understanding how different aspects of taxi trips are interconnected. It provides insights crucial for refining fare structuring, service management, and operational strategies in the taxi service industry.
-
-##### Visualization Placeholder
-
-- **Insert Correlation Heatmap Here**: Visualization showing the correlation matrix among various numerical features.
 
 #### Outlier Analysis
 
@@ -362,12 +364,14 @@ The Outlier Analysis section is dedicated to identifying and understanding anoma
 ##### Outlier Analysis of Numerical Features
 
 - **Box Plots**: Visualization of outliers in various numerical features using box plots.
+![Outlier Analysis of Numerical Features](assets/Outlier%20Analysis%20of%20Numerical%20Features.png)
+
 - **Findings**:
   - Trip_seconds and trip_total exhibit significant outliers, indicating the presence of unusually long or expensive trips.
   - Trip_miles also shows outliers, but they are not as pronounced.
   - Temperature_2m shows a relatively normal distribution with minimal outliers.
   - Relativehumidity_2m mostly falls within the 60-90% range, indicating a good spread with no significant anomalies.
-- **Visualization Placeholder**: (Insert box plots for each numerical feature)
+
 
 ##### Percentile Analysis of Continuous Variables
 
@@ -381,10 +385,12 @@ The Outlier Analysis section is dedicated to identifying and understanding anoma
 ##### Scatter Plot Analysis of Taxi Pickup Locations
 
 - **Visualization**: A scatter plot representing the geographical distribution of taxi pickups.
+![Scatter Plot Analysis of Taxi Pickup Locations](assets/Scatter%20Plot%20Analysis%20of%20Taxi%20Pickup%20Locations.png)
+
 - **Observations**:
   - Dense clusters indicate popular areas or hotspots for taxi pickups.
   - Areas with fewer points suggest less frequent taxi activity, possibly in residential zones or less commercially active areas.
-- **Visualization Placeholder**: (Insert scatter plot for pickup latitudes and longitudes)
+
 
 ##### Data Cleaning and Outlier Treatment Process
 
@@ -416,12 +422,14 @@ In our analysis, we delve into the transformation of key numerical features with
   - We focus on two primary transformation techniques: logarithmic and square root transformations. These are applied to features including trip_total, trip_miles, trip_seconds, temperature_2m, relativehumidity_2m, and precipitation.
   - Log Transformation: This is particularly useful for data with long tails or high variability. By transforming data using the logarithmic scale, we aim to reduce right-skewness.
   - Square Root Transformation: This is a milder transformation compared to the logarithmic one and is used to reduce the effect of extreme values.
+ 
+  ![Visualization of Feature Transformations](assets/Visualization%20of%20Feature%20Transformations.png)
 
 - **Visualization and Comparative Analysis**:
   - The impact of these transformations is visualized through histograms and density plots. Each feature's original distribution is compared with its log-transformed and square root-transformed distributions.
   - These visualizations allow us to assess the effectiveness of each transformation in normalizing the data and to choose the most appropriate method for our analysis.
 
-- **Visualization Placeholder**: (Insert histograms and density plots for original, log-transformed, and square root-transformed distributions of features)
+
 
 ##### Observations from Feature Transformation Analysis
 
