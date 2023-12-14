@@ -183,7 +183,7 @@ except Exception as e:
     print(f"Error during upload to the main table: {e}")
 ```
 
-##### Citation
+#### Citation
 Zippnfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649
 
 #### Exploratory Data Analysis (EDA)
@@ -205,8 +205,6 @@ The initial step of our EDA involved an in-depth statistical examination of the 
   - The dataset displayed significant variability in trip-related features, with certain values indicating potential data entry errors or unique cases.
   - Weather data analysis was instrumental in understanding the potential influence of environmental factors on taxi demand.
 
-- **Visualization Placeholder for Descriptive Statistics**:
-  ![Descriptive Statistics Visualization Placeholder](path/to/descriptive_statistics_visual.png)
 
 This comprehensive statistical overview was pivotal in guiding our subsequent analyses, enabling us to identify areas requiring deeper investigation and to hypothesize about various factors influencing taxi demand.
 
@@ -283,9 +281,9 @@ Each step of our univariate analysis provided crucial insights into different as
 
 In this section, we delve into Bivariate Analysis to explore the relationships between two distinct variables and their combined impact on taxi demand. This approach helps us understand the interactions and dependencies between various factors in our dataset.
 
-##### Temporal Analysis
+#### Temporal Analysis
 
-##### Hourly Taxi Demand
+##### **Hourly Taxi Demand**
 - **Description**: Analysis of taxi demand based on hourly data.
 ![Analysis of Hourly Taxi Demand](assets/Analysis%20of%20Hourly%20Taxi%20Demand.png)
 - **Observations**:
