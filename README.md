@@ -1096,18 +1096,6 @@ _taxi_trainer_module_file = 'taxi_trainer.py'
 # Example snippet of the trainer module:
 %%writefile {_taxi_trainer_module_file}
 
-from typing import NamedTuple, Dict, List, Text, Any
-import tensorflow as tf
-import tensorflow_transform as tft
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
-from tfx import v1 as tfx
-from keras_tuner.engine import base_tuner
-from keras_tuner import HyperParameters, RandomSearch
-from tfx_bsl.public import tfxio
-from tfx.components.trainer.fn_args_utils import FnArgs
-import os
-import taxi_constants
-
 _LABEL_KEY = taxi_constants.LABEL_KEY
 
 
@@ -1189,16 +1177,6 @@ def tuner_fn(fn_args: FnArgs) -> TunerFnResult:
 
     train_dataset = _input_fn(fn_args.train_files, fn_args.data_accessor, tf_transform_output, _BATCH_SIZE)
     eval_dataset = _input_fn(fn_args.eval_files, fn_args.data_accessor, tf_transform_output, _BATCH_SIZE)
-
-    return TunerFnResult(
-        tuner=tuner,
-        fit_kwargs={
-            'x': train_dataset,
-            'validation_data': eval_dataset,
-            'steps_per_epoch': 1500,  
-            'validation_steps': 969,  
-            'callbacks': [early_stopping]
-        }
     )
 def _get_transform_features_signature(model, tf_transform_output):
     model.tft_layer_eval = tf_transform_output.transform_features_layer()
@@ -1236,50 +1214,7 @@ def run_fn(fn_args: FnArgs):
         patience=3,
         restore_best_weights=True
     )
-
-    
-    model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
-        filepath=os.path.join(model_dir, 'best_model'),
-        monitor='val_mean_absolute_error', 
-        mode='min', 
-        save_best_only=True,
-        verbose=1
-    )
-
- 
-    tf_transform_output = tft.TFTransformOutput(fn_args.transform_graph_path)
-
-    # Set up the tuner for hyperparameter tuning
-    tuner_fn_result = tuner_fn(fn_args)
-    tuner = tuner_fn_result.tuner
-
-    # Create datasets for training and evaluation
-    train_dataset = _input_fn(
-        fn_args.train_files, 
-        fn_args.data_accessor, 
-        tf_transform_output, 
-        _BATCH_SIZE
-    )
-    eval_dataset = _input_fn(
-        fn_args.eval_files, 
-        fn_args.data_accessor, 
-        tf_transform_output, 
-        _BATCH_SIZE
-    )
-
-    # Perform hyperparameter search using the tuner
-    tuner.search(**tuner_fn_result.fit_kwargs)
-
-    # Retrieve the best hyperparameters
-    best_hps = tuner.get_best_hyperparameters(num_trials=1)[0]
-
-    # Build the best Keras model based on the best hyperparameters
-    model = _build_keras_model(best_hps, tf_transform_output)
-
-    # Determine the number of steps per epoch
-    total_train_examples = fn_args.train_steps * _BATCH_SIZE
-    steps_per_epoch = total_train_examples // _BATCH_SIZE
-
+  tf_transform_output = tft.TFTransformOutput(fn_args.transform_graph_path)
     # Fit the model with the callbacks
     model.fit(
         train_dataset,
@@ -1383,6 +1318,31 @@ https://console.cloud.google.com/vertex-ai/locations/us-central1/pipelines/runs/
 ```
 This submission triggers the execution of our pipeline in the cloud, leveraging the powerful resources and managed services provided by Vertex AI. It marks a critical step in deploying our Taxi Demand Prediction model in a scalable and robust cloud environment.
 
+#### 3.1.4.1 Model/Application on Google Cloud
 
+#### Overview
+
+The deployment of our Taxi Demand Prediction model on Google Cloud marks a significant milestone in showcasing our project's adaptability and innovation in machine learning. Highlighting our agile development approach, we successfully deployed two iterations of the model: an initial version following training and a second, customized version, reflecting our ability to refine and enhance our solutions based on evolving requirements and feedback.
+
+#### Initial Deployment of the Trained Model
+
+The first deployment phase involved deploying the trained model directly onto Google Cloud. This step was crucial to test the model's performance in a cloud environment and to ensure seamless integration with Google Cloud's services.
+
+- **Deployment Process**: The trained model was deployed using Vertex AI, which provided the necessary infrastructure and scalability.
+- **Verification**: Post-deployment, the model's functionality and performance were verified to ensure it met our expected standards.
+
+#### Customization and Second Deployment
+
+To demonstrate the versatility of our solution, we modified the model based on initial feedback and specific requirements. This phase highlights our model's customizability and our ability to iterate rapidly.
+
+- **Model Editing**: Adjustments were made to the model, improving its accuracy and efficiency based on the insights gathered from the initial deployment.
+- **Second Deployment**: The updated model was redeployed on Google Cloud, showcasing our ability to respond to changes and enhance our solution promptly.
+
+#### Demonstrating Customizability
+
+These two deployments underline our model's capacity for customization and adaptability. It proves our commitment to providing a solution that is not only effective but also flexible enough to evolve according to changing needs and insights.
+
+- **Images of Deployed Models**: _[Add images or screenshots of the deployed models on Google Cloud]_
+- **Continuous Improvement**: This process exemplifies our approach to continuous improvement and adaptation in the rapidly evolving field of machine learning and data science.
 
 
