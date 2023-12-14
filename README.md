@@ -1344,5 +1344,93 @@ These two deployments underline our model's capacity for customization and adapt
 
 - **Images of Deployed Models**: _[Add images or screenshots of the deployed models on Google Cloud]_
 - **Continuous Improvement**: This process exemplifies our approach to continuous improvement and adaptation in the rapidly evolving field of machine learning and data science.
+#### 3.1.4.2 Callable Library/Application
+
+#### Overview of Prediction Endpoints
+
+In our Taxi Demand Prediction project, we have established robust online prediction endpoints on Google Cloud. These endpoints, named "DNN-Customizable-endpoint" and "DNN-Demand-Endpoint," are integral for providing real-time predictions and interacting with our deployed models.
+
+#### Endpoints Details
+
+#### DNN-Customizable-Endpoint
+
+- **Endpoint ID**: 8334344318030446592
+- **Status**: Deployed
+- **Deployment Resource Pool**: To be updated
+- **Region**: us-central1
+- **Monitoring**: No alerts yet
+- **Last Updated**: 15 Dec 2023, 05:08:20
+- **Description**: This endpoint is linked to the "DNN-Customizable" model, showcasing the model's ability to adapt and provide tailored predictions based on varying inputs.
+
+#### DNN-Demand-Endpoint
+
+- **Endpoint ID**: 4013140475568455680
+- **Status**: Deployed
+- **Deployment Resource Pool**: [Add deployment resource pool if applicable]
+- **Region**: us-central1
+- **Monitoring**: No alerts yet
+- **Last Updated**: 15 Dec 2023, 05:06:38
+- **Description**: Associated with the "DNN-Demand" model, this endpoint serves real-time predictions regarding taxi demand based on the provided data.
+#### Online Prediction with Deployed Endpoints
+
+Our project demonstrates the practical application of the deployed models by enabling online predictions through the Vertex AI endpoints. We use a Python script to serialize feature data and interact with the model endpoints, fetching real-time predictions based on various input features.
+
+#### Example of Online Prediction Process
+
+Here's how we prepare and send a prediction request to our model's endpoint:
+
+```python
 
 
+#### Example raw features for prediction
+raw_features = {
+    'day': 26, 'year': 2022, 'month': 1, 'hour': 1, 'pickup_community_area': 16,
+    'duration': 2.0, 'trip_miles': 9.225, 'trip_total': 2.35,
+    'temperature_2m': 9.25, 'relativehumidity_2m': 84, 'precipitation': 0.0,
+    'rain': 0.0, 'snowfall': 0.0, 'weathercode': 3, 'public_holiday': 0,
+    'hour_sin': -0.51958395003511026, 'hour_cos': 0.85441940454668519,
+    'day_sin': 0.0, 'day_cos': 1.0, 'month_sin': 0.50000000000002986,
+    'month_cos': 0.8660254037
+}
+#### Make the prediction request
+response = make_prediction(
+    project_id="75674212269",
+    endpoint_id="547902037283569664",
+    location="us-central1",
+    instance=instance
+)
+
+#### Print the prediction response
+print("Prediction response:", response)
+```
+#### Prediction Response from DNN-Customizable
+
+The response received from the "DNN-Customizable" endpoint after submitting the prediction request is as follows:
+
+```plaintext
+Prediction response: predictions {
+  list_value {
+    values {
+      number_value: 1.1016165
+    }
+  }
+}
+deployed_model_id: "7298687927549165568"
+model: "projects/75674212269/locations/us-central1/models/5446485823769804800"
+model_display_name: "DNN-Customizable"
+model_version_id: "1"
+```
+#### Prediction Response from DNN-Demand Endpoint
+```plaintext
+Prediction response: predictions {
+  list_value {
+    values {
+      number_value: 1.39575148
+    }
+  }
+}
+deployed_model_id: "8119926356474593280"
+model: "projects/75674212269/locations/us-central1/models/5538528141154189312"
+model_display_name: "DNN-Demand"
+model_version_id: "1"
+```
