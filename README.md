@@ -652,51 +652,245 @@ To contextualize these numbers, imagine the task of predicting the number of tax
 
 This degree of precision underscores the model's adeptness at striking a crucial balance between bias and variance, an essential factor in predictive modeling. The model is finely tuned to avoid overfitting, where it might otherwise capture random noise in the data, as well as underfitting, where it could fail to discern underlying patterns. As a result, it offers predictions that are not only reliable but also highly adaptable to real-world situations.
 
+### 3.1.3.6 Machine Learning Model Training and Development
 
-# TFX Taxi Demand Interactive Pipeline
 
-## Introduction
-Our project leverages TensorFlow Extended (TFX) to build an interactive pipeline, expertly tailored for the end-to-end process of taxi demand prediction. This pipeline forms an integral component of our workflow, efficiently automating data ingestion, processing, model training, evaluation, and deployment.
+#### Data Preprocessing and Splitting
 
-## Pipeline Overview
-The TFX pipeline is intricately structured with multiple components, each contributing significantly to different stages of the machine learning lifecycle:
+Our data preprocessing pipeline, integral to the Chicago Taxi Trips dataset, encompasses several key steps as outlined in section [section 3.1.3.4 Preprocessing and the Data Pipeline](#3134-preprocessing-and-the-data-pipeline). This pipeline is critical for preparing the data for effective machine learning model training and evaluation.
 
-- **ExampleGen**: Ingests data and splits it into distinct training and evaluation sets.
-- **StatisticsGen**: Generates essential statistics for initial data analysis and further validation.
-- **SchemaGen**: Infers a schema from the data statistics, offering insights into the datasets structure and format.
-- **ExampleValidator**: Detects anomalies and missing values, ensuring high data quality.
-- **Transform**: Conducts feature engineering, transforming raw data into a machine learning-compatible format.
-- **Trainer**: Develops and trains the machine learning model using various algorithms.
-- **Evaluator**: Assesses the models performance against established baselines.
-- **Pusher**: Deploys the trained model to a serving infrastructure for real-world applications.
+#### Key Steps in Data Preprocessing Pipeline:
 
-## Need for an Interactive Pipeline
-Utilizing an interactive pipeline prior to large-scale deployment is crucial for:
+1. **Data Integration**: Combining taxi trip data with hourly weather data to incorporate environmental factors.
+2. **Data Cleaning and Capping**: Applying capping techniques on trip duration, distance, and cost data to mitigate the impact of outliers.
+3. **Feature Extraction**: Engineering time-based variables and trigonometric transformations to capture cyclical demand patterns.
+4. **Data Aggregation**: Aggregating data at the community area level for more in-depth demand trend analysis.
+5. **Data Export**: Exporting processed data sets to CSV files for accessibility during modeling.
 
-1. **Iterative Development**: Enables rapid model iterations with immediate feedback.
-2. **Experimentation**: Facilitates testing of diverse features, structures, and hyperparameters.
-3. **Data Quality Assurance**: Guarantees the integrity and reliability of the data.
-4. **Debugging**: Allows identification and resolution of issues in data processing and model training.
+#### Dataset Sampling and Justification:
 
-## Pipeline Execution
-Our pipeline execution combines complex data processing with machine learning tasks, executed locally for enhanced control and transparency.
+- **Training Data**: Includes data from the years 2020 and 2021.
+- **Validation Data**: Composed of data from the year 2022.
+- **Test Data**: Contains data from the year 2023 up to April.
+
+This segmentation strategy minimizes data leakage and accurately reflects a realistic scenario for taxi demand prediction. Additionally, we have experimented with various kinds of data splits to determine the most effective approach for our model. These exploratory analyses are documented in our Exploratory Data Analysis notebook.
+
+```sql
+-- Data Preprocessing SQL Code
+C CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.training_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2020 OR year = 2021;
+
+    -- Create Validation Set
+    CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.validation_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2022;
+
+    -- Create Test Set
+    CREATE OR REPLACE TABLE `mlops-363723.ChicagoTaxitrips.test_data` AS
+    SELECT *
+    FROM `mlops-363723.ChicagoTaxitrips.aggregated_data`
+    WHERE year = 2023 AND month <= 4;
+  
+     EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/training_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.training_data`;
+
+    EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/validation_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.validation_data`;
+
+    EXPORT DATA OPTIONS(
+      uri='gs://chicago_taxitrips/DATA_DIRECTORY/test_data/*.csv',
+      format='CSV',
+      overwrite=true
+    ) AS
+    SELECT * FROM `mlops-363723.ChicagoTaxitrips.test_data`;
+...
+```
+#### Hyperparameter Tuning and Model Optimization
+
+Our approach to hyperparameter tuning and model optimization employed the Keras Tuner with a RandomSearch strategy, a crucial step in enhancing the model's predictive capabilities. The `tuner_fn` function defines the hypermodel using the `_build_keras_model` function, sets the objective to minimize the validation mean absolute error, and runs a series of trials to find the best model parameters.
+
+We optimized our machine learning model's architecture by implementing a RandomSearch strategy with Keras Tuner. The objective was to minimize the validation mean absolute error (MAE), which aligns with our business goal of achieving high accuracy in predicting taxi trip demand.
+
+Our tuning process is defined in the `tuner_fn` function, which sets up the RandomSearch tuner with the objective of minimizing the validation mean absolute error. A maximum of 25 trials were conducted, with each trial exploring a unique set of hyperparameters to build and evaluate a model.
+
+The model-building function, `_build_keras_model`, dynamically creates a model based on the provided hyperparameters, such as the number of layers, activation functions, units per layer, and regularization rates. This allows for a thorough investigation of the hyperparameter space, ensuring the best model configuration is identified.
+
+The early stopping callback is utilized to prevent overfitting, monitoring the validation mean absolute error and stopping the training process if no improvement is observed after a specified number of epochs.
+
+Here's a snippet of the code that illustrates the hyperparameter tuning and model optimization process:
 
 ```python
-import tfx
-from tfx import v1 as tfx
-import kfp
-from tfx.orchestration.metadata import sqlite_metadata_connection_config
+def _build_keras_model(hp, tf_transform_output: tft.TFTransformOutput) -> tf.keras.Model:
+    # Define feature specs and create input layers
+    feature_spec = tf_transform_output.transformed_feature_spec().copy()
+    feature_spec.pop(_LABEL_KEY)
+    inputs = {key: tf.keras.layers.Input(shape=(1,), name=key) for key in feature_spec.keys()}
 
-tfx.orchestration.LocalDagRunner().run(
-    _create_pipeline(
-        pipeline_name=PIPELINE_NAME,
-        pipeline_root=PIPELINE_ROOT,
-        data_root=DATA_DIRECTORY,
+    # Concatenate all input features
+    concatenated_inputs = tf.keras.layers.Concatenate()(list(inputs.values()))
+
+    # Define model architecture dynamically based on hyperparameters
+    num_layers = hp.Int('num_layers', 1, 5)
+    for i in range(num_layers):
+        units = hp.Int(f'units_{i}', min_value=32, max_value=512, step=32)
+        concatenated_inputs = tf.keras.layers.Dense(units=units, activation=hp.Choice('activation', ['relu', 'leaky_relu', 'elu', 'tanh', 'sigmoid']),
+            kernel_regularizer=tf.keras.regularizers.l2(hp.Float('l2_{i}', 1e-5, 1e-2, sampling='log')))(concatenated_inputs)
+        if hp.Boolean(f'dropout_{i}'):
+            concatenated_inputs = tf.keras.layers.Dropout(hp.Float(f'dropout_rate_{i}', 0.1, 0.5))(concatenated_inputs)
+
+    # Output layer for regression
+    output = tf.keras.layers.Dense(1, activation='linear')(concatenated_inputs)
+
+    # Compile the model with the chosen optimizer, loss function, and metrics
+    model = tf.keras.Model(inputs=inputs, outputs=output)
+    model.compile(optimizer=tf.keras.optimizers.Adam(hp.Float('learning_rate', min_value=1e-4, max_value=1e-2, sampling='log')),
+                  loss='mean_squared_error',
+                  metrics=[tf.keras.metrics.MeanAbsoluteError(), tf.keras.metrics.RootMeanSquaredError()])
+    return model
+
+# Tuner function that sets up the RandomSearch tuner
+def tuner_fn(fn_args: FnArgs) -> TunerFnResult:
+    tf_transform_output = tft.TFTransformOutput(fn_args.transform_graph_path)
+    tuner = RandomSearch(
+        hypermodel=lambda hp: _build_keras_model(hp, tf_transform_output),
+        objective='val_mean_absolute_error',
+        max_trials=25,
+        executions_per_trial=1,
+        directory=fn_args.working_dir,
+        project_name='taxi_trips_tuning_RandomSearch'
+    )
+
+    train_dataset = _input_fn(fn_args.train_files, fn_args.data_accessor, tf_transform_output, _BATCH_SIZE)
+    eval_dataset = _input_fn(fn_args.eval_files, fn_args.data_accessor, tf_transform_output, _BATCH_SIZE)
+
+    return TunerFnResult(
+        tuner=tuner,
+        fit_kwargs={
+            'x': train_dataset,
+            'validation_data': eval_dataset,
+            'steps_per_epoch': 1500,  
+            'validation_steps': 969,  
+            'callbacks': [early_stopping]
+        }
+    )
+
+# Hyperparameters tuning with the tfx extension for Google Cloud AI Platform
+tuner = tfx.extensions.google_cloud_ai_platform.Tuner(
         module_file=_taxi_trainer_module_file,
-        serving_model_dir=SERVING_MODEL_DIR
-    ))
+        examples=transform.outputs['transformed_examples'],
+        schema=schema_gen.outputs['schema'],
+        transform_graph=transform.outputs['transform_graph'],
+        train_args=trainer_pb2.TrainArgs(splits=['train'], num_steps=100),
+        eval_args=trainer_pb2.EvalArgs(splits=['eval'], num_steps=5),
+         custom_config={
+        tfx.extensions.google_cloud_ai_platform.ENABLE_VERTEX_KEY: True,
+        tfx.extensions.google_cloud_ai_platform.VERTEX_REGION_KEY: region,
+        tfx.extensions.google_cloud_ai_platform.experimental.TUNING_ARGS_KEY: vertex_job_spec
+        # tfx.extensions.google_cloud_ai_platform.experimental.REMOTE_TRIALS_WORKING_DIR_KEY: os.path.join('gs://', GCS_BUCKET_NAME, 'tuner_trials')
+    }
+   )
+
+This approach allowed us to systematically search through the hyperparameter space and apply early stopping to prevent overfitting. The use of Google Cloud AI Platform's Tuner enabled us to take advantage of scalable infrastructure and manage the tuning process more effectively. Our choice of hyperparameters included the number of layers, types of activation functions, units per layer, regularization rates, and learning rates, all of which were critical in developing a robust model for our taxi demand prediction task.
+
 
 ```
+#### Model Evaluation Metric
+
+In our model's assessment, we primarily utilize the Mean Absolute Error (MAE) complemented by the Root Mean Squared Error (RMSE). These metrics are pivotal for gauging performance and are closely aligned with our core business objectives.
+
+##### Why MAE is Optimal:
+
+- **Business Alignment**: MAE provides an intuitive gauge of prediction accuracy in the same unit as our target variable, the number of taxi trips. This direct correlation facilitates effective communication with business stakeholders.
+- **Robustness to Outliers**: The MAE metric's insensitivity to outliers ensures our model evaluation is not disproportionately affected by anomalous data, maintaining consistent performance standards.
+- **Interpretability**: The straightforwardness of MAE as an average error metric makes it an invaluable tool for operational decision-making, offering a transparent view into the predictive capabilities of our model.
+
+##### Significance of RMSE:
+
+- **Complementing MAE**: While MAE is excellent for general performance measurement, RMSE is crucial for identifying when the model is prone to larger errors, due to its greater sensitivity to substantial deviations in the data.
+- **Error Squaring**: The squaring of errors in RMSE means large errors have a disproportionately large effect on the metric, providing insight into the variability of the model's performance, which can be critical for certain business outcomes.
+
+##### Configuration of Model Evaluation:
+
+We leverage the TensorFlow Model Analysis (TFMA) library for a robust and granular evaluation configuration (`eval_config`). This configuration allows us to monitor our model's MAE, setting thresholds that reflect meaningful improvements in prediction accuracy.
+
+```python
+# Define the evaluation configuration using TensorFlow Model Analysis
+import tensorflow_model_analysis as tfma
+
+eval_config = tfma.EvalConfig(
+    model_specs=[tfma.ModelSpec(signature_name='serving_default', label_key='num_taxi_trips')],
+    slicing_specs=[tfma.SlicingSpec()],
+    metrics_specs=[
+        tfma.MetricsSpec(
+            metrics=[
+                tfma.MetricConfig(class_name='MeanAbsoluteError'),
+                tfma.MetricConfig(class_name='RootMeanSquaredError')
+            ]
+        ),
+        tfma.MetricsSpec(
+            metrics=[
+                tfma.MetricConfig(
+                    class_name='MeanAbsoluteError',
+                    threshold=tfma.MetricThreshold(
+                        value_threshold=tfma.GenericValueThreshold(lower_bound={'value': MAE_LOWER_BOUND}),
+                        change_threshold=tfma.GenericChangeThreshold(
+                            direction=tfma.MetricDirection.LOWER_IS_BETTER,
+                            absolute={'value': MAE_CHANGE_THRESHOLD}
+                        )
+                    )
+                )
+            ]
+        )
+    ]
+)
+
+
+```
+#### Bias/Variance Trade-off Considerations
+
+In the development of our machine learning model for taxi demand prediction, we meticulously evaluated and managed the bias-variance trade-off. These trade-offs played a pivotal role in designing an architecture that not only meets our predictive performance criteria but also aligns with our business goals.
+
+##### Layer Configuration and Activation Functions
+
+We calibrated the model's architecture by employing Randomsearch techniques to determine the optimal number of layers and neurons. Activation functions were carefully selected for each layer to ensure non-linearity in the learning process. This fine-tuning aimed to mitigate underfitting (high bias) by enhancing the model's complexity, while also preventing overfitting (high variance) by avoiding an excessively intricate structure.
+
+##### Regularization and Dropout
+
+To address overfitting, we integrated L2 regularization into our model, which imposes a penalty on weight magnitudes and encourages the learning of small weights, effectively simplifying the model. Additionally, dropout layers were strategically placed within the network, randomly disabling neurons during training. This not only prevents the model from becoming overly dependent on any particular neurons (reducing variance) but also promotes a distributed representation within the network.
+
+##### Hyperparameter Tuning
+
+The architecture and learning process were further refined through extensive hyperparameter tuning using the Keras Tuner. This systematic approach allowed us to explore the hyperparameter space efficiently, identifying configurations that balance model complexity (to reduce bias) with generalization capabilities (to control variance).
+
+```python
+# Trainer component code snippet
+trainer = tfx.extensions.google_cloud_ai_platform.Trainer(
+    module_file=os.path.abspath(module_file),
+    transformed_examples=transform.outputs['transformed_examples'],
+    schema=schema_gen.outputs['schema'],
+    transform_graph=transform.outputs['transform_graph'],
+    hyperparameters=tuner.outputs['best_hyperparameters'],
+    train_args=tfx.proto.TrainArgs(splits=['train'], num_steps=10160),
+    eval_args=tfx.proto.EvalArgs(splits=['eval'], num_steps=5716),
+    custom_config={
+      tfx.extensions.google_cloud_ai_platform.ENABLE_VERTEX_KEY: True,
+      tfx.extensions.google_cloud_ai_platform.VERTEX_REGION_KEY: region,
+      tfx.extensions.google_cloud_ai_platform.TRAINING_ARGS_KEY: vertex_job_spec
+    }
+)
+```
+Our model training and development process is a testament to the strategic balance between complexity and generalization, governed by the underlying principles of bias-variance trade-off. By harnessing advanced optimization strategies and the power of cloud computing, we ensure that our model is not only accurate but also practical and interpretable in a real-world business setting.
 ## Transitioning to Vertex AI
 After refining our model through the interactive pipeline, we transition to Vertex AI. This platform offers automated and scalable ML workflows, enhanced performance and efficiency, and robust MLOps capabilities, making it ideal for deploying and managing our models at scale.
 
