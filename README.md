@@ -286,61 +286,61 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 ##### ***Hourly Taxi Demand***
 - *Description*: Analysis of taxi demand based on hourly data.
 ![Analysis of Hourly Taxi Demand](assets/Analysis%20of%20Hourly%20Taxi%20Demand.png)
-- **Observations**:
+- *Observations*:
   - Decrease in demand in the early morning hours, with the lowest point around 5 AM.
   - Increase in demand from 6 AM, peaking during late afternoon and early evening, then decreasing throughout the night.
   - Typical urban dynamics with increased demand during peak hours and reduced demand during off-peak periods.
 
-##### Taxi Demand by Day of the Week
-- **Description**: Analyzing the distribution of taxi demand across different days of the week.
+##### ***Taxi Demand by Day of the Week***
+- *Description*: Analyzing the distribution of taxi demand across different days of the week.
 ![Analysis of Taxi Demand by Day of the Week](assets/Analysis%20of%20Taxi%20Demand%20by%20Day%20of%20the%20Week.png)
-- **Observations**:
+- *Observations*:
   - Consistent demand from Monday to Friday, with an increase on Fridays.
   - Drop in demand on Saturdays and the lowest on Sundays.
   - Weekday demand driven by work-related commuting, contrasting with quieter weekends.
 
-##### Taxi Demand by Month
-- **Description**: Exploration of how taxi demand varies across different months.
+##### ***Taxi Demand by Month***
+- *Description*: Exploration of how taxi demand varies across different months.
 ![Analysis of Taxi Demand by Month](assets/Analysis%20of%20Taxi%20Demand%20by%20Month.png)
-- **Observations**:
+- *Observations*:
   - Steady demand from January through May.
   - Peak in June, followed by a decline in July and stabilization from August to December.
   - June's peak possibly related to seasonal events, holidays, or tourist influx.
 
 ##### Categorical Analysis
 
-##### Taxi Demand vs. Weather Code
-- **Description**: Investigation of demand variations across different weather conditions as indicated by weather codes.
+##### ***Taxi Demand vs. Weather Code***
+- *Description*: Investigation of demand variations across different weather conditions as indicated by weather codes.
 ![Taxi Demand vs. Weather Code Analysis](assets/Taxi%20Demand%20vs.%20Weather%20Code%20Analysis.png)
 
-- **Observations**:
+- *Observations*:
   - Higher demand for lower weather code values (favorable conditions).
   - Decrease in demand with increasing weather code values, suggesting reduced demand in severe or unfavorable weather.
 
-##### Taxi Demand by Weather Condition
-- **Description**: Detailed analysis of taxi demand under specific weather conditions.
+##### ***Taxi Demand by Weather Condition***
+- *Description*: Detailed analysis of taxi demand under specific weather conditions.
 ![Taxi Demand by Weather Condition Analysis](assets/Taxi%20Demand%20by%20Weather%20Condition%20Analysis.png)
 
-- **Observations**:
+- *observations*:
   - Highest demand in sunny and clear weather.
   - Significant demand during less favorable conditions like rain or fog.
   - Lowest demand during extreme conditions like thunderstorms or heavy snow.
 
 ##### Spatial Analysis
 
-##### Spatial Analysis of Taxi Pickups by Community Area
-- **Description**: Distribution of taxi pickups across different community areas.
+##### ***Spatial Analysis of Taxi Pickups by Community Area***
+- *Description*: Distribution of taxi pickups across different community areas.
 ![Spatial Analysis of Taxi Pickups by Community Area](assets/Spatial%20Analysis%20of%20Taxi%20Pickups%20by%20Community%20Area.png)
 
-- **Observations**:
+- *Observations*:
   - Variations in pickup frequency across areas, influenced by proximity to key destinations or transport hubs.
   - Disparity in average fares, indicating differences in trip lengths or destination popularity.
 
-##### Analysis of Average Fare by Pickup Community Area
-- **Description**: Investigation into average fares in different community areas.
+##### ***Analysis of Average Fare by Pickup Community Area***
+- *Description*: Investigation into average fares in different community areas.
 ![Analysis of Average Fare by Pickup Community Area](assets/Analysis%20of%20Average%20Fare%20by%20Pickup%20Community%20Area.png)
 
-- **Observations**:
+- *Observations*:
   - Range in average fares, with certain areas having higher fares on average due to longer trips or routes to in-demand locations.
   - These fare dynamics are crucial for efficient service allocation and pricing strategies.
 
@@ -349,14 +349,14 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 In this section, we explore the intricate associations and dependencies among the numerical features within our dataset through correlation analysis. This approach is pivotal in unraveling the subtle and complex factors that influence taxi demand and the characteristics of taxi trips.
 
-- **Correlation Heatmap**: The heatmap visualizes the correlation coefficients between different numerical features, such as trip miles, trip seconds, trip total, and various weather-related variables like temperature, humidity, and precipitation.
+- *Correlation Heatmap*: The heatmap visualizes the correlation coefficients between different numerical features, such as trip miles, trip seconds, trip total, and various weather-related variables like temperature, humidity, and precipitation.
 ![Correlation Analysis of Numerical Features](assets/Correlation%20Analysis%20of%20Numerical%20Features.png)
 
-- **Findings**:
+- *Findings*:
   - A positive correlation is observed between trip miles and trip seconds, indicating that trips covering more miles typically have longer durations.
   - Trip total shows a positive correlation with both trip miles and trip seconds, suggesting that longer trips, both in distance and duration, generally lead to higher fares.
   - Weather-related variables display very weak correlations with trip details, suggesting minimal direct linear relationships between these weather factors and the specific attributes of taxi trips.
-- **Implications**: This analysis is crucial for understanding how different aspects of taxi trips are interconnected. It provides insights crucial for refining fare structuring, service management, and operational strategies in the taxi service industry.
+- *Implications*: This analysis is crucial for understanding how different aspects of taxi trips are interconnected. It provides insights crucial for refining fare structuring, service management, and operational strategies in the taxi service industry.
 
 #### Outlier Analysis
 
@@ -364,10 +364,10 @@ The Outlier Analysis section is dedicated to identifying and understanding anoma
 
 ##### Outlier Analysis of Numerical Features
 
-- **Box Plots**: Visualization of outliers in various numerical features using box plots.
+- *Box Plots*: Visualization of outliers in various numerical features using box plots.
 ![Outlier Analysis of Numerical Features](assets/Outlier%20Analysis%20of%20Numerical%20Features.png)
 
-- **Findings**:
+- *Findings*:
   - Trip_seconds and trip_total exhibit significant outliers, indicating the presence of unusually long or expensive trips.
   - Trip_miles also shows outliers, but they are not as pronounced.
   - Temperature_2m shows a relatively normal distribution with minimal outliers.
@@ -376,37 +376,37 @@ The Outlier Analysis section is dedicated to identifying and understanding anoma
 
 ##### Percentile Analysis of Continuous Variables
 
-- **Analysis**: Percentile distribution provides insights into the range and spread of continuous variables like trip_seconds, trip_miles, and trip_total.
-- **Observations**:
+- *Analysis*: Percentile distribution provides insights into the range and spread of continuous variables like trip_seconds, trip_miles, and trip_total.
+- *Observations*:
   - Trip_seconds: The majority of trips are shorter than 38 minutes, with a maximum duration significantly higher, suggesting outliers.
   - Trip_miles: Most trips are under 15.72 miles, with the longest trip recorded at 3430.53 miles.
   - Trip_total: Median fare is around $15.50, with the highest recorded fare being significantly higher.
-- **Implications**: This percentile analysis helps identify typical trip characteristics and detect anomalies within the dataset.
+- *Implications*: This percentile analysis helps identify typical trip characteristics and detect anomalies within the dataset.
 
 ##### Scatter Plot Analysis of Taxi Pickup Locations
 
-- **Visualization**: A scatter plot representing the geographical distribution of taxi pickups.
+- *Visualization*: A scatter plot representing the geographical distribution of taxi pickups.
 ![Scatter Plot Analysis of Taxi Pickup Locations](assets/Scatter%20Plot%20Analysis%20of%20Taxi%20Pickup%20Locations.png)
 
-- **Observations**:
+- *Observations*:
   - Dense clusters indicate popular areas or hotspots for taxi pickups.
   - Areas with fewer points suggest less frequent taxi activity, possibly in residential zones or less commercially active areas.
 
 
 ##### Data Cleaning and Outlier Treatment Process
 
-- **Process Description**: 
+- *Process Description*: 
   - The cleaning process involves a series of meticulous steps designed to refine the taxi dataset for more accurate analysis.
   - Geographical Filtering: Ensures that all taxi pickups and drop-offs are within the defined Chicago city boundaries, filtering out data points that fall outside these parameters.
   - Removing Zero Values: Trips with zero values for critical variables such as trip_seconds, trip_miles, or trip_total are excluded, as they likely represent data recording errors or irrelevant entries, ensuring the integrity of the dataset.
   - 12-Hour Rule: Trips exceeding a 12-hour duration are removed from the dataset. This step adheres to realistic and legal driving limits, eliminating data points that might be the result of data entry errors or other anomalies.
   - Capping Extreme Values: Extreme values for variables like trip duration, miles, fare, and weather-related measures are capped at their 1st and 99th percentiles. This treatment mitigates the influence of extreme outliers that could skew the analysis, ensuring a more balanced and representative dataset.
 
-- **Data Retention**: 
+- *Data Retention*: 
   - Post-cleaning, a considerable percentage of the data is retained, striking a balance between maintaining a robust dataset size and ensuring the quality and reliability of the data.
   - The retention rate is a testament to the effectiveness of the cleaning process, indicating that while it rigorously filters out inaccuracies and anomalies, it preserves the bulk of valuable data.
 
-- **Strategic Importance**: 
+- *Strategic Importance*: 
   - This cleaning and outlier treatment process is a critical foundation for any subsequent data analysis and modeling. By ensuring the dataset's accuracy and relevance, it lays the groundwork for drawing reliable conclusions and insights.
   - These practices are not just about removing outliers or erroneous data; they are about enhancing the overall quality of the dataset, thereby enabling more precise and meaningful analyses.
   - The process also reflects the importance of data integrity in the field of data science, where the quality of the input data significantly influences the validity of the results.
@@ -443,10 +443,10 @@ In our analysis, we delve into the transformation of key numerical features with
 
 This analysis focuses on the skewness and kurtosis of various features in our dataset after applying transformations. It's a crucial step in determining how these transformations impact the distribution characteristics of our data.
 
-##### Procedure
+##### ***Procedure***
 - We calculate the skewness and kurtosis for each feature in its original, log-transformed, and square root-transformed states. These metrics provide insights into the symmetry and tail behavior of the distributions.
-  - **Skewness**: Measures distribution asymmetry. Positive skew indicates a right tail, while negative skew indicates a left tail.
-  - **Kurtosis**: Indicates whether data are heavy-tailed (positive kurtosis) or light-tailed (negative kurtosis) compared to a normal distribution.
+  - *Skewness*: Measures distribution asymmetry. Positive skew indicates a right tail, while negative skew indicates a left tail.
+  - *Kurtosis*: Indicates whether data are heavy-tailed (positive kurtosis) or light-tailed (negative kurtosis) compared to a normal distribution.
 
 ##### Transformations Applied
 - Applied transformations include original data, log transformation, and square root transformation on features like `trip_total`, `trip_miles`, `trip_seconds`, `temperature_2m`, `relativehumidity_2m`, and `precipitation`.
@@ -464,7 +464,7 @@ This analysis focuses on the skewness and kurtosis of various features in our da
 - **Insert Visualization Here**: Include tables or charts that display skewness and kurtosis values for each feature under different transformations.
 
 
-##### Conclusion
+#### Conclusion
 Our EDA is a comprehensive process that lays the foundation for predictive modeling. It ensures our understanding of the data is robust and our subsequent models are informed by deep insights.
 
 #### 3.1.3.3 Feature Engineering
@@ -473,21 +473,21 @@ Our EDA is a comprehensive process that lays the foundation for predictive model
 
 we focus on enriching our dataset with time-based and cyclic features. This approach aims to capture the temporal patterns and cyclic nature of taxi demand more effectively.
 
-##### Extraction of Time-based Features
-- **Overview**: Key time-based features are extracted from the `trip_start_timestamp` field to understand the temporal dynamics of taxi usage.
-- **Extracted Features**: 
-  - **Year, Month, Day**: To identify long-term trends and seasonal variations.
-  - **Hour**: Crucial for understanding daily demand cycles.
-  - **Weekday**: Differentiates weekdays from weekends, reflecting varying demand patterns.
-  - **Trip Date**: Useful for pinpointing specific events or anomalies.
+##### ***Extraction of Time-based Features***
+- *Overview*: Key time-based features are extracted from the `trip_start_timestamp` field to understand the temporal dynamics of taxi usage.
+- *Extracted Features*: 
+  - *Year, Month, Day*: To identify long-term trends and seasonal variations.
+  - *Hour*: Crucial for understanding daily demand cycles.
+  - *Weekday*: Differentiates weekdays from weekends, reflecting varying demand patterns.
+  - *Trip Date*: Useful for pinpointing specific events or anomalies.
 
-##### Creation of Cyclic Features
-- **Rationale**: Time-based features like hour, day, and month inherently follow a cyclical pattern, which traditional numerical or categorical representations do not capture effectively.
-- **Transformation Technique**: 
+##### ***Creation of Cyclic Features***
+- *Rationale*: Time-based features like hour, day, and month inherently follow a cyclical pattern, which traditional numerical or categorical representations do not capture effectively.
+- *Transformation Technique*: 
   - Sine and cosine transformations are applied to hour, weekday, and month features.
-  - **Hourly Cycles**: `hour_sin` and `hour_cos` capture the 24-hour daily cycle.
-  - **Weekly Cycles**: `day_sin` and `day_cos` encapsulate the weekly cycle.
-  - **Monthly Cycles**: `month_sin` and `month_cos` represent the annual monthly cycle.
+  - *Hourly Cycles*: `hour_sin` and `hour_cos` capture the 24-hour daily cycle.
+  - *Weekly Cycles*: `day_sin` and `day_cos` encapsulate the weekly cycle.
+  - *Monthly Cycles*: `month_sin` and `month_cos` represent the annual monthly cycle.
 
 ##### Significance in Modeling
 - These cyclic features are essential for models where time is a significant factor, such as in predicting taxi demand patterns.
