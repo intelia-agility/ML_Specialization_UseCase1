@@ -255,7 +255,7 @@ In our comprehensive Exploratory Data Analysis (EDA), univariate analysis played
 - **Continuous Features**: Analyzed key continuous features like `trip_seconds`, `trip_miles`, `trip_total`, and various weather-related attributes (temperature_2m, relativehumidity_2m, precipitation, rain, snowfall). Histograms with kernel density estimates provided insights into the distribution of these variables, highlighting trends and anomalies.
 
 - **Categorical Features**: Features such as `company` and `weathercode` were analyzed using count plots to understand their frequency distribution. This helped us grasp the diversity and prominence of different taxi companies and weather conditions during taxi trips.
-
+![Univariate Analysis of Continuous and Categorical Features](assets/Univariate%20Analysis%20of%20Continuous%20and%20Categorical%20Features.png)
 #### Observations from Univariate Analysis
 
 - **Continuous Features**: Most trip durations, distances, and fares were on the lower side, with right-skewed distributions, indicating that shorter and less expensive trips were more common.
