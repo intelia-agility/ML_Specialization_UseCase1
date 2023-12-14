@@ -310,12 +310,16 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Taxi Demand vs. Weather Code
 - **Description**: Investigation of demand variations across different weather conditions as indicated by weather codes.
+![Taxi Demand vs. Weather Code Analysis](assets/Taxi%20Demand%20vs.%20Weather%20Code%20Analysis.png)
+
 - **Observations**:
   - Higher demand for lower weather code values (favorable conditions).
   - Decrease in demand with increasing weather code values, suggesting reduced demand in severe or unfavorable weather.
 
 ##### Taxi Demand by Weather Condition
 - **Description**: Detailed analysis of taxi demand under specific weather conditions.
+![Taxi Demand by Weather Condition Analysis](assets/Taxi%20Demand%20by%20Weather%20Condition%20Analysis.png)
+
 - **Observations**:
   - Highest demand in sunny and clear weather.
   - Significant demand during less favorable conditions like rain or fog.
@@ -325,25 +329,20 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Spatial Analysis of Taxi Pickups by Community Area
 - **Description**: Distribution of taxi pickups across different community areas.
+![Spatial Analysis of Taxi Pickups by Community Area](assets/Spatial%20Analysis%20of%20Taxi%20Pickups%20by%20Community%20Area.png)
+
 - **Observations**:
   - Variations in pickup frequency across areas, influenced by proximity to key destinations or transport hubs.
   - Disparity in average fares, indicating differences in trip lengths or destination popularity.
 
 ##### Analysis of Average Fare by Pickup Community Area
 - **Description**: Investigation into average fares in different community areas.
+![Analysis of Average Fare by Pickup Community Area](assets/Analysis%20of%20Average%20Fare%20by%20Pickup%20Community%20Area.png)
+
 - **Observations**:
   - Range in average fares, with certain areas having higher fares on average due to longer trips or routes to in-demand locations.
   - These fare dynamics are crucial for efficient service allocation and pricing strategies.
 
-##### Visualization Placeholders for Bivariate Analysis
-
-- **Insert Graph 1**: Bar chart for Hourly Distribution of Taxi Demand.
-- **Insert Graph 2**: Bar chart for Distribution of Taxi Demand by Day of the Week.
-- **Insert Graph 3**: Bar chart for Distribution of Taxi Demand by Month.
-- **Insert Graph 4**: Scatter plot for Taxi Demand vs. Weather Code.
-- **Insert Graph 5**: Bar chart for Taxi Demand by Weather Condition.
-- **Insert Graph 6**: Bar chart for Taxi Pickups by Community Area.
-- **Insert Graph 7**: Bar chart for Average Fare by Pickup Community Area.
 
 ##### Correlation Analysis of Numerical Features
 
