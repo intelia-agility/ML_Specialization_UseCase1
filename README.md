@@ -1040,31 +1040,33 @@ tfx.orchestration.LocalDagRunner().run(
     )
 )
 ```
-# Output from the pipeline execution
-# -----------------------------------
-# Trial 10 Complete [00h 00m 12s]
-# val_mean_absolute_error: 0.7877678871154785
+##### Output from the pipeline execution
+```plaintext
+-----------------------------------
+Trial 10 Complete [00h 00m 12s]
+val_mean_absolute_error: 0.7877678871154785
 
-# Best val_mean_absolute_error So Far: 0.7770861387252808
-# Total elapsed time: 00h 02m 08s
+Best val_mean_absolute_error So Far: 0.7770861387252808
+Total elapsed time: 00h 02m 08s
 
-# Model Summary
-# -------------
-# Model: "model_1"
-# _________________________________________________________________
-# Layer (type)                       Output Shape            Param #   
-# =================================================================
-# (Model layers and their connections)
-# _________________________________________________________________
-# Total params: 206,913
-# Trainable params: 206,913
-# Non-trainable params: 0
-# _________________________________________________________________
-# 100/100 [==============================] - ETA: 0s - loss: 87.7152 - mean_absolute_error: 4.3698 - root_mean_squared_error: 9.3574
-# Epoch 1: val_mean_absolute_error improved from inf to 0.77404, saving model to gs://chicago_taxitrips/pipeline_root/c-prediction/Trainer/model_run/37/model/best_model
-# 100/100 [==============================] - 9s 71ms/step - loss: 87.7152 - mean_absolute_error: 4.3698 - root_mean_squared_error: 9.3574 - val_loss: 1.5186 - val_mean_absolute_error: 0.7740 - val_root_mean_squared_error: 1.1683
-# Exporting the serving model to gs://chicago_taxitrips/pipeline_root/c-prediction/Trainer/model/37/Format-Serving
-# Model exported successfully.
+Model Summary
+-------------
+Model: "model_1"
+_________________________________________________________________
+Layer (type)                       Output Shape            Param #   
+=================================================================
+(Model layers and their connections)
+_________________________________________________________________
+Total params: 206,913
+Trainable params: 206,913
+Non-trainable params: 0
+_________________________________________________________________
+100/100 [==============================] - ETA: 0s - loss: 87.7152 - mean_absolute_error: 4.3698 - root_mean_squared_error: 9.3574
+Epoch 1: val_mean_absolute_error improved from inf to 0.77404, saving model to gs://chicago_taxitrips/pipeline_root/c-prediction/Trainer/model_run/37/model/best_model
+100/100 [==============================] - 9s 71ms/step - loss: 87.7152 - mean_absolute_error: 4.3698 - root_mean_squared_error: 9.3574 - val_loss: 1.5186 - val_mean_absolute_error: 0.7740 - val_root_mean_squared_error: 1.1683
+Exporting the serving model to gs://chicago_taxitrips/pipeline_root/c-prediction/Trainer/model/37/Format-Serving
+Model exported successfully.
+```
 #### Conclusion of Local Testing
 
 The local testing phase, conducted using the DAG runner, has been an essential step in our development process. It allowed us to thoroughly validate each component of our TFX pipeline in a controlled and iterative manner. This approach ensured that any issues could be promptly identified and rectified, thereby enhancing the robustness and reliability of our pipeline.
@@ -1198,39 +1200,6 @@ def tuner_fn(fn_args: FnArgs) -> TunerFnResult:
             'callbacks': [early_stopping]
         }
     )
-
-
-def _get_tf_examples_serving_signature(model, tf_transform_output):
-    model.tft_layer_inference = tf_transform_output.transform_features_layer()
-
-    @tf.function(input_signature=[
-        tf.TensorSpec(shape=[None], dtype=tf.string, name='examples')
-    ])
-    def serve_tf_examples_fn(serialized_tf_example):
-        # Get the raw feature spec
-        raw_feature_spec = tf_transform_output.raw_feature_spec()
-
-        # Parse the raw features from the serialized example
-        raw_features = tf.io.parse_example(serialized_tf_example, raw_feature_spec)
-
-        # Exclude the 'demand' feature if it's present
-        if 'demand' in raw_features:
-            raw_features.pop('demand')
-
-        # Apply the transformation to get the features for model prediction
-        transformed_features = model.tft_layer_inference(raw_features)
-
-        # Filter out any keys not used by the model
-        model_input_keys = [layer.name for layer in model.layers if isinstance(layer, tf.keras.layers.InputLayer)]
-        filtered_features = {key: value for key, value in transformed_features.items() if key in model_input_keys}
-
-        # Make predictions with only the required inputs
-        outputs = model(filtered_features)
-        return {'outputs': outputs}
-
-    return serve_tf_examples_fn
-
-
 def _get_transform_features_signature(model, tf_transform_output):
     model.tft_layer_eval = tf_transform_output.transform_features_layer()
 
