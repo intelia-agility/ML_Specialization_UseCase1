@@ -283,7 +283,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 #### Temporal Analysis
 
-##### **Hourly Taxi Demand**
+##### ***Hourly Taxi Demand***
 - *Description*: Analysis of taxi demand based on hourly data.
 ![Analysis of Hourly Taxi Demand](assets/Analysis%20of%20Hourly%20Taxi%20Demand.png)
 - **Observations**:
