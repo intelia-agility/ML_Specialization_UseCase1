@@ -265,6 +265,8 @@ In our comprehensive Exploratory Data Analysis (EDA), univariate analysis played
 #### Univariate Analysis of Spatial Features
 
 - **Spatial Features Analysis**: Examined spatial features like `pickup_community_area`, `pickup_latitude`, and `pickup_longitude`. Count plots and histograms were employed to explore these features, identifying popular areas for taxi pickups and potential hotspots.
+![Univariate Analysis of Spatial Features](assets/Univariate%20Analysis%20of%20Spatial%20Features.png)
+
 - **Observations**: Some community areas had significantly higher pickup frequencies, suggesting they were key hotspots. Latitude and longitude data highlighted the geographical concentration of taxi pickups in certain areas.
 
 Each step of our univariate analysis provided crucial insights into different aspects of taxi demand, laying a foundation for more detailed multivariate analysis and predictive modeling. The use of visualizations at each step enhanced our understanding of the data and helped in identifying key areas for focused analysis and strategy development.
@@ -282,6 +284,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Hourly Taxi Demand
 - **Description**: Analysis of taxi demand based on hourly data.
+![Analysis of Hourly Taxi Demand](assets/Analysis%20of%20Hourly%20Taxi%20Demand.png)
 - **Observations**:
   - Decrease in demand in the early morning hours, with the lowest point around 5 AM.
   - Increase in demand from 6 AM, peaking during late afternoon and early evening, then decreasing throughout the night.
@@ -289,6 +292,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Taxi Demand by Day of the Week
 - **Description**: Analyzing the distribution of taxi demand across different days of the week.
+![Analysis of Taxi Demand by Day of the Week](assets/Analysis%20of%20Taxi%20Demand%20by%20Day%20of%20the%20Week.png)
 - **Observations**:
   - Consistent demand from Monday to Friday, with an increase on Fridays.
   - Drop in demand on Saturdays and the lowest on Sundays.
@@ -296,6 +300,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 ##### Taxi Demand by Month
 - **Description**: Exploration of how taxi demand varies across different months.
+![Analysis of Taxi Demand by Month](assets/Analysis%20of%20Taxi%20Demand%20by%20Month.png)
 - **Observations**:
   - Steady demand from January through May.
   - Peak in June, followed by a decline in July and stabilization from August to December.
