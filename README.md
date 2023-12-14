@@ -395,7 +395,7 @@ The Outlier Analysis section is dedicated to identifying and understanding anoma
 
 ##### Data Cleaning and Outlier Treatment Process
 
-- *Process Description*: 
+- **Process Description**: 
   - The cleaning process involves a series of meticulous steps designed to refine the taxi dataset for more accurate analysis.
   - Geographical Filtering: Ensures that all taxi pickups and drop-offs are within the defined Chicago city boundaries, filtering out data points that fall outside these parameters.
   - Removing Zero Values: Trips with zero values for critical variables such as trip_seconds, trip_miles, or trip_total are excluded, as they likely represent data recording errors or irrelevant entries, ensuring the integrity of the dataset.
