@@ -948,45 +948,7 @@ Our model achieved a Mean Absolute Error (MAE) of 2.1684, surpassing the establi
 Best MAE Achieved: 2.1684
 
 This advanced evaluation methodology, involving meticulous metric configuration and the strategic use of model resolvers, exemplifies our dedication to deploying a model that excels in both accuracy and continuous improvement, ensuring the highest standards of prediction quality in taxi trip demand forecasting.
-## Conclusion
-Our TFX Taxi Demand Interactive Pipeline encapsulates the complexity of the machine learning process, offering a streamlined and scalable approach to taxi demand prediction. It automates repetitive tasks and ensures consistency and quality in our model development lifecycle, setting a strong foundation for deploying sophisticated ML models in a production environment.
-
-
-## Pipeline Enhancement for Production
-Building upon the foundation established in our interactive pipeline, the production pipeline incorporates additional features and optimizations:
-
-- **Efficient Data Handling**: Optimized for processing large datasets efficiently and reliably.
-- **Advanced Model Training**: Utilizing complex training strategies to improve model accuracy and robustness.
-- **Comprehensive Model Evaluation**: Implementing thorough evaluation metrics to ensure the model's readiness for real-world scenarios.
-- **Automated Model Deployment**: Seamless deployment of the trained model to Vertex AI for real-time predictions.
-
-## Scalability and Automation
-Our production pipeline is designed for scalability, capable of handling vast amounts of data and complex model training scenarios. Automation plays a key role in ensuring consistent and error-free operations throughout the machine learning lifecycle.
-
-## Monitoring and Maintenance
-In a production environment, continuous monitoring and maintenance are crucial. Our pipeline is integrated with tools that facilitate ongoing supervision and timely updates to the model, ensuring it remains effective and relevant.
-
-## Pipeline Execution on Vertex AI
-The pipeline is executed on Google Cloud's Vertex AI, a platform known for its robust machine learning capabilities, which is ideal for deploying and managing models at scale.
-
-```python
-from google.cloud import aiplatform
-from google.cloud.aiplatform import pipeline_jobs
-import logging
-
-logging.getLogger().setLevel(logging.INFO)
-
-aiplatform.init(project=GOOGLE_CLOUD_PROJECT, location=GOOGLE_CLOUD_REGION)
-
-job = pipeline_jobs.PipelineJob(template_path=PIPELINE_DEFINITION_FILE,
-                                display_name=PIPELINE_NAME)
-job.submit()
-
-```
-## Conclusion
-Our TFX Taxi Demand Production Pipeline stands as a testament to our commitment to delivering scalable, efficient, and reliable machine learning solutions. By harnessing the capabilities of Vertex AI, we ensure that our model performs optimally in a real-world context, driving forward the innovation in taxi demand prediction.
-## Deployment
-*(To be added)*
+## 3.1.4 Proof of Deployment
 
 
 
