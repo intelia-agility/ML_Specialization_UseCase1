@@ -919,7 +919,7 @@ The incorporation of hyperparameter tuning within the pipeline demonstrates a co
 ##### ***Training Efficiency Tools***
 The use of early stopping and model checkpointing callbacks exemplifies an understanding of crucial training efficiency and overfitting prevention techniques, which are vital in Google Cloud's ML best practices.
 
-##### *** Data Collection and Storage in Google Cloud***
+##### ***Data Collection and Storage in Google Cloud***
 As part of our commitment to following best practices, we have planned for the collection of training data and its storage within Google Cloud. This approach ensures scalable, secure, and efficient data management, aligning with the standards of Google Cloud's ML environment. Leveraging Google Cloud's storage solutions enables us to handle large volumes of data effectively, providing a robust foundation for our machine learning workflows.
 
 ### 3.1.3.7 Machine Learning Model Evaluation
