@@ -127,6 +127,7 @@ The ML solution's efficacy lies in its ability to deliver a comprehensive demand
 Through this structured ML workflow, the solution directly contributes to the goal of optimizing taxi fleet distribution, thereby reducing customer wait times and improving the overall quality of taxi services in the city.
 
 ### 3.1.3.2 Data exploration
+**Note:** For a comprehensive walkthrough of our data exploration process, please refer to the [Exploratory Data Analysis Notebook](Notebooks/Exploratory%20Data%20Analysis.ipynb).
 
 In this project, data exploration is a multi-stage process that begins with data enrichment and is followed by a thorough exploratory analysis.
 
