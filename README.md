@@ -12,7 +12,7 @@
   - [3.1.3.2 Data Exploration](#3132-data-exploration)
   - [3.1.3.3 Feature Engineering](#3133-feature-engineering)
   - [3.1.3.4 Preprocessing and the Data Pipeline](#3134-preprocessing-and-the-data-pipeline)
-  - [3.1.3.5 Machine Learning Model Design(s) and Selection](#3135-machine-learning-model-designs-and-selection)
+  - [3.1.3.5 Machine Learning Model Design and Selection](#3135-machine-learning-model-design-and-selection)
   - [3.1.3.6 Machine Learning Model Training and Development](#3136-machine-learning-model-training-and-development)
   - [3.1.3.7 Machine Learning Model Evaluation](#3137-machine-learning-model-evaluation)
 - [3.1.4 Proof of Deployment](#314-proof-of-deployment)
@@ -315,7 +315,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 The scatter plots provide insights into the relationship between taxi demand and various numerical features:
 
 - *Demand vs. trip_seconds*: There appears to be no clear trend. While most trips are of shorter duration, the demand is distributed somewhat randomly across different trip lengths.
-- *Demand vs. trip_miles*: Although the majority of trips are short in distance, the demand doesn't show a strong correlation with trip miles and is relatively evenly distributed across distances.
+- *Demand vs. trip_miles*: Although the majority of trips are short in distance, the demand doesnot show a strong correlation with trip miles and is relatively evenly distributed across distances.
 - *Demand vs. trip_total*: The relationship between the total fare and demand isn’t distinctly apparent, suggesting that the fare amount may not be the sole determinant of demand.
 - *Demand vs. temperature_2m*: The demand appears to be spread across a range of temperatures, lacking a definitive pattern that correlates with temperature.
 - *Demand vs. relativehumidity_2m*: Like temperature, humidity doesn't show a pronounced pattern in relation to taxi demand.
@@ -541,7 +541,7 @@ The detailed steps of our data preprocessing pipeline are as follows:
 ```sql
 CALL `mlops-363723.ChicagoTaxitrips.data_preprocessing_pipeline_chicago_taxi_trips`();
 ```
-### 3.1.3.5 Machine Learning Model Design(s) and Selection
+### 3.1.3.5 Machine Learning Model Design and Selection
 #### Model Overview
 The demand for taxi trips within an urban landscape like Chicago presents a multifaceted problem, where the prediction accuracy hinges on the model's capability to understand and interpret a web of spatial-temporal factors. The chosen model for this task is a Deep Neural Network (DNN), also known as a Multilayer Perceptron (MLP). This model stands out due to its powerful ability to recognize and make sense of the complex patterns that emerge from the interplay of various factors such as location, time, weather conditions, and more.
 
