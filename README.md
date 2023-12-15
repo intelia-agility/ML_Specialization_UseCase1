@@ -190,7 +190,7 @@ except Exception as e:
 Zippnfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649
 
 #### Exploratory Data Analysis (EDA)
-
+**Note:** For a comprehensive walkthrough of our data exploration process, please refer to the [Exploratory Data Analysis Notebook](Notebooks/Exploratory%20Data%20Analysis.ipynb).
 ####  Overview
 The Exploratory Data Analysis section provides insights into the dataset through various angles and techniques. Each subsection below corresponds to a key aspect of the EDA, complemented by visualizations that highlight our findings.
 
@@ -497,6 +497,8 @@ we focus on enriching our dataset with time-based and cyclic features. This appr
 - By accurately representing the cyclic nature of time, we enhance the model's ability to interpret temporal data more realistically.
 
 ### 3.1.3.4 Preprocessing and the Data Pipeline
+**Note:** For detailed code and methodologies used in this section, please refer to our [Data Preprocessing Notebook](Notebooks/Data%20Preprocessing.ipynb).
+
 ##### Data Preprocessing Pipeline Using BigQuery
 ##### Introduction
 Building on our Exploratory Data Analysis, we've developed a comprehensive Data Preprocessing Pipeline. This pipeline transforms raw taxi trip data into a structured and insightful format, focusing on data cleaning, feature extraction, and data segmentation, ensuring our data is clean, reliable, and enriched with meaningful attributes for accurate demand forecasting.
@@ -665,6 +667,8 @@ To contextualize these numbers, imagine the task of predicting the number of tax
 This degree of precision underscores the model's adeptness at striking a crucial balance between bias and variance, an essential factor in predictive modeling. The model is finely tuned to avoid overfitting, where it might otherwise capture random noise in the data, as well as underfitting, where it could fail to discern underlying patterns. As a result, it offers predictions that are not only reliable but also highly adaptable to real-world situations.
 
 ### 3.1.3.6 Machine Learning Model Training and Development
+
+**Note:** For an in-depth exploration of our model training and development process, please see our [TFX TaxiDemandInteractivePipeline Notebook](Notebooks/TFX%20TaxiDemandInteractivePipeline.ipynb).
 
 
 #### Data Preprocessing and Splitting
@@ -961,6 +965,7 @@ Best MAE Achieved: 2.1684
 
 This advanced evaluation methodology, involving meticulous metric configuration and the strategic use of model resolvers, exemplifies our dedication to deploying a model that excels in both accuracy and continuous improvement, ensuring the highest standards of prediction quality in taxi trip demand forecasting.
 ## 3.1.4 Proof of Deployment
+**Note:** For a detailed walkthrough of our deployment process on Vertex AI, including code examples and configurations, refer to our [Vertex AI-Pipeline Notebook](Notebooks/Vertex%20AI-Pipeline.ipynb).
 
 #### End-to-End TFX Pipeline for Taxi Demand Prediction
 ![Pipeline Runtime Graph](assets/Run%20time%20graph.PNG)
