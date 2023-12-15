@@ -1011,7 +1011,8 @@ The pipeline comprises several key components, each responsible for a specific f
 - **Function**: Uses the schema to detect anomalies and inconsistencies within the dataset.
 - **Immediate Output**: Flags any data anomalies or inconsistencies, ensuring high data quality. E.g., outputting 'No anomalies found' across different data splits.
    ![ExampleValidator Output](assets/ExampleValidatorOutputs.png)
-  *Screenshot: Output of the ExampleValidator component highlighting data anomalies and inconsistencies.*
+  
+   *Screenshot: Output of the ExampleValidator component highlighting data anomalies and inconsistencies.*
 #### 5. Transform
 - **Function**: Performs feature engineering on the dataset, enhancing the data's predictive power for the model.
 - **Immediate Output**: Outputs transformed datasets with newly engineered features, optimized for model performance.
