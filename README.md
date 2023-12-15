@@ -290,7 +290,7 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 - *Description*: Analysis of taxi demand based on hourly data.
 ![Analysis of Hourly Taxi Demand](assets/Analysis%20of%20Hourly%20Taxi%20Demand.png)
 - *Observations*:
-  - Decrease in demand in the early morning hours, with the lowest point around 5 AM.
+  - Decrease in demand in the early morning hours, with the lowest point around 4 AM.
   - Increase in demand from 6 AM, peaking during late afternoon and early evening, then decreasing throughout the night.
   - Typical urban dynamics with increased demand during peak hours and reduced demand during off-peak periods.
 
@@ -306,9 +306,9 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 - *Description*: Exploration of how taxi demand varies across different months.
 ![Analysis of Taxi Demand by Month](assets/Analysis%20of%20Taxi%20Demand%20by%20Month.png)
 - *Observations*:
-  - Steady demand from January through May.
-  - Peak in June, followed by a decline in July and stabilization from August to December.
-  - June's peak possibly related to seasonal events, holidays, or tourist influx.
+  - Steady increase in demand from January through October.
+  - Peak in October, followed by a decline in November.
+  - October's peak possibly related to seasonal events, holidays, or tourist influx.
 
 ##### Categorical Analysis
 
@@ -326,7 +326,6 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
 
 - *observations*:
   - Highest demand in sunny and clear weather.
-  - Significant demand during less favorable conditions like rain or fog.
   - Lowest demand during extreme conditions like thunderstorms or heavy snow.
 
 ##### Spatial Analysis
@@ -907,6 +906,22 @@ trainer = tfx.extensions.google_cloud_ai_platform.Trainer(
 )
 ```
 Our commitment to balancing bias and variance reflects in the robustness and reliability of our predictive model. By leveraging RandomSearch for hyperparameter tuning and incorporating L2 regularization and dropout techniques, our model achieves excellent performance while remaining interpretable and relevant for business decisions.
+#### Adherence to Google Cloud best practices
+##### ***Efficient Model Training***
+The implementation effectively utilizes TensorFlow and Keras APIs for model building and training, showcasing proficiency in leveraging these advanced machine learning libraries. This approach is a cornerstone of best practices in Google Cloud's ML environment.
+
+##### ***Monitoring and Evaluation***
+Integration of TensorBoard for real-time monitoring of training metrics and model performance aligns well with Google Cloud best practices. This approach is instrumental in ensuring effective model evaluation and debugging.
+
+##### ***Hyperparameter Tuning***
+The incorporation of hyperparameter tuning within the pipeline demonstrates a commitment to optimizing model performance. This is in line with Google Cloud's best practices for developing robust and high-performing machine learning models.
+
+##### ***Training Efficiency Tools***
+The use of early stopping and model checkpointing callbacks exemplifies an understanding of crucial training efficiency and overfitting prevention techniques, which are vital in Google Cloud's ML best practices.
+
+##### ***Data Collection and Storage in Google Cloud***
+As part of our commitment to following best practices, we have planned for the collection of training data and its storage within Google Cloud. This approach ensures scalable, secure, and efficient data management, aligning with the standards of Google Cloud's ML environment. Leveraging Google Cloud's storage solutions enables us to handle large volumes of data effectively, providing a robust foundation for our machine learning workflows.
+
 ### 3.1.3.7 Machine Learning Model Evaluation
 In our model evaluation process, we incorporated advanced techniques to ensure the deployment of a highly accurate and reliable model. One key aspect of this process is the use of model blessing based on the Mean Absolute Error (MAE) metric and its improvement over time.
 
