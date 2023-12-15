@@ -1519,20 +1519,23 @@ In conclusion, the Taxi Demand Prediction and Management project marks a signifi
 
 For the successful execution of the project, follow the sequence of notebooks listed below:
 
-- 1. Data Enrichment
+- **Data Enrichment**
   - [Data Enrichment Notebook](Notebooks/Data%20Enrichment.ipynb)
-- 2. Exploratory Data Analysis
+- **Exploratory Data Analysis**
   - [Exploratory Data Analysis Notebook](Notebooks/Exploratory%20Data%20Analysis.ipynb)
-- 3. Data Preprocessing
+- **Data Preprocessing**
   - [Data Preprocessing Notebook](Notebooks/Data%20Preprocessing.ipynb)
-- 4. TFX Taxi Demand Interactive Pipeline
+- **TFX Taxi Demand Interactive Pipeline**
   - [TFX TaxiDemandInteractivePipeline Notebook](Notebooks/TFX%20TaxiDemandInteractivePipeline.ipynb)
-- 5. Vertex AI Pipeline
+- **Vertex AI Pipeline**
   - [Vertex AI-Pipeline Notebook](Notebooks/Vertex%20AI-Pipeline.ipynb)
-- 6. Online Prediction
+- **Online Prediction**
   - [Online-Prediction Notebook](Notebooks/Online-Prediciton.ipynb)
 
 **Note:** Ensure that all necessary dependencies are installed and that you have access to the required datasets and cloud resources.
+
+
+
 
 ### Resources
 
