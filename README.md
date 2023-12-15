@@ -1036,7 +1036,8 @@ The pipeline comprises several key components, each responsible for a specific f
 #### 9. Resolver
 - **Function**: Manages various model versions, selecting the best one based on performance metrics.
 - **Immediate Output**: Selects the optimal model version for deployment.
-
+   ![Resolver Output](assets/Resolver.png)
+  *Screenshot: Output of the Resolver component demonstrating the model version management.*
 #### 10. Pusher
 - **Function**: Responsible for deploying the selected model version, making it ready for practical application.
 - **Immediate Output**: Ensures the model is deployed to a specified server or cloud environment, confirming successful deployment.
