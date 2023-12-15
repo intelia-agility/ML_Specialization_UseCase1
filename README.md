@@ -1353,8 +1353,9 @@ This submission triggers the execution of our pipeline in the cloud, leveraging 
 
 #### Overview
 
-The deployment of our Taxi Demand Prediction model on Google Cloud marks a significant milestone in showcasing our project's adaptability and innovation in machine learning. Highlighting our agile development approach, we successfully deployed two iterations of the model: an initial version following training and a second, customized version, reflecting our ability to refine and enhance our solutions based on evolving requirements and feedback.
-
+The deployment of our Taxi Demand Prediction model on Vertex AI marks a significant milestone in showcasing our project's adaptability and innovation in machine learning. Highlighting our agile development approach, we successfully deployed two iterations of the model: an initial version following training and a second, customized version, reflecting our ability to refine and enhance our solutions based on evolving requirements and feedback.
+![Model Deployment on Vertex AI](assets/ModelRegistry.png)
+*Screenshot: Model Deployment on Vertex AI.*
 #### Initial Deployment of the Trained Model
 
 The first deployment phase involved deploying the trained model directly onto Google Cloud. This step was crucial to test the model's performance in a cloud environment and to ensure seamless integration with Google Cloud's services.
@@ -1519,20 +1520,23 @@ In conclusion, the Taxi Demand Prediction and Management project marks a signifi
 
 For the successful execution of the project, follow the sequence of notebooks listed below:
 
-- 1. Data Enrichment
+- **Data Enrichment**
   - [Data Enrichment Notebook](Notebooks/Data%20Enrichment.ipynb)
-- 2. Exploratory Data Analysis
+- **Exploratory Data Analysis**
   - [Exploratory Data Analysis Notebook](Notebooks/Exploratory%20Data%20Analysis.ipynb)
-- 3. Data Preprocessing
+- **Data Preprocessing**
   - [Data Preprocessing Notebook](Notebooks/Data%20Preprocessing.ipynb)
-- 4. TFX Taxi Demand Interactive Pipeline
+- **TFX Taxi Demand Interactive Pipeline**
   - [TFX TaxiDemandInteractivePipeline Notebook](Notebooks/TFX%20TaxiDemandInteractivePipeline.ipynb)
-- 5. Vertex AI Pipeline
+- **Vertex AI Pipeline**
   - [Vertex AI-Pipeline Notebook](Notebooks/Vertex%20AI-Pipeline.ipynb)
-- 6. Online Prediction
+- **Online Prediction**
   - [Online-Prediction Notebook](Notebooks/Online-Prediciton.ipynb)
 
 **Note:** Ensure that all necessary dependencies are installed and that you have access to the required datasets and cloud resources.
+
+
+
 
 ### Resources
 
