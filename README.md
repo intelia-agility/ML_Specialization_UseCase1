@@ -988,7 +988,8 @@ The pipeline comprises several key components, each responsible for a specific f
 #### 1. CsvExampleGen
 - **Function**: Manages data ingestion, organizing it into distinct splits for training, evaluation, and testing.
 - **Immediate Output**: Automatically partitions the dataset into dedicated datasets for subsequent stages.
-
+  ![CsvExampleGen Output](assets/CsvExampleGen%20Output.png)
+  *Screenshot: Output of the CsvExampleGen component showing the partitioned datasets.*
 #### 2. StatisticsGen
 - **Function**: Generates comprehensive statistics of the dataset to understand its distribution and characteristics.
 - **Immediate Output**: Provides descriptive statistics of the dataset, offering initial insights into data quality and features.
