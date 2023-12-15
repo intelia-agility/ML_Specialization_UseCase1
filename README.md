@@ -127,6 +127,7 @@ The ML solution's efficacy lies in its ability to deliver a comprehensive demand
 Through this structured ML workflow, the solution directly contributes to the goal of optimizing taxi fleet distribution, thereby reducing customer wait times and improving the overall quality of taxi services in the city.
 
 ### 3.1.3.2 Data exploration
+**Note:** For a comprehensive walkthrough of our data exploration process, please refer to the [Exploratory Data Analysis Notebook](Notebooks/Exploratory%20Data%20Analysis.ipynb).
 
 In this project, data exploration is a multi-stage process that begins with data enrichment and is followed by a thorough exploratory analysis.
 
@@ -134,6 +135,8 @@ In this project, data exploration is a multi-stage process that begins with data
 To deepen our analysis, we have enriched the Chicago Taxi Trip dataset with additional weather data. This process is key to exploring the impact of various weather conditions on taxi trip patterns.
 
 #### Integrating Weather Data
+**Note:** The complete code for this section is available in the [Data Enrichment Notebook](Notebooks/Data%20Enrichment.ipynb).
+
 Utilizing the [Open-Meteo.com Weather API](https://open-meteo.com/), we have integrated data such as temperature, humidity, and precipitation. This additional information is vital for comprehending how weather conditions influence taxi demand in Chicago. We fetch weather data with both hourly and daily granularity to perform a thorough correlation analysis between weather changes and taxi trip frequency.
 
 #### Code Snippet:
