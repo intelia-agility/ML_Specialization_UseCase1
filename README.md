@@ -307,6 +307,21 @@ In this section, we delve into Bivariate Analysis to explore the relationships b
   - Steady increase in demand from January through October.
   - Peak in October, followed by a decline in November.
   - October's peak possibly related to seasonal events, holidays, or tourist influx.
+##### Numerical Analysis
+
+###### Scatter Plot Visualizations
+![Bivariate Analysis: Taxi Demand vs. Numerical Features](assets/Bivariate%20Analysis%20Taxi%20Demand%20vs.%20Numerical%20Features.png)
+
+The scatter plots provide insights into the relationship between taxi demand and various numerical features:
+
+- *Demand vs. trip_seconds*: There appears to be no clear trend. While most trips are of shorter duration, the demand is distributed somewhat randomly across different trip lengths.
+- *Demand vs. trip_miles*: Although the majority of trips are short in distance, the demand doesn't show a strong correlation with trip miles and is relatively evenly distributed across distances.
+- *Demand vs. trip_total*: The relationship between the total fare and demand isn’t distinctly apparent, suggesting that the fare amount may not be the sole determinant of demand.
+- *Demand vs. temperature_2m*: The demand appears to be spread across a range of temperatures, lacking a definitive pattern that correlates with temperature.
+- *Demand vs. relativehumidity_2m*: Like temperature, humidity doesn't show a pronounced pattern in relation to taxi demand.
+
+These visualizations indicate that factors influencing taxi demand might be more complex than individual numerical features.
+
 
 ##### Categorical Analysis
 
