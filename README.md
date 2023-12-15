@@ -20,7 +20,7 @@
   - [3.1.4.2 Callable Library/Application](#3142-callable-libraryapplication)
   - [3.1.4.3 Editable Model/Application](#3143-editable-modelapplication)
 - [Conclusion](Conclusion)
-
+- [Notebook Execution Order](Notebook Execution Order)
 - [Resources](Resources)
 
 
@@ -1514,6 +1514,25 @@ Our project in Taxi Demand Prediction and Management transcends the realms of ad
 - **Foundation for Future Exploration**: We've set a robust foundation for future advancements in AI and machine learning, particularly for real-world problem-solving.
 
 In conclusion, the Taxi Demand Prediction and Management project marks a significant stride in our endeavor to merge technological innovation with practical utility. Our focused approach, grounded in real-world challenges and aimed at achieving tangible improvements, showcases how data science can be a driving force in reshaping industries and enhancing everyday experiences.
+
+### Notebook Execution Order
+
+For the successful execution of the project, follow the sequence of notebooks listed below:
+
+- 1. Data Enrichment
+  - [Data Enrichment Notebook](Notebooks/Data%20Enrichment.ipynb)
+- 2. Exploratory Data Analysis
+  - [Exploratory Data Analysis Notebook](Notebooks/Exploratory%20Data%20Analysis.ipynb)
+- 3. Data Preprocessing
+  - [Data Preprocessing Notebook](Notebooks/Data%20Preprocessing.ipynb)
+- 4. TFX Taxi Demand Interactive Pipeline
+  - [TFX TaxiDemandInteractivePipeline Notebook](Notebooks/TFX%20TaxiDemandInteractivePipeline.ipynb)
+- 5. Vertex AI Pipeline
+  - [Vertex AI-Pipeline Notebook](Notebooks/Vertex%20AI-Pipeline.ipynb)
+- 6. Online Prediction
+  - [Online-Prediction Notebook](Notebooks/Online-Prediciton.ipynb)
+
+**Note:** Ensure that all necessary dependencies are installed and that you have access to the required datasets and cloud resources.
 
 ### Resources
 
