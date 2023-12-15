@@ -134,6 +134,8 @@ In this project, data exploration is a multi-stage process that begins with data
 To deepen our analysis, we have enriched the Chicago Taxi Trip dataset with additional weather data. This process is key to exploring the impact of various weather conditions on taxi trip patterns.
 
 #### Integrating Weather Data
+**Note:** The complete code for this section is available in the [Data Enrichment Notebook](Notebooks/Data%20Enrichment.ipynb).
+
 Utilizing the [Open-Meteo.com Weather API](https://open-meteo.com/), we have integrated data such as temperature, humidity, and precipitation. This additional information is vital for comprehending how weather conditions influence taxi demand in Chicago. We fetch weather data with both hourly and daily granularity to perform a thorough correlation analysis between weather changes and taxi trip frequency.
 
 #### Code Snippet:
