@@ -452,7 +452,11 @@ This analysis focuses on the skewness and kurtosis of various features in our da
 
 ##### Transformations Applied
 - Applied transformations include original data, log transformation, and square root transformation on features like `trip_total`, `trip_miles`, `trip_seconds`, `temperature_2m`, `relativehumidity_2m`, and `precipitation`.
+##### Visualization of Skewness and Kurtosis Analysis
 
+Below is a visualization that displays the skewness and kurtosis values for each feature under different transformations. This analysis helps in understanding how transformations affect the distribution of our features, which is crucial for model accuracy.
+
+![Skewness and Kurtosis Analysis](assets/Skewness%20and%20kurtosis%20analysis.png)
 ##### Observations
 - Transformations, particularly logarithmic and square root, tend to normalize distributions, reducing skewness and adjusting kurtosis values closer to a normal distribution.
   - Example: Log transformation of `trip_total` significantly reduces its skewness and kurtosis, resulting in a more symmetric and less heavy-tailed distribution.
@@ -461,9 +465,6 @@ This analysis focuses on the skewness and kurtosis of various features in our da
 ##### Implications
 - Understanding these changes in distribution is crucial for data preprocessing, especially for statistical and machine learning models that often assume normally distributed inputs.
 - This analysis aids in selecting the most appropriate transformations for each feature, ensuring our data meets the necessary assumptions for advanced analytical techniques.
-
-##### Visualization Placeholder
-- **Insert Visualization Here**: Include tables or charts that display skewness and kurtosis values for each feature under different transformations.
 
 
 #### Conclusion
