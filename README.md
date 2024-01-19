@@ -316,7 +316,7 @@ The scatter plots provide insights into the relationship between taxi demand and
 
 - *Demand vs. trip_seconds*: There appears to be no clear trend. While most trips are of shorter duration, the demand is distributed somewhat randomly across different trip lengths.
 - *Demand vs. trip_miles*: Although the majority of trips are short in distance, the demand doesnot show a strong correlation with trip miles and is relatively evenly distributed across distances.
-- *Demand vs. trip_total*: The relationship between the total fare and demand isn’t distinctly apparent, suggesting that the fare amount may not be the sole determinant of demand.
+- *Demand vs. trip_total*: The relationship between the total fare and demand isnÂ’t distinctly apparent, suggesting that the fare amount may not be the sole determinant of demand.
 - *Demand vs. temperature_2m*: The demand appears to be spread across a range of temperatures, lacking a definitive pattern that correlates with temperature.
 - *Demand vs. relativehumidity_2m*: Like temperature, humidity doesn't show a pronounced pattern in relation to taxi demand.
 
@@ -1495,7 +1495,7 @@ model: "projects/75674212269/locations/us-central1/models/5538528141154189312"
 model_display_name: "DNN-Demand"
 model_version_id: "1"
 ```
-### 3.2.4.3 Editable Model/Application
+### 3.1.4.3 Editable Model/Application
 
 #### Overview
 
